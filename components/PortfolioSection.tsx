@@ -169,11 +169,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       </div>
 
       {/* Grid */}
-      <div className={`grid grid-cols-1 ${
-        filter === 'All'
-          ? 'md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12'
-          : 'md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16'
-      }`}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
         {filteredProjects.map((project) => (
           <div 
             key={project.id} 
@@ -232,7 +228,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                     ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 p-8 text-center">
                             <div>
-                                <h4 className={`${filter === 'All' ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl'} font-black text-gray-400 dark:text-gray-600 mb-2 leading-tight`}>
+                                <h4 className="text-xl md:text-2xl font-black text-gray-400 dark:text-gray-600 mb-2 leading-tight">
                                     {project.title}<br/>
                                     <span className="text-lg md:text-xl font-normal opacity-70">{project.subtitle}</span>
                                 </h4>
@@ -251,7 +247,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                   {/* Content */}
                   <div className="flex justify-between items-start border-b-2 border-gray-100 dark:border-gray-800 pb-6 group-hover:border-black dark:group-hover:border-white transition-colors duration-300 mt-auto">
                     <div className="pr-4 md:pr-8">
-                        <h3 className={`${filter === 'All' ? 'text-xl md:text-2xl' : 'text-2xl md:text-4xl'} font-black text-black dark:text-white mb-2 md:mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 leading-tight transition-colors`}>
+                        <h3 className="text-xl md:text-2xl font-black text-black dark:text-white mb-2 md:mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 leading-tight transition-colors">
                           {project.title}
                         </h3>
                       <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed font-medium transition-colors">

@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Matter from 'matter-js';
 import { Sidebar } from './components/Sidebar';
 import { HeroSection } from './components/HeroSection';
+import { UnveilHero } from './components/UnveilHero';
+import { BrandingApproach } from './components/BrandingApproach';
 import { PortfolioSection } from './components/PortfolioSection';
 import { TimelineSection } from './components/TimelineSection';
 import { MusicPlayer } from './components/MusicPlayer';
@@ -10,7 +12,7 @@ import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, A
 import { NAV_ITEMS } from './src/data/navigation';
 import { CONTACT_DATA } from './src/data/contact';
 import { PORTFOLIO_PAGE_DATA } from './src/data/portfolioPage';
-import { Language, Category } from './types';
+import { Language, Category, Project } from './types';
 
 interface ExplodedElementData {
   element: HTMLElement;
@@ -23,6 +25,7 @@ function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   
   const [portfolioCategory, setPortfolioCategory] = useState<string>('All');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
   const [gravityActive, setGravityActive] = useState(false);
 
@@ -87,6 +90,14 @@ function App() {
       setPortfolioCategory(category);
       setActiveTab('portfolio');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  };
+
+  const handleProjectClick = (project: Project) => {
+    // 跳转到portfolio页并滚动，让PortfolioSection处理项目详情
+    startViewTransition(() => {
+      setActiveTab('portfolio');
+      setPortfolioCategory(project.category || 'All');
     });
   };
   
@@ -364,12 +375,15 @@ function App() {
       case 'dashboard':
         return (
           <>
-            <HeroSection 
-              onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} 
+            <BrandingApproach 
+              language={language}
+              theme={theme}
               onCategorySelect={handleHeroNavigation}
-              language={language} 
+              onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
             />
-            <PortfolioSection language={language} externalFilter={portfolioCategory} />
+            <div className="w-full max-w-[96vw] mx-auto">
+              <PortfolioSection language={language} externalFilter={portfolioCategory} />
+            </div>
           </>
         );
       case 'portfolio':

@@ -5,6 +5,7 @@ import { CONTACT_DATA } from '../src/data/contact';
 import { Language, Category } from '../types';
 import { createPortal } from 'react-dom';
 import { MapPin } from 'lucide-react';
+import { MaskedVideo, MASK_SHAPES } from './MaskedVideo';
 
 interface HeroSectionProps {
   onNavigate: (page: string) => void;
@@ -122,8 +123,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
           </div>
         </div>
 
-        {/* RIGHT: Structured List (Cleaned Up) */}
-        <div className="lg:col-span-5 pt-0 lg:pt-4 w-full flex flex-col justify-between h-full">
+        {/* RIGHT: Structured List + Masked Video */}
+        <div className="lg:col-span-5 pt-0 lg:pt-4 w-full flex flex-col justify-between h-full gap-8">
           <div>
             <div className="w-full h-[2px] bg-black dark:bg-white mb-6 lg:mb-8 transition-colors duration-300"></div>
             
@@ -157,6 +158,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
                  </h3>
                </div>
             </div>
+          </div>
+
+          {/* Masked Video */}
+          <div className="flex justify-center lg:justify-end mt-8">
+            <MaskedVideo 
+              videoUrl="/path-to-your-video.mp4"
+              maskSvgPath={MASK_SHAPES.circle}
+              className="max-w-[400px] w-full"
+            />
           </div>
 
         </div>
