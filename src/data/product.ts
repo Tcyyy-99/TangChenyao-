@@ -224,5 +224,33 @@ export const PRODUCT_DATA: Project[] = [
       concept: "\"Grilling\" is a foldable outdoor portable barbecue grill design. The design inspiration comes from the folding methods of umbrellas and small folding stools. It can be folded and stored at home or carried around, and easily expanded when needed, meeting daily household needs and allowing you to enjoy the fun of barbecue.",
       roleDetail: "Responsible for structural design"
     }
+  },
+  {
+    id: 'prod-9',
+    common: {
+      category: 'Product Design',
+      image: '/covers/product design/WICKED CHESS/00.jpg',
+      gallery: Array.from({length: 5}, (_, i) => `/covers/product design/WICKED CHESS/${String(i).padStart(2, '0')}.${i === 1 ? 'png' : 'jpg'}`)
+    },
+    zh: {
+      title: 'WICKED x CHESS 国际象棋设计',
+      subtitle: '',
+      description: '基于《Wicked》双女主IP打造全套国际象棋',
+      role: '桌游产品设计师',
+      tags: ['桌游设计', 'IP衍生品', '产品创新'],
+      awards: ['无'],
+      concept: "基于《Wicked》双女主IP打造全套国际象棋，棋子对应剧中人物，并原创专属对战玩法规则，以电影两位女主的友谊为核心灵感，棋盘与棋子造型贴合角色人设；原创四格中间和平区规则，棋子抵达此处可免疫单次攻击，全局仅生效一次，呼应二人彼此守护的羁绊。",
+      roleDetail: "完成棋盘、全套棋子造型设计，结合人物故事设计全新对战机制，完整输出整套方案。"
+    },
+    en: {
+      title: 'WICKED x CHESS International Chess Design',
+      subtitle: '',
+      description: 'A complete chess set based on the Wicked dual-heroine IP',
+      role: 'Board Game Product Designer',
+      tags: ['Board Game Design', 'IP Derivative', 'Product Innovation'],
+      awards: ['None'],
+      concept: "A complete international chess set based on the Wicked dual-heroine IP. Chess pieces correspond to characters from the play, with original exclusive gameplay rules. Inspired by the friendship of the two female leads, the board and pieces design aligns with character personas. Original four-square central peace zone rule: pieces reaching this area gain immunity from a single attack, effective only once per game, echoing their mutual protection bond.",
+      roleDetail: "Completed board and complete chess piece design, designed new combat mechanics combining character stories, and delivered the complete solution."
+    }
   }
 ];
