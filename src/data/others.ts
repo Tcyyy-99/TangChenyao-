@@ -85,5 +85,33 @@ export const OTHERS_DATA: Project[] = [
       concept: "Wuhan city IP design, showcasing city characteristics and cultural connotation",
       roleDetail: "Responsible for IP image creation and extended application design"
     }
+  },
+  {
+    id: 'other-4',
+    common: {
+      category: 'Others',
+      image: '/covers/others/brand vi/01.png',
+      gallery: Array.from({length: 3}, (_, i) => `/covers/others/brand vi/${String(i + 1).padStart(2, '0')}.png`)
+    },
+    zh: {
+      title: '蜂花品牌视觉识别系统',
+      subtitle: '品牌形象设计',
+      description: '上海蜂花老字号品牌形象重塑',
+      role: '品牌设计师',
+      tags: ['品牌设计', 'VI系统', '老字号焕新'],
+      awards: ['无'],
+      concept: "上海蜂花日用品有限公司成立于1985年，拥有雄厚的技术力量和强大的生产规模。'蜂花'牌洗发水、护发素流行于中国市场。本次针对蜂花老字号进行系统的品牌形象设计，在保留品牌历史底蕴的基础上，融入现代设计语言，让经典品牌焕发新生。通过VI系统的标准化设计，建立清晰的品牌视觉识别体系，提升品牌形象的统一性与现代感。",
+      roleDetail: "完成品牌标志优化、VI系统规范制定、应用场景设计等全流程工作，输出完整的品牌形象设计手册。"
+    },
+    en: {
+      title: 'Bee & Flower Brand VI System',
+      subtitle: 'Brand Identity Design',
+      description: 'Brand image redesign for Shanghai Bee & Flower heritage brand',
+      role: 'Brand Designer',
+      tags: ['Brand Design', 'VI System', 'Heritage Brand Renewal'],
+      awards: ['None'],
+      concept: "Shanghai Bee & Flower Daily Chemical Co., Ltd. was founded in 1985, with strong technical capabilities and large-scale production. 'Bee & Flower' brand shampoo and conditioner are popular in the Chinese market. This project systematically redesigns the brand image of this heritage brand, integrating modern design language while preserving the brand's historical essence, giving the classic brand new life. Through standardized VI system design, establishes a clear brand visual identity system, enhancing brand image consistency and modernity.",
+      roleDetail: "Completed full workflow including brand logo optimization, VI system specification development, application scenario design, and delivered complete brand identity design manual."
+    }
   }
 ];
