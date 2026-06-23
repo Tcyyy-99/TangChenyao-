@@ -5,6 +5,34 @@ export const PRODUCT_DATA: Project[] = [
     id: 'prod-1',
     common: {
       category: 'Product Design',
+      image: '/covers/product design/Atomizer/cover.jpg',
+      gallery: Array.from({length: 16}, (_, i) => `/covers/product design/Atomizer/${String(i + 4).padStart(2, '0')}.jpg`)
+    },
+    zh: {
+      title: 'VAPO x AURO MIST 多场景眼部雾化仪系列设计',
+      subtitle: '校企合作个人项目',
+      description: '针对职场女性办公-通勤-居家三场景的设计',
+      role: '产品设计师',
+      tags: ['康养产品', '模块化设计', '人机工程', '女性向产品'],
+      awards: ['无'],
+      concept: "改良传统护眼仪器笨重噪音大、使用场景单一的缺陷，共用雾化核心模组，统一极简柔系外观材质，兼顾静音使用、人机舒适度与视觉美学，适配女性全天候护眼需求。",
+      roleDetail: "独立完成项目痛点调研、方案创意、三款产品造型与人机优化，整合全套设计图纸，统一视觉规范并整理方案。"
+    },
+    en: {
+      title: 'VAPO x AURO MIST Multi-scenario Eye Nebulizer Series Design',
+      subtitle: 'University-Enterprise Collaboration Project',
+      description: 'Design for Working Women in Office-Commute-Home Scenarios',
+      role: 'Product Designer',
+      tags: ['Health Care Product', 'Modular Design', 'Ergonomics', 'Female-oriented Product'],
+      awards: ['None'],
+      concept: "Optimized bulky, noisy and single-functional traditional eye care devices. Adopt shared core module and unified minimalist styling to meet women's all-day eye care needs.",
+      roleDetail: "Finished pain point research, design ideation, ergonomic modeling, unified visual standard and complete design documentation independently."
+    }
+  },
+  {
+    id: 'prod-3',
+    common: {
+      category: 'Product Design',
       image: '/covers/product design/bachelor id/00.png',
       gallery: Array.from({length: 5}, (_, i) => `/covers/product design/bachelor id/${String(i).padStart(2, '0')}.png`)
     },
@@ -58,7 +86,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-3',
+    id: 'prod-4',
     common: {
       category: 'Product Design',
       image: '/covers/product design/green design/01.png',
@@ -86,7 +114,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-4',
+    id: 'prod-5',
     common: {
       category: 'Product Design',
       image: '/covers/product design/nanjingbes/01.jpg',
@@ -114,7 +142,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-5',
+    id: 'prod-6',
     common: {
       category: 'Product Design',
       image: '/covers/product design/pet_product/00.png',
@@ -142,7 +170,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-6',
+    id: 'prod-7',
     common: {
       category: 'Product Design',
       image: '/covers/product design/westlake/00.png',
@@ -170,7 +198,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-7',
+    id: 'prod-8',
     common: {
       category: 'Product Design',
       image: '/covers/product design/Fragrance Design/01.png',
@@ -198,7 +226,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-8',
+    id: 'prod-9',
     common: {
       category: 'Product Design',
       image: '/covers/product design/bbq shelf/00.png',
@@ -226,7 +254,7 @@ export const PRODUCT_DATA: Project[] = [
     }
   },
   {
-    id: 'prod-9',
+    id: 'prod-10',
     common: {
       category: 'Product Design',
       image: '/covers/product design/WICKED CHESS/00.jpg',

@@ -519,8 +519,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                        {/* Grid Info */}
                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
                          
-                         {/* Left Col: Concept - Thinner Line */}
-                         {displayProject.concept && (
+                         {/* Left Col: Concept - Thinner Line (hidden for Market Research) */}
+                         {displayProject.concept && displayProject.category !== 'Market Research' && (
                              <div className="space-y-8">
                                 <h3 className="text-2xl font-black uppercase tracking-wide text-black dark:text-white border-l-4 border-black dark:border-white pl-6">
                                   {language === 'zh' ? '设计意图 / 创意陈述' : 'Concept / Statement'}
