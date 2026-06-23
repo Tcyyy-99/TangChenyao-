@@ -92,7 +92,7 @@ export const INTERACTION_DATA: Project[] = [
     common: {
       category: 'Interaction Design',
       image: '/covers/interact design/easenet ux/01.png',
-      gallery: Array.from({length: 5}, (_, i) => `/covers/interact design/easenet ux/${String(i + 1).padStart(2, '0')}.png`)
+      gallery: Array.from({length: 9}, (_, i) => `/covers/interact design/easenet ux/${String(i + 1).padStart(2, '0')}.png`)
     },
     zh: {
       title: '网易UX总结',
