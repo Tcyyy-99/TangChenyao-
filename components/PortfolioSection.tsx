@@ -247,7 +247,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                   {/* Content */}
                   <div className="flex justify-between items-start border-b-2 border-gray-100 dark:border-gray-800 pb-6 group-hover:border-black dark:group-hover:border-white transition-colors duration-300 mt-auto">
                     <div className="pr-4 md:pr-8">
-                        <h3 className="text-xl md:text-2xl font-black text-black dark:text-white mb-2 md:mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 leading-tight transition-colors line-clamp-2 min-h-[3.5rem] md:min-h-[4rem]">
+                        <h3 className="text-xl md:text-2xl font-black text-black dark:text-white mb-2 md:mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 leading-tight transition-colors line-clamp-2">
                           {project.title}
                         </h3>
                       <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed font-medium transition-colors">
