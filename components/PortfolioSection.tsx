@@ -194,9 +194,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                     {project.description}
                   </p>
                   <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800 w-full flex justify-between items-center">
-                     <span className="text-xs font-bold font-mono text-gray-400 uppercase tracking-wider">
-                        {project.subtitle}
-                     </span>
                      <div className="bg-black dark:bg-white text-white dark:text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
                         <ArrowUpRight size={18} />
                      </div>
@@ -229,8 +226,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                         <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 p-8 text-center">
                             <div>
                                 <h4 className="text-xl md:text-2xl font-black text-gray-400 dark:text-gray-600 mb-2 leading-tight">
-                                    {project.title}<br/>
-                                    <span className="text-lg md:text-xl font-normal opacity-70">{project.subtitle}</span>
+                                    {project.title}
                                 </h4>
                                 <p className="text-xs font-mono text-gray-400 mt-4 uppercase tracking-widest border border-gray-300 dark:border-gray-700 rounded-full px-3 py-1 inline-block">
                                     {language === 'zh' ? '预览部署中...' : 'Preview Deploying...'}
@@ -247,9 +243,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                   {/* Content */}
                   <div className="flex justify-between items-start border-b-2 border-gray-100 dark:border-gray-800 pb-6 group-hover:border-black dark:group-hover:border-white transition-colors duration-300 mt-auto">
                     <div className="pr-4 md:pr-8">
-                        <h3 className="text-xl md:text-2xl font-black text-black dark:text-white mb-2 md:mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 leading-tight transition-colors line-clamp-2">
-                          {project.title}
-                        </h3>
+                      <h3 className="text-xl md:text-2xl font-black text-black dark:text-white mb-2 md:mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 leading-tight transition-colors line-clamp-2 h-[3rem] md:h-[3.5rem]">
+                        {project.title}
+                      </h3>
                       <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed font-medium transition-colors">
                         {project.description}
                       </p>
@@ -340,7 +336,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
            {/* Modal Content - Removed backdrop-blur-2xl to fix lag */}
            <div className={`
-             relative w-full max-w-5xl max-h-[90vh] overflow-y-auto no-scrollbar
+             relative w-full max-w-5xl max-h-[90vh] overflow-y-auto
              bg-white dark:bg-gray-900 
              rounded-[2rem] shadow-2xl border border-white/20 dark:border-white/10
              flex flex-col
@@ -504,7 +500,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                            <span className="px-4 py-1.5 bg-black dark:bg-white text-white dark:text-black text-sm font-bold uppercase rounded-md">
                              {CATEGORY_LABELS[language][displayProject.category] || displayProject.category}
                            </span>
-                           <span className="text-gray-500 font-mono text-sm uppercase font-bold tracking-widest">{displayProject.subtitle}</span>
                          </div>
                          <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-6 leading-tight">
                            {displayProject.title}

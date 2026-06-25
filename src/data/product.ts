@@ -9,7 +9,7 @@ export const PRODUCT_DATA: Project[] = [
       gallery: Array.from({length: 16}, (_, i) => `/covers/product design/Atomizer/${String(i + 4).padStart(2, '0')}.jpg`)
     },
     zh: {
-      title: 'VAPO x AURO MIST 多场景眼部雾化仪系列设计',
+      title: 'VAPO x AURO MIST',
       subtitle: '校企合作个人项目',
       description: '针对职场女性办公-通勤-居家三场景的设计',
       role: '产品设计师',
@@ -261,7 +261,7 @@ export const PRODUCT_DATA: Project[] = [
       gallery: Array.from({length: 5}, (_, i) => `/covers/product design/WICKED CHESS/${String(i).padStart(2, '0')}.${i === 1 ? 'png' : 'jpg'}`)
     },
     zh: {
-      title: 'WICKED x CHESS 国际象棋设计',
+      title: 'WICKED x CHESS ',
       subtitle: '',
       description: '基于《Wicked》双女主IP打造全套国际象棋',
       role: '桌游产品设计师',

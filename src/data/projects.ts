@@ -5,11 +5,13 @@ import { DEV_DATA } from './dev';
 import { PHOTOGRAPHY_PROJECTS } from './photography_projects';
 import { INTERACTION_DATA } from './interaction';
 import { PRODUCT_DATA } from './product';
+import { RESEARCH_DATA } from './research';
 import { OTHERS_DATA } from './others';
 
 export const PROJECT_DATA = [
   ...INTERACTION_DATA,
   ...PRODUCT_DATA,
+  ...RESEARCH_DATA,
   ...OTHERS_DATA,
   ...PHOTOGRAPHY_PROJECTS,
   ...VIDEOGRAPHY_DATA,
