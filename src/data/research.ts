@@ -35,7 +35,7 @@ export const RESEARCH_DATA: Project[] = [
       gallery: Array.from({length: 13}, (_, i) => `/covers/others/Y2K & Balletcore/${String(i).padStart(2, '0')}.jpg`)
     },
     zh: {
-      title: 'Y2K与Balletcore双风格时尚趋势分析',
+      title: 'Y2K与Balletcore趋势分析',
       subtitle: '时尚趋势研究',
       description: '对比解析Y2K千禧辣妹风与Balletcore芭蕾少女风两大主流时尚风格',
       role: '视觉策划组员',
@@ -61,7 +61,7 @@ export const RESEARCH_DATA: Project[] = [
       gallery: Array.from({length: 55}, (_, i) => `/covers/others/branding/${String(i).padStart(2, '0')}.jpg`)
     },
     zh: {
-      title: '时装品牌市场调研分析',
+      title: '时装品牌市场调研',
       subtitle: '品牌研究',
       description: '多组时装品牌深度调研，聚焦品牌定位、视觉风格与受众分析',
       role: '视觉策划组员',

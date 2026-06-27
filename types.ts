@@ -14,20 +14,10 @@ export enum Category {
   ARTICLE = 'Article'
 }
 
-export enum ArticleCategory {
-  DIT = 'DiT', // 数媒与课程
-  LUNA = 'LUNA', // 影像相关
-  TALK = '瞎叨be叨', // 杂记
-  AFTER8 = 'After8', // 聊艺术
-  SERENITY = '山海疗养院' // 游记
-}
-
 export interface Article {
   id: string;
   title: string;
-  category: ArticleCategory;
-  link: string; // WeChat Official Account Link
-  coverImage?: string; // Optional, will fallback if not provided
+  link: string; // Feishu Doc Link
   date?: string;
 }
 

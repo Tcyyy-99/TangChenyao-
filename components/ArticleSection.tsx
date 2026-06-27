@@ -1,162 +1,193 @@
 
 import React, { useState, useEffect } from 'react';
-import { ARTICLES, ARTICLE_LABELS } from '../constants';
-import { ArticleCategory, Language, Article } from '../types';
-import { ArrowUpRight, ArrowDown, ArrowUp, BookOpen, Calendar, Filter } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { Language } from '../types';
+import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
+import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft } from 'lucide-react';
 
 interface ArticleSectionProps {
   language: Language;
 }
 
 export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
-  const [filter, setFilter] = useState<string>('All');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<ArticleItem | null>(null);
+  const [articleContent, setArticleContent] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
-  const categories = ['All', ...Object.values(ArticleCategory)];
-  const currentArticles = ARTICLES[language];
+  // Expand all projects by default
+  useEffect(() => {
+    setExpandedProjects(ARTICLE_PROJECTS.map(p => p.id));
+  }, []);
 
-  const filteredAndSortedArticles = currentArticles
-    .filter(a => filter === 'All' || a.category === filter)
-    .sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-    });
+  const toggleProject = (projectId: string) => {
+    setExpandedProjects(prev => 
+      prev.includes(projectId) 
+        ? prev.filter(id => id !== projectId)
+        : [...prev, projectId]
+    );
+  };
+
+  const loadArticle = async (article: ArticleItem) => {
+    setSelectedArticle(article);
+    setLoading(true);
+    try {
+      const response = await fetch(article.contentPath);
+      if (response.ok) {
+        let text = await response.text();
+        // Remove first line if it's a markdown h1 title to avoid duplication
+        text = text.replace(/^#\s+.+?\n/, '');
+        setArticleContent(text);
+      } else {
+        setArticleContent(`# ${language === 'zh' ? '文章加载失败' : 'Failed to load article'}\n\n${language === 'zh' ? '文件不存在或路径错误' : 'File not found or path error'}`);
+      }
+    } catch (error) {
+      setArticleContent(`# ${language === 'zh' ? '加载错误' : 'Loading Error'}\n\n${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="w-full max-w-[96vw] mx-auto pb-20">
+    <div className="flex h-screen w-full items-stretch">
       
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 justify-center">
-        
-        {/* Left Sidebar - Desktop */}
-        <div className="hidden lg:block w-64 flex-shrink-0">
-          <div className="sticky top-32">
-            <h3 className="text-xl font-black mb-8 px-4 flex items-center gap-2">
-              <Filter size={20} />
-              {language === 'zh' ? '分类' : 'Categories'}
-            </h3>
-            <div className="flex flex-col space-y-2">
-              {categories.map(cat => (
+      {/* Left Sidebar - Project Tree */}
+      <aside className="w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex flex-col">
+        <div className="px-6 py-4 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
+          <h2 className="text-sm font-black uppercase tracking-tight">
+            {language === 'zh' ? '项目分类' : 'Projects'}
+          </h2>
+        </div>
+
+        <nav className="h-[calc(100vh-3rem)] overflow-y-auto">
+          {ARTICLE_PROJECTS.map(project => {
+            const isExpanded = expandedProjects.includes(project.id);
+            return (
+              <div key={project.id} className="mb-2">
+                {/* Project Header */}
                 <button
-                  key={cat}
-                  onClick={() => setFilter(cat)}
-                  className={`
-                    text-left px-4 py-3 rounded-xl transition-all duration-300 text-lg font-bold
-                    ${filter === cat 
-                      ? 'bg-black text-white dark:bg-white dark:text-black shadow-lg transform scale-105' 
-                      : 'text-gray-400 hover:text-black dark:text-gray-500 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'}
-                  `}
+                  onClick={() => toggleProject(project.id)}
+                  className="w-full px-6 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  {ARTICLE_LABELS[language][cat] || cat}
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-bold text-black dark:text-white">
+                      {project.name}
+                    </span>
+                    <span className="text-xs text-gray-400 font-mono">
+                      ({project.articles.length})
+                    </span>
+                  </div>
+                  {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                 </button>
-              ))}
+
+                {/* Articles List */}
+                {isExpanded && (
+                  <div className="space-y-1">
+                    {project.articles.map(article => (
+                      <button
+                        key={article.id}
+                        onClick={() => loadArticle(article)}
+                        className={`
+                          w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
+                          ${selectedArticle?.id === article.id
+                            ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
+                            : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                          }
+                        `}
+                      >
+                        <div className="flex items-start gap-2">
+                          <FileText size={16} className="mt-0.5 flex-shrink-0" />
+                          <div>
+                            <div className="leading-tight">{article.title}</div>
+                            <div className="text-xs opacity-60 mt-1 font-mono">
+                              {new Date(article.date).toLocaleDateString('zh-CN')}
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+      </aside>
+
+      {/* Right Content Area */}
+      <main className="flex-1 overflow-y-auto">
+        {/* Top Breadcrumb Bar - Sticky */}
+        {selectedArticle && (
+          <div className="sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 py-4 z-10">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="font-bold">
+                {ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === selectedArticle.id))?.name}
+              </span>
+              <span>/</span>
+              <span>{selectedArticle.title}</span>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Mobile Filter Bar (Horizontal) */}
-        <div className="lg:hidden flex overflow-x-auto pb-4 gap-4 no-scrollbar mb-8 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur-sm z-30 pt-4">
-           {categories.map(cat => (
+        {selectedArticle ? (
+          <article className="max-w-4xl mx-auto p-12">
+            {/* Back Button */}
             <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`
-                whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold border-2 transition-all duration-300
-                ${filter === cat 
-                  ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black' 
-                  : 'border-gray-200 text-gray-400 dark:border-gray-800 dark:text-gray-500'}
-              `}
+              onClick={() => setSelectedArticle(null)}
+              className="flex items-center gap-2 text-gray-500 hover:text-black dark:hover:text-white mb-8 transition-colors"
             >
-              {ARTICLE_LABELS[language][cat] || cat}
+              <ArrowLeft size={20} />
+              <span className="font-bold uppercase text-sm tracking-wide">
+                {language === 'zh' ? '返回列表' : 'Back to List'}
+              </span>
             </button>
-          ))}
-        </div>
 
-        {/* Right Content Area */}
-        <div className="flex-grow max-w-4xl">
-          
-          {/* Sort Controls Panel */}
-          <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200 dark:border-gray-800">
-             <div className="text-sm font-mono text-gray-400">
-                {filteredAndSortedArticles.length} {language === 'zh' ? '篇文章' : 'Articles'}
-             </div>
-             
-             <button 
-               onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
-               className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-600 dark:text-gray-300"
-             >
-                <Calendar size={16} />
-                <span>{language === 'zh' ? '时间排序' : 'Date'}</span>
-                {sortOrder === 'asc' ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
-             </button>
-          </div>
-
-          {/* Article List - One per line */}
-          <div className="flex flex-col gap-6">
-            {filteredAndSortedArticles.map((article) => (
-              <div 
-                key={article.id} 
-                className="group cursor-pointer"
-                onClick={() => window.open(article.link, '_blank')}
-              >
-                <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden p-2 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 items-stretch h-auto">
-                    
-                    {/* Cover Image Container - Responsive aspect ratio 900:383 */}
-                    <div className="w-full md:w-[45%] aspect-[900/383] shrink-0 rounded-xl overflow-hidden relative bg-gray-100 dark:bg-gray-900 transform-gpu">
-                        {article.coverImage ? (
-                             <img 
-                             src={article.coverImage} 
-                             alt={article.title} 
-                             loading="lazy"
-                             decoding="async"
-                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 will-change-transform"
-                             referrerPolicy="no-referrer"
-                           />
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800/50">
-                                 <BookOpen size={32} className="text-gray-300 dark:text-gray-600" />
-                            </div>
-                        )}
-                       
-                        <div className="absolute top-2 left-2 bg-white/90 dark:bg-black/90 text-black dark:text-white px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md shadow-sm">
-                          {ARTICLE_LABELS[language][article.category].split('|')[0].trim()}
-                        </div>
-                    </div>
-
-                    {/* Content - Right Side */}
-                    <div className="flex-grow flex flex-col p-4 md:p-6 justify-between min-w-0">
-                        <div>
-                            <div className="flex justify-between items-start gap-3 mb-2">
-                                <h3 className="text-lg md:text-2xl font-black text-black dark:text-white leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300 line-clamp-3">
-                                    {article.title}
-                                </h3>
-                                <div className="bg-black dark:bg-white text-white dark:text-black p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 flex-shrink-0">
-                                    <ArrowUpRight size={16} />
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div className="flex items-center gap-3 text-xs md:text-sm font-mono text-gray-400 dark:text-gray-500 border-t border-gray-100 dark:border-gray-800 pt-3 mt-2">
-                             <span>{article.date || 'No Date'}</span>
-                             <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700"></span>
-                             <span className="truncate hidden md:inline">Read on WeChat</span>
-                        </div>
-                    </div>
-                </div>
+            {/* Article Meta */}
+            <div className="mb-8">
+              <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
+                {selectedArticle.title}
+              </h1>
+              <div className="flex items-center gap-4 text-sm text-gray-500">
+                <span className="flex items-center gap-1">
+                  <Calendar size={16} />
+                  {new Date(selectedArticle.date).toLocaleDateString('zh-CN', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </span>
               </div>
-            ))}
+            </div>
+
+            {/* Article Content */}
+            {loading ? (
+              <div className="text-center py-20 text-gray-400">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black dark:border-white mx-auto"></div>
+                <p className="mt-4">{language === 'zh' ? '加载中...' : 'Loading...'}</p>
+              </div>
+            ) : (
+              <div className="prose prose-lg dark:prose-invert max-w-none 
+                [&_pre]:bg-white [&_pre]:dark:bg-black 
+                [&_pre]:border-2 [&_pre]:border-black 
+                [&_pre]:dark:border-white
+                [&_pre_code]:text-black [&_pre_code]:dark:text-white">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {articleContent}
+                </ReactMarkdown>
+              </div>
+            )}
+          </article>
+        ) : (
+          // Empty State
+          <div className="h-full flex flex-col items-center justify-center text-gray-400">
+            <FileText size={64} className="mb-4 opacity-20" />
+            <p className="text-xl font-medium">
+              {language === 'zh' ? '选择左侧文章开始阅读' : 'Select an article from the left to start reading'}
+            </p>
           </div>
-
-          {/* Empty State */}
-          {filteredAndSortedArticles.length === 0 && (
-             <div className="w-full h-64 flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl mt-8">
-                <p className="text-xl font-medium">{language === 'zh' ? '暂无文章' : 'No articles found'}</p>
-             </div>
-          )}
-        </div>
-
-      </div>
+        )}
+      </main>
     </div>
   );
 };

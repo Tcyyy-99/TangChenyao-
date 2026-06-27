@@ -6,6 +6,7 @@ import { HeroSection } from './components/HeroSection';
 import { UnveilHero } from './components/UnveilHero';
 import { BrandingApproach } from './components/BrandingApproach';
 import { PortfolioSection } from './components/PortfolioSection';
+import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
 import { MusicPlayer } from './components/MusicPlayer';
 import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github } from 'lucide-react';
@@ -374,38 +375,23 @@ function App() {
     switch (activeTab) {
       case 'dashboard':
         return (
-          <>
-            <BrandingApproach 
-              language={language}
-              theme={theme}
-              onCategorySelect={handleHeroNavigation}
-              onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
-            />
-            <div className="w-full max-w-[96vw] mx-auto">
-              <PortfolioSection language={language} externalFilter={portfolioCategory} />
-            </div>
-          </>
+          <BrandingApproach 
+            language={language}
+            theme={theme}
+            onCategorySelect={handleHeroNavigation}
+            onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
+          />
         );
       case 'portfolio':
-        return (
-          <div className="pt-20 w-full max-w-[96vw] mx-auto">
-             <div className="mb-24">
-               <h1 className="text-[8vw] leading-none font-black mb-8 text-black dark:text-white transition-colors duration-300">
-                 {PORTFOLIO_PAGE_DATA[language].title}
-               </h1>
-               <p className="text-2xl text-gray-500 dark:text-gray-400 max-w-2xl font-medium transition-colors duration-300">
-                 {PORTFOLIO_PAGE_DATA[language].description}
-               </p>
-             </div>
-             <PortfolioSection language={language} externalFilter={portfolioCategory} />
-          </div>
-        );
+        return <PortfolioSection language={language} externalFilter={portfolioCategory} />;
       case 'about':
         return (
           <div className="pt-20 w-full max-w-[96vw] mx-auto">
             <TimelineSection language={language} />
           </div>
         );
+      case 'articles':
+        return <ArticleSection language={language} />;
       case 'contact':
         return (
            <div className="pt-32 w-full max-w-5xl mx-auto text-center animate-fade-in px-4">
@@ -461,7 +447,7 @@ function App() {
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black overflow-x-hidden transition-colors duration-300">
       
       <MusicPlayer language={language} />
-      {/* Dynamic Navigation */}
+      {/* Sidebar Navigation */}
       <Sidebar 
         activeTab={activeTab} 
         setActiveTab={(tab) => startViewTransition(() => setActiveTab(tab))} 
@@ -472,17 +458,19 @@ function App() {
         onTriggerGravity={triggerGravity}
       />
 
-      {/* Main Content Area */}
-      <main className="w-full pt-40 pb-32 vt-page">
+      {/* Main Content Area - Shifted right for sidebar */}
+      <main className={`ml-40 w-[calc(100%-10rem)] ${(activeTab === 'articles' || activeTab === 'portfolio') ? '' : 'pt-16'} ${activeTab === 'dashboard' ? 'h-screen overflow-hidden' : ''} vt-page`}>
          <div key={activeTab} className="animate-fade-in">
            {renderContent()}
          </div>
 
-         {/* Footer */}
-         <footer className="w-full max-w-[96vw] mx-auto mt-32 border-t-2 border-black dark:border-white pt-12 flex flex-col md:flex-row justify-between items-center text-sm font-light text-gray-400 dark:text-gray-500 uppercase tracking-wide gap-4 transition-colors duration-300">
-            <p>© 2026 LUN3CY FAN</p>
-            <p>{content.footerDesign}</p>
-         </footer>
+         {/* Footer - Only show on contact page */}
+         {activeTab === 'contact' && (
+           <footer className="w-full max-w-[96vw] mx-auto mt-32 pb-16 border-t-2 border-black dark:border-white pt-12 flex flex-col md:flex-row justify-between items-center text-sm font-light text-gray-400 dark:text-gray-500 uppercase tracking-wide gap-4 transition-colors duration-300">
+              <p>© 2026 CHENYAO TANG</p>
+              <p>{content.footerDesign}</p>
+           </footer>
+         )}
       </main>
       
       {/* Floating Reset Button for Gravity - Fixed Centering Wrapper */}
