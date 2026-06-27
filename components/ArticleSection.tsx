@@ -8,29 +8,30 @@ import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft } from 'lucide
 
 interface ArticleSectionProps {
   language: Language;
+  onNavigate?: (tab: string) => void;
 }
 
-export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
-  const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
+export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavigate }) => {
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<ArticleItem | null>(null);
   const [articleContent, setArticleContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
+  const [showAllArticles, setShowAllArticles] = useState(true);
 
-  // Collapse all projects by default
-  useEffect(() => {
-    setExpandedProjects([]);
-  }, []);
+  const allArticles = ARTICLE_PROJECTS.flatMap(p => p.articles);
+  const filteredArticles = selectedProject 
+    ? ARTICLE_PROJECTS.find(p => p.id === selectedProject)?.articles || []
+    : allArticles;
 
   const toggleProject = (projectId: string) => {
-    setExpandedProjects(prev => 
-      prev.includes(projectId) 
-        ? prev.filter(id => id !== projectId)
-        : [...prev, projectId]
-    );
+    setSelectedProject(projectId);
+    setSelectedArticle(null);
+    setShowAllArticles(false);
   };
 
   const loadArticle = async (article: ArticleItem) => {
     setSelectedArticle(article);
+    setShowAllArticles(false);
     setLoading(true);
     try {
       const response = await fetch(article.contentPath);
@@ -53,7 +54,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
     <div className="flex h-screen w-full items-stretch">
       
       {/* Left Sidebar - Project Tree */}
-      <aside className="w-64 md:flex border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
+      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             {language === 'zh' ? '项目分类' : 'Projects'}
@@ -61,54 +62,42 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
         </div>
 
         <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto">
+          {/* All Articles Button */}
+          <button
+            onClick={() => {
+              setSelectedArticle(null);
+              setSelectedProject(null);
+              setShowAllArticles(true);
+            }}
+            className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
+              ${showAllArticles && !selectedArticle && !selectedProject
+                ? 'bg-black dark:bg-white text-white dark:text-black'
+                : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+          >
+            <div className="flex justify-between items-center">
+              <span>{language === 'zh' ? '全部' : 'All'}</span>
+              <span className="text-xs font-mono">({allArticles.length})</span>
+            </div>
+          </button>
+
           {ARTICLE_PROJECTS.map(project => {
-            const isExpanded = expandedProjects.includes(project.id);
             return (
               <div key={project.id} className="mb-2">
                 {/* Project Header */}
                 <button
                   onClick={() => toggleProject(project.id)}
-                  className="w-full px-6 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                  className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
+                    ${selectedProject === project.id && !selectedArticle
+                      ? 'bg-black dark:bg-white text-white dark:text-black'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-black dark:text-white">
-                      {project.name}
-                    </span>
-                    <span className="text-xs text-gray-400 font-mono">
-                      ({project.articles.length})
-                    </span>
+                  <div className="flex justify-between items-center">
+                    <span>{project.name}</span>
+                    <span className="text-xs font-mono">({project.articles.length})</span>
                   </div>
-                  {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                 </button>
-
-                {/* Articles List */}
-                {isExpanded && (
-                  <div className="space-y-1">
-                    {project.articles.map(article => (
-                      <button
-                        key={article.id}
-                        onClick={() => loadArticle(article)}
-                        className={`
-                          w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
-                          ${selectedArticle?.id === article.id
-                            ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
-                            : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
-                          }
-                        `}
-                      >
-                        <div className="flex items-start gap-2">
-                          <FileText size={16} className="mt-0.5 flex-shrink-0" />
-                          <div>
-                            <div className="leading-tight">{article.title}</div>
-                            <div className="text-xs opacity-60 mt-1 font-mono">
-                              {new Date(article.date).toLocaleDateString('zh-CN')}
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
             );
           })}
@@ -117,17 +106,39 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
 
       {/* Right Content Area */}
       <main className="flex-1 overflow-y-auto">
-        {/* Top Breadcrumb Bar - Sticky */}
+        {/* Breadcrumb - Always visible on mobile */}
+        <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <button 
+              onClick={() => onNavigate?.('dashboard')}
+              className="font-bold hover:text-black dark:hover:text-white transition-colors"
+            >
+              {language === 'zh' ? '主页' : 'Home'}
+            </button>
+            <span>/</span>
+            <span className={`font-bold ${!selectedArticle ? 'text-black dark:text-white' : ''}`}>
+              {language === 'zh' ? '文章' : 'Articles'}
+            </span>
+            {selectedArticle && (
+              <>
+                <span>/</span>
+                <button
+                  onClick={() => setSelectedArticle(null)}
+                  className="font-bold hover:text-black dark:hover:text-white transition-colors"
+                >
+                  {ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === selectedArticle.id))?.name}
+                </button>
+                <span>/</span>
+                <span className="truncate">{selectedArticle.title}</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Top Breadcrumb Bar - Desktop only when article selected */}
         {selectedArticle && (
-          <div className="h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 md:px-12 z-10 flex items-center">
+          <div className="hidden md:flex h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <button 
-                onClick={() => setSelectedArticle(null)}
-                className="font-bold hover:text-black dark:hover:text-white transition-colors md:hidden"
-              >
-                {language === 'zh' ? '主页' : 'Home'}
-              </button>
-              <span className="md:hidden">/</span>
               <button
                 onClick={() => setSelectedArticle(null)}
                 className="font-bold hover:text-black dark:hover:text-white transition-colors"
@@ -141,18 +152,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
         )}
 
         {selectedArticle ? (
+          /* Article Detail View */
           <article className="max-w-4xl mx-auto p-12">
-            {/* Back Button */}
-            <button
-              onClick={() => setSelectedArticle(null)}
-              className="flex items-center gap-2 text-gray-500 hover:text-black dark:hover:text-white mb-8 transition-colors"
-            >
-              <ArrowLeft size={20} />
-              <span className="font-bold uppercase text-sm tracking-wide">
-                {language === 'zh' ? '返回列表' : 'Back to List'}
-              </span>
-            </button>
-
             {/* Article Meta */}
             <div className="mb-8">
               <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
@@ -188,6 +189,56 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
               </div>
             )}
           </article>
+        ) : showAllArticles || selectedProject ? (
+          /* Grid View - All Articles or Project Articles */
+          <div className="p-12">
+            <h2 className="text-3xl font-black mb-8">
+              {selectedProject 
+                ? ARTICLE_PROJECTS.find(p => p.id === selectedProject)?.name 
+                : (language === 'zh' ? '全部文章' : 'All Articles')
+              }
+            </h2>
+            
+            <div className="space-y-4">
+              {filteredArticles.map(article => {
+                const project = ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === article.id));
+                return (
+                  <div
+                    key={article.id}
+                    onClick={() => loadArticle(article)}
+                    className="group cursor-pointer flex items-center gap-6 p-6 border-2 border-gray-200 dark:border-gray-800 rounded-2xl hover:border-black dark:hover:border-white transition-colors"
+                  >
+                    {/* Left: Cover Image or Project Tag */}
+                    {article.coverImage ? (
+                      <div className="flex-shrink-0 w-32 h-24 rounded-xl overflow-hidden">
+                        <img 
+                          src={article.coverImage} 
+                          alt={article.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex-shrink-0 w-32 h-24 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center">
+                        <span className="text-white font-black text-sm transform -rotate-90 whitespace-nowrap">
+                          {project?.name || 'ARTICLE'}
+                        </span>
+                      </div>
+                    )}
+                    
+                    {/* Right: Title and Date */}
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-gray-400 font-mono">
+                        {new Date(article.date).toLocaleDateString('zh-CN')}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         ) : (
           // Empty State
           <div className="h-full flex flex-col items-center justify-center text-gray-400">

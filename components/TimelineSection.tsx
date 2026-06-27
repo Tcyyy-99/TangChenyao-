@@ -192,7 +192,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
   };
 
   return (
-    <div className={`w-full max-w-[96vw] mx-auto pb-32 relative ${isUnlocked ? 'animate-[fadeIn_0.6s_ease-out_forwards]' : ''}`}>
+    <div className="flex h-screen w-full overflow-y-auto">
+      <div className={`w-full max-w-7xl mx-auto px-4 md:px-12 py-12 md:py-20 relative ${isUnlocked ? 'animate-[fadeIn_0.6s_ease-out_forwards]' : ''}`}>
       
       {/* Education & Experience Section */}
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-12 lg:gap-24 mb-24 lg:mb-32">
@@ -371,6 +372,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
          document.body
        )}
 
+      </div>
     </div>
   );
 };

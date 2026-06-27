@@ -10,9 +10,10 @@ import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalL
 interface PortfolioSectionProps {
   language: Language;
   externalFilter?: string;
+  onNavigate?: (tab: string) => void;
 }
 
-export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, externalFilter }) => {
+export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, externalFilter, onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
@@ -68,7 +69,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
     <div className="flex h-screen w-full items-stretch">
       
       {/* Left Sidebar - Category Tree */}
-      <aside className="w-64 md:flex border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
+      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             Categories
@@ -144,17 +145,45 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
       {/* Middle Content Area */}
       <main className="flex-1 overflow-y-auto">
-        {/* Breadcrumb */}
+        {/* Breadcrumb - Always visible on mobile */}
+        <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <button 
+              onClick={() => onNavigate?.('dashboard')}
+              className="font-bold hover:text-black dark:hover:text-white transition-colors"
+            >
+              {language === 'zh' ? '主页' : 'Home'}
+            </button>
+            <span>/</span>
+            <button 
+              onClick={() => setSelectedProject(null)}
+              className={`font-bold hover:text-black dark:hover:text-white transition-colors ${!selectedProject ? 'text-black dark:text-white' : ''}`}
+            >
+              {language === 'zh' ? '作品集' : 'Portfolio'}
+            </button>
+            {selectedProject && (
+              <>
+                <span>/</span>
+                <button
+                  onClick={() => {
+                    setSelectedCategory(selectedProject.category);
+                    setSelectedProject(null);
+                  }}
+                  className="font-bold hover:text-black dark:hover:text-white transition-colors"
+                >
+                  {CATEGORY_LABELS[language][selectedProject.category]}
+                </button>
+                <span>/</span>
+                <span className="truncate">{selectedProject.title}</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Breadcrumb - Desktop only when project selected */}
         {selectedProject && (
-          <div className="h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 md:px-12 z-10 flex items-center">
+          <div className="hidden md:flex h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <button 
-                onClick={() => setSelectedProject(null)}
-                className="font-bold hover:text-black dark:hover:text-white transition-colors md:hidden"
-              >
-                {language === 'zh' ? '主页' : 'Home'}
-              </button>
-              <span className="md:hidden">/</span>
               <button 
                 onClick={() => setSelectedProject(null)}
                 className="font-bold hover:text-black dark:hover:text-white transition-colors"
@@ -214,7 +243,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
               }
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {filteredProjects.map(project => (
                 <div
                   key={project.id}
@@ -246,11 +275,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       {/* Right Sidebar - Project Info */}
       {selectedProject && (
         <aside className="hidden lg:block w-80 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-6">
-          
-          {/* Section Title */}
-          <h3 className="text-lg font-black uppercase mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-800">
-            {language === 'zh' ? '项目信息' : 'Project Info'}
-          </h3>
 
           <div className="space-y-6">
             {/* Concept */}
@@ -276,16 +300,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                 </p>
               </div>
             )}
-
-            {/* Category */}
-            <div>
-              <h4 className="text-base font-bold text-black dark:text-white mb-2">
-                {language === 'zh' ? '分类' : 'Category'}
-              </h4>
-            <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-sm font-bold rounded-lg">
-              {CATEGORY_LABELS[language][selectedProject.category]}
-            </span>
-          </div>
 
           {/* Role */}
           <div>

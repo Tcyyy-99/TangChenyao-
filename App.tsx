@@ -383,15 +383,11 @@ function App() {
           />
         );
       case 'portfolio':
-        return <PortfolioSection language={language} externalFilter={portfolioCategory} />;
+        return <PortfolioSection language={language} externalFilter={portfolioCategory} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
       case 'about':
-        return (
-          <div className="pt-20 w-full max-w-[96vw] mx-auto">
-            <TimelineSection language={language} />
-          </div>
-        );
+        return <TimelineSection language={language} />;
       case 'articles':
-        return <ArticleSection language={language} />;
+        return <ArticleSection language={language} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
       case 'contact':
         return (
            <div className="pt-32 w-full max-w-5xl mx-auto text-center animate-fade-in px-4">
