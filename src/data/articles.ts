@@ -111,7 +111,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         title: '星绘友晴天UX分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/star-friends-ux-analysis.md',
-        coverImage: '/images/articles/star-friends-ux/cover.jpg'
+        coverImage: '/images/articles/star-friends-ux/cover.png'
       }
     ]
   },
@@ -124,7 +124,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         title: '0-1制作上线个人网站日志',
         date: '2026-06-27',
         contentPath: '/articles/Vibecoding portfolio/codemaker-tutorial.md',
-        coverImage: '/images/articles/codemaker-tutorial/cover.jpg'
+        coverImage: '/images/articles/codemaker-tutorial/cover.png'
       }
     ]
   },
@@ -137,7 +137,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         title: '变压器数字孪生项目实施文档',
         date: '2026-06-27',
         contentPath: '/articles/Digital Twin Development/变压器数字孪生项目实施指导文档.md',
-        coverImage: '/images/articles/transformer-digital-twin/cover.jpg'
+        coverImage: '/images/articles/transformer-digital-twin/cover.png'
       }
     ]
   }
