@@ -16,9 +16,9 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
   const [articleContent, setArticleContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
-  // Expand all projects by default
+  // Collapse all projects by default
   useEffect(() => {
-    setExpandedProjects(ARTICLE_PROJECTS.map(p => p.id));
+    setExpandedProjects([]);
   }, []);
 
   const toggleProject = (projectId: string) => {
@@ -53,7 +53,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
     <div className="flex h-screen w-full items-stretch">
       
       {/* Left Sidebar - Project Tree */}
-      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
+      <aside className="w-64 md:flex border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             {language === 'zh' ? '项目分类' : 'Projects'}
@@ -119,11 +119,21 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
       <main className="flex-1 overflow-y-auto">
         {/* Top Breadcrumb Bar - Sticky */}
         {selectedArticle && (
-          <div className="h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 flex items-center">
+          <div className="h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 md:px-12 z-10 flex items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span className="font-bold">
+              <button 
+                onClick={() => setSelectedArticle(null)}
+                className="font-bold hover:text-black dark:hover:text-white transition-colors md:hidden"
+              >
+                {language === 'zh' ? '主页' : 'Home'}
+              </button>
+              <span className="md:hidden">/</span>
+              <button
+                onClick={() => setSelectedArticle(null)}
+                className="font-bold hover:text-black dark:hover:text-white transition-colors"
+              >
                 {ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === selectedArticle.id))?.name}
-              </span>
+              </button>
               <span>/</span>
               <span>{selectedArticle.title}</span>
             </div>

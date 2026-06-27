@@ -47,7 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`
-                w-full px-8 py-4 text-center text-lg font-bold uppercase tracking-wide
+                w-full px-8 py-4 text-left text-lg font-bold uppercase tracking-wide
                 transition-all duration-200 relative
                 ${isActive 
                   ? 'text-black dark:text-white bg-gray-100 dark:bg-gray-900' 
