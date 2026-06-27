@@ -6,11 +6,18 @@ import { MapPin } from 'lucide-react';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 
-const DIAGRAM_LABELS = [
-  { text: 'Interaction Design', angle: 215, category: Category.INTERACTION },
-  { text: 'Product Design', angle: 335, category: Category.PRODUCT },
-  { text: 'Others', angle: 110, category: Category.OTHERS },
-];
+const DIAGRAM_LABELS = {
+  zh: [
+    { text: '作品', angle: 215, category: Category.INTERACTION, targetTab: 'portfolio' },
+    { text: '文章', angle: 335, category: Category.PRODUCT, targetTab: 'articles' },
+    { text: '经历', angle: 110, category: Category.OTHERS, targetTab: 'about' },
+  ],
+  en: [
+    { text: 'Portfolio', angle: 215, category: Category.INTERACTION, targetTab: 'portfolio' },
+    { text: 'Articles', angle: 335, category: Category.PRODUCT, targetTab: 'articles' },
+    { text: 'About', angle: 110, category: Category.OTHERS, targetTab: 'about' },
+  ]
+};
 
 const angleToCoords = (angle: number, radius: number) => {
   const rad = (angle * Math.PI) / 180;
@@ -39,6 +46,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
 
   const isDark = theme === 'dark';
   const contactContent = CONTACT_DATA[language];
+  const labels = DIAGRAM_LABELS[language];
 
   return (
     <section
@@ -69,7 +77,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                   fill="none"
                   opacity="0.45"
                 />
-                {DIAGRAM_LABELS.map((label, i) => {
+                {labels.map((label, i) => {
                   const outer = angleToCoords(label.angle, 36);
                   return (
                     <motion.line
@@ -93,7 +101,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
               </svg>
 
               {/* Labels */}
-              {DIAGRAM_LABELS.map((label, i) => {
+              {labels.map((label, i) => {
                 const pos = angleToCoords(label.angle, 46);
                 return (
                   <motion.div
@@ -113,7 +121,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                     transition={{ duration: 0.7, delay: 0.6 + i * 0.15, ease: EASING }}
                     onMouseEnter={() => setHoveredLabel(i)}
                     onMouseLeave={() => setHoveredLabel(null)}
-                    onClick={() => onCategorySelect(label.category)}
+                    onClick={() => onNavigate(label.targetTab)}
                   >
                     {label.text}
                   </motion.div>

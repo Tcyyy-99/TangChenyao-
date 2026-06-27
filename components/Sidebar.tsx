@@ -30,10 +30,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       
       {/* Logo Section */}
       <div 
-        className="px-6 py-4 cursor-pointer group border-b-2 border-gray-200 dark:border-gray-800 flex items-center"
+        className="h-14 px-6 cursor-pointer group border-b-2 border-gray-200 dark:border-gray-800 flex items-center"
         onClick={() => setActiveTab('dashboard')}
       >
-        <h1 className="text-3xl font-black tracking-tighter uppercase text-black dark:text-white leading-tight">
+        <h1 className="text-lg font-black tracking-tighter uppercase text-black dark:text-white leading-tight">
           TANG
         </h1>
       </div>
@@ -47,7 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`
-                w-full px-8 py-4 text-left text-lg font-bold uppercase tracking-wide
+                w-full px-8 py-4 text-center text-lg font-bold uppercase tracking-wide
                 transition-all duration-200 relative
                 ${isActive 
                   ? 'text-black dark:text-white bg-gray-100 dark:bg-gray-900' 

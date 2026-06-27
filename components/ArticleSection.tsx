@@ -54,13 +54,13 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
       
       {/* Left Sidebar - Project Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
-        <div className="px-6 py-4 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
+        <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             {language === 'zh' ? '项目分类' : 'Projects'}
           </h2>
         </div>
 
-        <nav className="h-[calc(100vh-3rem)] overflow-y-auto">
+        <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto">
           {ARTICLE_PROJECTS.map(project => {
             const isExpanded = expandedProjects.includes(project.id);
             return (
@@ -119,7 +119,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
       <main className="flex-1 overflow-y-auto">
         {/* Top Breadcrumb Bar - Sticky */}
         {selectedArticle && (
-          <div className="sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 py-4 z-10">
+          <div className="h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 flex items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="font-bold">
                 {ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === selectedArticle.id))?.name}

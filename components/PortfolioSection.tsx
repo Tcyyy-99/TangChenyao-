@@ -69,13 +69,13 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       
       {/* Left Sidebar - Category Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
-        <div className="px-6 py-4 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
+        <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             Categories
           </h2>
         </div>
 
-        <nav className="h-[calc(100vh-3rem)] overflow-y-auto">
+        <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto">
           {/* All Category */}
           <button
             onClick={() => {
@@ -146,7 +146,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       <main className="flex-1 overflow-y-auto">
         {/* Breadcrumb */}
         {selectedProject && (
-          <div className="sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 py-4 z-10">
+          <div className="h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 flex items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="font-bold">{language === 'zh' ? '作品集' : 'Portfolio'}</span>
               <span>/</span>
