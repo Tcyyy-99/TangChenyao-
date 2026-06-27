@@ -440,7 +440,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
               {/* Playlist Promo - Floating at Bottom */}
               <div className="relative z-10">
                 <a 
-                  href="https://music.163.com/playlist?id=74188173&uct2=U2FsdGVkX1+9hSmPKFKOu99/rqUgKMjig48CSYAF4Zs=" 
+                  href="https://music.163.com/playlist?id=379646217&uct2=U2FsdGVkX19O0FE79ueyb6iVqKMxMxQb+eLUSPpIhwk=" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="block w-full"

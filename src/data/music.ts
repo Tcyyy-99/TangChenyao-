@@ -20,30 +20,30 @@ export interface Song {
 export const MUSIC_PLAYLIST: Song[] = [
   {
     id: "local-01",
-    title: "Pirene's Fountain",
-    artist: "Vallès",
-    cover: "/music/covers/Pirene's Fountain Vallès.jpg", // 确保文件名对应
-    audio: "/music/audio/Vallès - Pirene's Fountain.mp3"     // 确保文件名对应
+    title: "drive me wild",
+    artist: "Garoad",
+    cover: "/music/covers/cover1.png",
+    audio: "/music/audio/Garoad - drive me wild.mp3"
   },
   {
     id: "local-02",
-    title: "Sleepless nights - lofi hiphop mix pt.2",
-    artist: "Mixed Artists",
-    cover: "/music/covers/lofi-cat-night.jpg", 
-    audio: "/music/audio/Sleepless nights - lofi hiphop mix pt.2.mp3"
+    title: "every day is night",
+    artist: "Garoad",
+    cover: "/music/covers/cover2.png", 
+    audio: "/music/audio/Garoad - every day is night.mp3"
   },
   {
     id: "local-03",
-    title: "Island",
-    artist: "Nujabes/Uyama Hiroto/Haruka Nakamura",
-    cover: "/music/covers/spiritual state.jpg", // 确保文件名对应
-    audio: "/music/audio/Nujabes,Uyama Hiroto,haruka nakamura - Island (feat. Uyama Hiroto & haruka nakamura).mp3"     // 确保文件名对应
+    title: "Hopes And Dreams",
+    artist: "Garoad",
+    cover: "/music/covers/cover3.png",
+    audio: "/music/audio/Garoad - Hopes And Dreams.mp3"
   },
   {
     id: "local-04",
-    title: "the updater",
-    artist: "TSUTCHIE",
-    cover: "/music/covers/Tsutchie-Samurai Champloo Music Recored.jpg", // 确保文件名对应
-    audio: "/music/audio/TSUTCHIE - the updater.mp3"     // 确保文件名对应
+    title: "nightime maneuvers",
+    artist: "Garoad",
+    cover: "/music/covers/cover4.png",
+    audio: "/music/audio/Garoad - nightime maneuvers.mp3"
   },
 ];

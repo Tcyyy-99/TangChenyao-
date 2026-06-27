@@ -402,9 +402,9 @@ function App() {
       case 'about':
         return (
           <div className="flex h-screen w-full overflow-hidden">
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col overflow-hidden">
               {/* Breadcrumb */}
-              <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
+              <div className="md:hidden h-14 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center flex-shrink-0">
                 <div className="flex items-center gap-2 text-sm text-gray-500">
                   <button 
                     onClick={() => startViewTransition(() => setActiveTab('dashboard'))}
@@ -416,7 +416,9 @@ function App() {
                   <span className="font-bold text-black dark:text-white">{language === 'zh' ? '经历' : 'About'}</span>
                 </div>
               </div>
-              <TimelineSection language={language} />
+              <div className="flex-1 overflow-hidden">
+                <TimelineSection language={language} />
+              </div>
             </div>
           </div>
         );
