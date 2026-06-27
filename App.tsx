@@ -29,6 +29,21 @@ function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
   const [gravityActive, setGravityActive] = useState(false);
+  const [showMobileTip, setShowMobileTip] = useState(false);
+
+  // Check if mobile on first load
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const hasSeenTip = localStorage.getItem('mobile-tip-seen');
+    if (isMobile && !hasSeenTip) {
+      setShowMobileTip(true);
+    }
+  }, []);
+
+  const closeMobileTip = () => {
+    setShowMobileTip(false);
+    localStorage.setItem('mobile-tip-seen', 'true');
+  };
 
   const startViewTransition = (update: () => void) => {
     // Disable view transitions on mobile to prevent flickering and performance issues
@@ -385,11 +400,45 @@ function App() {
       case 'portfolio':
         return <PortfolioSection language={language} externalFilter={portfolioCategory} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
       case 'about':
-        return <TimelineSection language={language} />;
+        return (
+          <div className="flex h-screen w-full overflow-hidden">
+            <div className="flex-1 flex flex-col">
+              {/* Breadcrumb */}
+              <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <button 
+                    onClick={() => startViewTransition(() => setActiveTab('dashboard'))}
+                    className="font-bold hover:text-black dark:hover:text-white transition-colors"
+                  >
+                    {language === 'zh' ? '主页' : 'Home'}
+                  </button>
+                  <span>/</span>
+                  <span className="font-bold text-black dark:text-white">{language === 'zh' ? '经历' : 'About'}</span>
+                </div>
+              </div>
+              <TimelineSection language={language} />
+            </div>
+          </div>
+        );
       case 'articles':
         return <ArticleSection language={language} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
       case 'contact':
         return (
+          <div>
+            {/* Breadcrumb */}
+            <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <button 
+                  onClick={() => startViewTransition(() => setActiveTab('dashboard'))}
+                  className="font-bold hover:text-black dark:hover:text-white transition-colors"
+                >
+                  {language === 'zh' ? '主页' : 'Home'}
+                </button>
+                <span>/</span>
+                <span className="font-bold text-black dark:text-white">{language === 'zh' ? '联系' : 'Contact'}</span>
+              </div>
+            </div>
+            
            <div className="pt-32 w-full max-w-5xl mx-auto text-center animate-fade-in px-4">
               <h1 className="text-[12vw] font-black mb-12 leading-none text-black dark:text-white transition-colors duration-300">
                 {content.hello}
@@ -424,6 +473,7 @@ function App() {
                  </div>
               </div>
            </div>
+          </div>
         )
       default:
         return (
@@ -443,6 +493,24 @@ function App() {
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black overflow-x-hidden transition-colors duration-300">
       
       <MusicPlayer language={language} />
+      
+      {/* Mobile Tip */}
+      {showMobileTip && (
+        <div className="fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-4 md:hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-sm text-center shadow-2xl animate-fade-in">
+            <p className="text-xl font-bold text-black dark:text-white mb-6">
+              用电脑打开会更方便哦~
+            </p>
+            <button
+              onClick={closeMobileTip}
+              className="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-lg hover:scale-105 transition-transform"
+            >
+              知道了
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Sidebar Navigation */}
       <Sidebar 
         activeTab={activeTab} 
@@ -459,14 +527,6 @@ function App() {
          <div key={activeTab} className="animate-fade-in">
            {renderContent()}
          </div>
-
-         {/* Footer - Only show on contact page */}
-         {activeTab === 'contact' && (
-           <footer className="w-full max-w-[96vw] mx-auto mt-32 pb-16 border-t-2 border-black dark:border-white pt-12 flex flex-col md:flex-row justify-between items-center text-sm font-light text-gray-400 dark:text-gray-500 uppercase tracking-wide gap-4 transition-colors duration-300">
-              <p>© 2026 CHENYAO TANG</p>
-              <p>{content.footerDesign}</p>
-           </footer>
-         )}
       </main>
       
       {/* Floating Reset Button for Gravity - Fixed Centering Wrapper */}

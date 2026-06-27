@@ -6,27 +6,39 @@ import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
 import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft } from 'lucide-react';
 
+// Development Timeline for Vibe Portfolio
+const VIBE_TIMELINE = [
+  { date: '2026-06-27', title: 'DAY01 - 项目初始化', desc: '创建React+TypeScript项目，配置Tailwind CSS' },
+  { date: '2026-06-27', title: 'DAY02 - 主页设计确立', desc: '实现圆形分支导航图，确定三栏布局架构' },
+  { date: '2026-06-27', title: 'DAY03 - 作品集模块', desc: '完成作品分类展示，实现lightbox图片预览' },
+  { date: '2026-06-27', title: 'DAY04 - 文章系统开发', desc: '集成react-markdown，支持MD文件渲染' },
+  { date: '2026-06-27', title: 'DAY05 - 响应式优化', desc: '适配移动端布局，调整面包屑导航' },
+  { date: '2026-06-27', title: 'DAY06 - 文章封面功能', desc: '实现文章封面图显示，卡片式布局' },
+  { date: '2026-06-27', title: 'DAY07 - 暗黑模式', desc: '添加时间自动切换主题，18:30-06:00深色模式' },
+  { date: '2026-06-27', title: 'DAY08 - 布局统一', desc: '统一header高度h-14，优化三栏等高布局' },
+  { date: '2026-06-27', title: 'DAY09 - 部署上线', desc: 'GitHub+Vercel自动部署，配置域名' },
+];
+
 interface ArticleSectionProps {
   language: Language;
   onNavigate?: (tab: string) => void;
 }
 
 export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavigate }) => {
-  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<ArticleItem | null>(null);
   const [articleContent, setArticleContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [showAllArticles, setShowAllArticles] = useState(true);
 
   const allArticles = ARTICLE_PROJECTS.flatMap(p => p.articles);
-  const filteredArticles = selectedProject 
-    ? ARTICLE_PROJECTS.find(p => p.id === selectedProject)?.articles || []
-    : allArticles;
 
   const toggleProject = (projectId: string) => {
-    setSelectedProject(projectId);
-    setSelectedArticle(null);
-    setShowAllArticles(false);
+    setExpandedProjects(prev => 
+      prev.includes(projectId) 
+        ? prev.filter(id => id !== projectId)
+        : [...prev, projectId]
+    );
   };
 
   const loadArticle = async (article: ArticleItem) => {
@@ -66,11 +78,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
           <button
             onClick={() => {
               setSelectedArticle(null);
-              setSelectedProject(null);
               setShowAllArticles(true);
             }}
             className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
-              ${showAllArticles && !selectedArticle && !selectedProject
+              ${showAllArticles && !selectedArticle
                 ? 'bg-black dark:bg-white text-white dark:text-black'
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
               }`}
@@ -82,22 +93,53 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
           </button>
 
           {ARTICLE_PROJECTS.map(project => {
+            const isExpanded = expandedProjects.includes(project.id);
             return (
               <div key={project.id} className="mb-2">
                 {/* Project Header */}
                 <button
                   onClick={() => toggleProject(project.id)}
-                  className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
-                    ${selectedProject === project.id && !selectedArticle
-                      ? 'bg-black dark:bg-white text-white dark:text-black'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
+                  className="w-full px-6 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  <div className="flex justify-between items-center">
-                    <span>{project.name}</span>
-                    <span className="text-xs font-mono">({project.articles.length})</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-bold text-black dark:text-white">
+                      {project.name}
+                    </span>
+                    <span className="text-xs text-gray-400 font-mono">
+                      ({project.articles.length})
+                    </span>
                   </div>
+                  {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                 </button>
+
+                {/* Articles List */}
+                {isExpanded && (
+                  <div className="space-y-1">
+                    {project.articles.map(article => (
+                      <button
+                        key={article.id}
+                        onClick={() => loadArticle(article)}
+                        className={`
+                          w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
+                          ${selectedArticle?.id === article.id
+                            ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
+                            : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                          }
+                        `}
+                      >
+                        <div className="flex items-start gap-2">
+                          <FileText size={16} className="mt-0.5 flex-shrink-0" />
+                          <div>
+                            <div className="leading-tight">{article.title}</div>
+                            <div className="text-xs opacity-60 mt-1 font-mono">
+                              {new Date(article.date).toLocaleDateString('zh-CN')}
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             );
           })}
@@ -189,18 +231,15 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
               </div>
             )}
           </article>
-        ) : showAllArticles || selectedProject ? (
-          /* Grid View - All Articles or Project Articles */
+        ) : showAllArticles ? (
+          /* Grid View - All Articles */
           <div className="p-12">
             <h2 className="text-3xl font-black mb-8">
-              {selectedProject 
-                ? ARTICLE_PROJECTS.find(p => p.id === selectedProject)?.name 
-                : (language === 'zh' ? '全部文章' : 'All Articles')
-              }
+              {language === 'zh' ? '全部文章' : 'All Articles'}
             </h2>
             
             <div className="space-y-4">
-              {filteredArticles.map(article => {
+              {allArticles.map(article => {
                 const project = ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === article.id));
                 return (
                   <div
@@ -249,6 +288,37 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
           </div>
         )}
       </main>
+
+      {/* Right Sidebar - Timeline for Vibe Portfolio */}
+      {selectedArticle && ARTICLE_PROJECTS.find(p => p.id === 'vibecoding' && p.articles.some(a => a.id === selectedArticle.id)) && (
+        <aside className="hidden lg:block w-80 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-6">
+          <h3 className="text-sm font-black uppercase mb-6 text-gray-500">
+            {language === 'zh' ? '时间轴' : 'Timeline'}
+          </h3>
+          
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-[7px] top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+            
+            {/* Timeline Items */}
+            <div className="space-y-6">
+              {VIBE_TIMELINE.map((item, idx) => (
+                <div key={idx} className="relative pl-6">
+                  {/* Timeline Dot */}
+                  <div className="absolute left-0 top-1 w-4 h-4 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"></div>
+                  
+                  {/* Content */}
+                  <div>
+                    <p className="text-xs text-gray-400 font-mono mb-1">{item.date}</p>
+                    <h4 className="text-sm font-bold text-black dark:text-white mb-1">{item.title}</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+      )}
     </div>
   );
 };

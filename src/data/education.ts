@@ -15,7 +15,7 @@ export interface EducationPageContent {
 
 export const EDUCATION_DATA: Record<Language, EducationPageContent> = {
   zh: {
-    title: "教育经历",
+    title: "教育",
     about: "唐晨瑶 | 设计生搬砖中",
     openToWork: "等待实习",
     viewHonorsLabel: "查看在校荣誉",

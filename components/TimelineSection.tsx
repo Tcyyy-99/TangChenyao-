@@ -81,7 +81,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
   if (!isUnlocked) {
     if (isExploding) {
        return (
-         <div className="w-full min-h-[60vh] flex items-center justify-center px-4 relative overflow-hidden">
+         <div className="flex h-screen w-full items-center justify-center px-4 relative overflow-hidden">
             {particles.map(p => (
                <div 
                   key={p.id}
@@ -106,10 +106,10 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
     }
 
     return (
-      <div className={`w-full min-h-[60vh] flex items-center justify-center px-4 animate-fade-in transition-all duration-300 ${isSuccess ? 'scale-105' : 'scale-100'}`}>
+      <div className="flex h-screen w-full items-center justify-center px-4 animate-fade-in transition-all duration-300">
         <div className={`
            w-full max-w-md bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-2xl p-10 md:p-14 text-center border border-gray-100 dark:border-gray-800 relative overflow-hidden group transition-all duration-500
-           ${isSuccess ? 'shadow-green-500/20 border-green-500/50' : 'animate-message-pop'}
+           ${isSuccess ? 'shadow-green-500/20 border-green-500/50 scale-105' : 'animate-message-pop'}
         `}>
            
            {/* Background Decor */}
@@ -176,7 +176,6 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
                {language === 'zh' ? '答案错误' : 'Incorrect Answer'}
              </p>
            )}
-           <p className="mt-6 text-sm font-bold text-gray-400 animate-pulse">可以在联系页面点击公众号联系我 ;-)</p>
         </div>
       </div>
     );
@@ -192,8 +191,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
   };
 
   return (
-    <div className="flex h-screen w-full overflow-y-auto">
-      <div className={`w-full max-w-7xl mx-auto px-4 md:px-12 py-12 md:py-20 relative ${isUnlocked ? 'animate-[fadeIn_0.6s_ease-out_forwards]' : ''}`}>
+    <div className="flex h-screen w-full overflow-hidden items-center justify-center">
+      <div className={`w-full max-w-7xl mx-auto px-4 md:px-12 relative ${isUnlocked ? 'animate-[fadeIn_0.6s_ease-out_forwards]' : ''}`}>
       
       {/* Education & Experience Section */}
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-12 lg:gap-24 mb-24 lg:mb-32">
