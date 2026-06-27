@@ -26,7 +26,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const items = NAV_ITEMS[language];
 
   return (
-    <aside className="fixed top-0 left-0 h-screen w-40 bg-white dark:bg-black border-r-2 border-gray-200 dark:border-gray-800 flex flex-col z-50">
+    <aside className="hidden md:flex fixed top-0 left-0 h-screen w-40 bg-white dark:bg-black border-r-2 border-gray-200 dark:border-gray-800 flex-col z-50">
       
       {/* Logo Section */}
       <div 

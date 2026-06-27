@@ -459,7 +459,7 @@ function App() {
       />
 
       {/* Main Content Area - Shifted right for sidebar */}
-      <main className={`ml-40 w-[calc(100%-10rem)] ${(activeTab === 'articles' || activeTab === 'portfolio') ? '' : 'pt-16'} ${activeTab === 'dashboard' ? 'h-screen overflow-hidden' : ''} vt-page`}>
+      <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full ${(activeTab === 'articles' || activeTab === 'portfolio') ? '' : 'pt-16'} ${activeTab === 'dashboard' ? 'h-screen overflow-hidden' : ''} vt-page`}>
          <div key={activeTab} className="animate-fade-in">
            {renderContent()}
          </div>

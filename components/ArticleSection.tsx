@@ -53,7 +53,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language }) => {
     <div className="flex h-screen w-full items-stretch">
       
       {/* Left Sidebar - Project Tree */}
-      <aside className="w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex flex-col">
+      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div className="px-6 py-4 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             {language === 'zh' ? '项目分类' : 'Projects'}

@@ -68,7 +68,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
     <div className="flex h-screen w-full items-stretch">
       
       {/* Left Sidebar - Category Tree */}
-      <aside className="w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex flex-col">
+      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div className="px-6 py-4 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
           <h2 className="text-sm font-black uppercase tracking-tight">
             Categories
@@ -225,7 +225,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
       {/* Right Sidebar - Project Info */}
       {selectedProject && (
-        <aside className="w-80 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-6">
+        <aside className="hidden lg:block w-80 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-6">
           
           {/* Section Title */}
           <h3 className="text-lg font-black uppercase mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-800">
