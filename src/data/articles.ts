@@ -94,6 +94,12 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         title: '燕云十六声拍照功能设计',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/yanyun16-photo-design.md'
+      },
+      {
+        id: 'star-friends-ux',
+        title: '星绘友晴天UX分析',
+        date: '2026-06-27',
+        contentPath: '/articles/GAME UX/star-friends-ux-analysis.md'
       }
     ]
   },
