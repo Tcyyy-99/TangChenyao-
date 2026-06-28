@@ -85,7 +85,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
     <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
       {/* Mobile Top Category Tabs */}
-      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0">
         <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           {categories.map((cat) => (
             <button
@@ -227,7 +227,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
         {selectedProject ? (
           /* Project Detail View */
-          <div className="p-6 md:p-12 pt-20 md:pt-6">
+          <div className="p-6 md:p-12 pt-6 md:pt-12">
             {/* Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
               {selectedProject.title}
@@ -365,7 +365,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
           </div>
         ) : (
           /* Grid View */
-          <div className="p-6 md:p-12 pt-20 md:pt-12 pb-0 md:pb-12">
+          <div className="p-6 md:p-12 pt-6 md:pt-12 pb-0 md:pb-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 pb-4">
               {filteredProjects.map(project => (
                 <div
