@@ -63,7 +63,37 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
   };
 
   return (
-    <div className="flex h-screen w-full items-stretch">
+    <div className="flex flex-col md:flex-row h-screen w-full items-stretch">
+      
+      {/* Mobile Top Project Tabs */}
+      <div className="md:hidden bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0">
+        <div className="flex gap-2 p-4 min-w-max">
+          <button
+            onClick={() => {
+              setSelectedArticle(null);
+              setShowAllArticles(true);
+            }}
+            className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors
+              ${showAllArticles && !selectedArticle
+                ? 'bg-black dark:bg-white text-white dark:text-black'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+              }`}
+          >
+            {language === 'zh' ? '全部' : 'All'}
+            <span className="ml-2 text-xs">{allArticles.length}</span>
+          </button>
+          {ARTICLE_PROJECTS.map((project) => (
+            <button
+              key={project.id}
+              onClick={() => toggleProject(project.id)}
+              className="px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+            >
+              {project.name}
+              <span className="ml-2 text-xs">{project.articles.length}</span>
+            </button>
+          ))}
+        </div>
+      </div>
       
       {/* Left Sidebar - Project Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">

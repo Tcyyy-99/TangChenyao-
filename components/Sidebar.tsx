@@ -26,7 +26,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const items = NAV_ITEMS[language];
 
   return (
-    <aside className="hidden md:flex fixed top-0 left-0 h-screen w-40 bg-white dark:bg-black border-r-2 border-gray-200 dark:border-gray-800 flex-col z-50">
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex fixed top-0 left-0 h-screen w-40 bg-white dark:bg-black border-r-2 border-gray-200 dark:border-gray-800 flex-col z-50">
       
       {/* Logo Section */}
       <div 
@@ -66,7 +68,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Bottom Controls */}
       <div className="p-6 border-t-2 border-gray-200 dark:border-gray-800 space-y-3">
-        
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
@@ -101,5 +102,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
       </div>
     </aside>
+
+    {/* Mobile Bottom Navigation */}
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t-2 border-gray-200 dark:border-gray-800 z-50 safe-area-inset-bottom">
+      <div className="flex justify-around items-center h-16">
+        {items.map((item) => {
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`flex-1 flex flex-col items-center justify-center h-full transition-colors
+                ${isActive 
+                  ? 'text-black dark:text-white' 
+                  : 'text-gray-400'}
+              `}
+            >
+              <span className="text-xs font-bold uppercase">{item.label}</span>
+              {isActive && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black dark:bg-white"></span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </nav>
+    </>
   );
 };
