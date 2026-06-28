@@ -166,7 +166,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
       },
       {
         id: 'vibe-day07',
-        title: 'DAY07 - 暗黑模式',
+        title: 'DAY07 - 交互优化',
         date: '2026-06-27',
         contentPath: '/articles/Vibecoding portfolio/day07.md',
         coverImage: '/images/articles/vibe-day07/cover.png'
