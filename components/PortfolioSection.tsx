@@ -365,7 +365,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
           </div>
         ) : (
           /* Grid View */
-          <div className="p-6 md:p-12 pt-20 md:pt-12">
+          <div className="p-6 md:p-12 pt-20 md:pt-12 pb-2 md:pb-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {filteredProjects.map(project => (
                 <div
