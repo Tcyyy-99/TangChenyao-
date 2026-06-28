@@ -289,7 +289,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
         {selectedProject ? (
           /* Project Detail View */
-          <div className="p-6 md:p-12 pt-8 pb-8 md:pt-12 md:pb-12">
+          <div className="p-6 md:p-12 pt-20 pb-8 md:pt-12 md:pb-12">
             {/* Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
               {selectedProject.title}
