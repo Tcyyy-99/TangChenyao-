@@ -496,7 +496,7 @@ function App() {
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <h2 className="text-base font-black uppercase">
-              {activeTab === 'dashboard' && 'HOME'}
+              {activeTab === 'dashboard' && 'TANG'}
               {activeTab === 'portfolio' && 'WORK'}
               {activeTab === 'articles' && 'ARTICLES'}
               {activeTab === 'about' && 'ABOUT'}
