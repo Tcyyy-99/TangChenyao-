@@ -124,17 +124,73 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
     articles: [
       {
         id: 'vibe-day01',
-        title: 'DAY01 - 项目初始化与架构搭建',
+        title: 'DAY01 - 项目初始化',
         date: '2026-06-27',
         contentPath: '/articles/Vibecoding portfolio/day01.md',
         coverImage: '/images/articles/vibe-day01/cover.png'
       },
       {
         id: 'vibe-day02',
-        title: 'DAY02 - 移动端适配与响应式优化',
-        date: '2026-06-28',
+        title: 'DAY02 - 主页设计确立',
+        date: '2026-06-27',
         contentPath: '/articles/Vibecoding portfolio/day02.md',
         coverImage: '/images/articles/vibe-day02/cover.png'
+      },
+      {
+        id: 'vibe-day03',
+        title: 'DAY03 - 作品集模块',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day03.md',
+        coverImage: '/images/articles/vibe-day03/cover.png'
+      },
+      {
+        id: 'vibe-day04',
+        title: 'DAY04 - 文章系统开发',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day04.md',
+        coverImage: '/images/articles/vibe-day04/cover.png'
+      },
+      {
+        id: 'vibe-day05',
+        title: 'DAY05 - 响应式优化',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day05.md',
+        coverImage: '/images/articles/vibe-day05/cover.png'
+      },
+      {
+        id: 'vibe-day06',
+        title: 'DAY06 - 文章封面功能',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day06.md',
+        coverImage: '/images/articles/vibe-day06/cover.png'
+      },
+      {
+        id: 'vibe-day07',
+        title: 'DAY07 - 暗黑模式',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day07.md',
+        coverImage: '/images/articles/vibe-day07/cover.png'
+      },
+      {
+        id: 'vibe-day08',
+        title: 'DAY08 - 布局统一',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day08.md',
+        coverImage: '/images/articles/vibe-day08/cover.png'
+      },
+      {
+        id: 'vibe-day09',
+        title: 'DAY09 - 部署上线',
+        date: '2026-06-27',
+        contentPath: '/articles/Vibecoding portfolio/day09.md',
+        coverImage: '/images/articles/vibe-day09/cover.png'
+      },
+      {
+        id: 'vibe-day10',
+        title: 'DAY10 - 移动端深度适配',
+        date: '2026-06-28',
+        contentPath: '/articles/Vibecoding portfolio/day10.md',
+        coverImage: '/images/articles/vibe-day10/cover.png'
       }
     ]
   },
