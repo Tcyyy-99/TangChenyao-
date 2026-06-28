@@ -262,6 +262,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
                         <img 
                           src={article.coverImage} 
                           alt={article.title}
+                          loading="lazy"
                           className="w-full h-full object-cover"
                         />
                       </div>
