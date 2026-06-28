@@ -252,7 +252,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
       </aside>
 
       {/* Right Content Area */}
-      <main className="flex-1 overflow-y-auto md:no-scrollbar">
+      <main className="flex-1 overflow-y-auto md:no-scrollbar pt-28 md:pt-0">
         {/* Top Breadcrumb Bar - Desktop only when article selected */}
         {selectedArticle && (
           <div className="hidden md:flex h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 items-center">

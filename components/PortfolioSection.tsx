@@ -259,7 +259,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       </aside>
 
       {/* Middle Content Area */}
-      <main className="flex-1 overflow-y-auto md:no-scrollbar">
+      <main className="flex-1 overflow-y-auto md:no-scrollbar pt-28 md:pt-0">
         
         {/* Breadcrumb - Desktop only when project selected */}
         {selectedProject && (
