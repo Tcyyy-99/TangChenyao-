@@ -549,7 +549,7 @@ function App() {
         (activeTab === 'about') ? 'pt-14 md:pt-0 h-[calc(100vh-7.5rem)] md:h-screen overflow-hidden' :
         (activeTab === 'dashboard') ? 'pt-14 md:pt-16 h-[calc(100vh-7.5rem)] md:h-screen overflow-hidden' :
         (activeTab === 'contact') ? 'pt-14 md:pt-16 h-[calc(100vh-7.5rem)] md:h-screen overflow-hidden' :
-        'pt-14 md:pt-16 pb-16 md:pb-0'
+        'pt-14 md:pt-16'
       } vt-page`}>
          <div key={activeTab} className="animate-fade-in h-full">
            {renderContent()}
