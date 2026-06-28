@@ -119,9 +119,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               `}
             >
               <span className="text-xs font-bold uppercase">{item.label}</span>
-              {isActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-black dark:bg-white"></span>
-              )}
             </button>
           );
         })}
