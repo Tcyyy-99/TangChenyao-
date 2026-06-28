@@ -5,15 +5,27 @@ import ReactMarkdown from 'react-markdown';
 import { PROJECTS, CATEGORY_LABELS } from '../constants'; 
 import { Category, Language, Project } from '../types';
 import { PHOTOGRAPHY_GALLERY } from '../src/data/photography';
-import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma, MousePointer2, Package, Search, Grid3x3 } from 'lucide-react';
+import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma, MousePointer2, Package, Search, Grid3x3, Moon, Sun, Globe, Bomb } from 'lucide-react';
 
 interface PortfolioSectionProps {
   language: Language;
   externalFilter?: string;
   onNavigate?: (tab: string) => void;
+  theme?: 'light' | 'dark';
+  toggleTheme?: () => void;
+  toggleLanguage?: () => void;
+  onTriggerGravity?: () => void;
 }
 
-export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, externalFilter, onNavigate }) => {
+export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ 
+  language, 
+  externalFilter, 
+  onNavigate,
+  theme = 'light',
+  toggleTheme,
+  toggleLanguage,
+  onTriggerGravity
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
@@ -112,8 +124,21 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
           )}
           {/* Right icons - always visible */}
           <div className="flex items-center gap-3">
-            {/* These should match App.tsx icons but we don't have access to those functions */}
-            {/* Placeholder for now */}
+            {toggleTheme && (
+              <button onClick={toggleTheme} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            )}
+            {toggleLanguage && (
+              <button onClick={toggleLanguage} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <Globe size={20} />
+              </button>
+            )}
+            {onTriggerGravity && (
+              <button onClick={onTriggerGravity} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <Bomb size={20} />
+              </button>
+            )}
           </div>
         </div>
       </div>

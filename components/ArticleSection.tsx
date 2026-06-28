@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
-import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft } from 'lucide-react';
+import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Globe, Bomb } from 'lucide-react';
 
 // Development Timeline for Vibe Portfolio
 const VIBE_TIMELINE = [
@@ -22,9 +22,20 @@ const VIBE_TIMELINE = [
 interface ArticleSectionProps {
   language: Language;
   onNavigate?: (tab: string) => void;
+  theme?: 'light' | 'dark';
+  toggleTheme?: () => void;
+  toggleLanguage?: () => void;
+  onTriggerGravity?: () => void;
 }
 
-export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavigate }) => {
+export const ArticleSection: React.FC<ArticleSectionProps> = ({ 
+  language, 
+  onNavigate,
+  theme = 'light',
+  toggleTheme,
+  toggleLanguage,
+  onTriggerGravity
+}) => {
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<ArticleItem | null>(null);
   const [articleContent, setArticleContent] = useState<string>('');
@@ -94,6 +105,24 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
               <span className="text-xs text-gray-400">{allArticles.length}</span>
             </div>
           )}
+          {/* Right icons */}
+          <div className="flex items-center gap-3">
+            {toggleTheme && (
+              <button onClick={toggleTheme} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            )}
+            {toggleLanguage && (
+              <button onClick={toggleLanguage} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <Globe size={20} />
+              </button>
+            )}
+            {onTriggerGravity && (
+              <button onClick={onTriggerGravity} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <Bomb size={20} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
       

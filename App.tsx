@@ -407,7 +407,15 @@ function App() {
           </div>
         );
       case 'portfolio':
-        return <PortfolioSection language={language} externalFilter={portfolioCategory} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
+        return <PortfolioSection 
+          language={language} 
+          externalFilter={portfolioCategory} 
+          onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
+          theme={theme}
+          toggleTheme={toggleTheme}
+          toggleLanguage={toggleLanguage}
+          onTriggerGravity={triggerGravity}
+        />;
       case 'about':
         return (
           <div className="h-full overflow-hidden relative">
@@ -415,7 +423,14 @@ function App() {
           </div>
         );
       case 'articles':
-        return <ArticleSection language={language} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
+        return <ArticleSection 
+          language={language} 
+          onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
+          theme={theme}
+          toggleTheme={toggleTheme}
+          toggleLanguage={toggleLanguage}
+          onTriggerGravity={triggerGravity}
+        />;
       case 'contact':
         return (
           <div className="h-full w-full flex items-center justify-center px-4 overflow-hidden">
