@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { PROJECTS, CATEGORY_LABELS } from '../constants'; 
 import { Category, Language, Project } from '../types';
 import { PHOTOGRAPHY_GALLERY } from '../src/data/photography';
-import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma, MousePointer2, Package, Search, Grid3x3, Moon, Sun, Globe, Bomb } from 'lucide-react';
+import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma, MousePointer2, Package, Search, Grid3x3, Moon, Sun, Globe, Zap } from 'lucide-react';
 
 interface PortfolioSectionProps {
   language: Language;
@@ -136,7 +136,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             )}
             {onTriggerGravity && (
               <button onClick={onTriggerGravity} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-                <Bomb size={20} />
+                <Zap size={20} />
               </button>
             )}
           </div>

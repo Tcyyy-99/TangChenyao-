@@ -2,7 +2,7 @@
 import React from 'react';
 import { NAV_ITEMS } from '../src/data/navigation';
 import { Language } from '../types';
-import { Moon, Sun, Globe, Bomb } from 'lucide-react';
+import { Moon, Sun, Globe, Zap } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
@@ -95,7 +95,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           onClick={onTriggerGravity}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
         >
-          <Bomb size={20} />
+          <Zap size={20} />
           <span className="text-sm font-bold uppercase tracking-wide">
             {language === 'zh' ? '重力' : 'Gravity'}
           </span>

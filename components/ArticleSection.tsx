@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
-import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Globe, Bomb } from 'lucide-react';
+import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Globe, Zap } from 'lucide-react';
 
 // Development Timeline for Vibe Portfolio
 const VIBE_TIMELINE = [
@@ -119,7 +119,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
             )}
             {onTriggerGravity && (
               <button onClick={onTriggerGravity} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-                <Bomb size={20} />
+                <Zap size={20} />
               </button>
             )}
           </div>

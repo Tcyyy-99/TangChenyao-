@@ -9,7 +9,7 @@ import { PortfolioSection } from './components/PortfolioSection';
 import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
 import { MusicPlayer } from './components/MusicPlayer';
-import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github, Moon, Sun, Globe, Bomb } from 'lucide-react';
+import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github, Moon, Sun, Globe, Zap } from 'lucide-react';
 import { NAV_ITEMS } from './src/data/navigation';
 import { CONTACT_DATA } from './src/data/contact';
 import { PORTFOLIO_PAGE_DATA } from './src/data/portfolioPage';
@@ -542,7 +542,7 @@ function App() {
               onClick={triggerGravity}
               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
-              <Bomb size={20} />
+              <Zap size={20} />
             </button>
           </div>
         </div>
@@ -562,10 +562,10 @@ function App() {
 
       {/* Main Content Area - Shifted right for sidebar */}
       <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full pb-16 md:pb-0 ${
-        (activeTab === 'articles' || activeTab === 'portfolio') ? 'h-[calc(100vh-7rem)] md:h-screen overflow-hidden' : 
-        (activeTab === 'about') ? 'pt-14 md:pt-0 h-[calc(100vh-7rem)] md:h-screen overflow-hidden' :
-        (activeTab === 'dashboard') ? 'pt-14 md:pt-16 h-[calc(100vh-7rem)] md:h-screen overflow-hidden' :
-        (activeTab === 'contact') ? 'pt-14 md:pt-16 h-[calc(100vh-7rem)] md:h-screen overflow-hidden' :
+        (activeTab === 'articles' || activeTab === 'portfolio') ? 'h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' : 
+        (activeTab === 'about') ? 'pt-14 md:pt-0 h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' :
+        (activeTab === 'dashboard') ? 'pt-14 md:pt-16 h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' :
+        (activeTab === 'contact') ? 'pt-14 md:pt-16 h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' :
         'pt-14 md:pt-16'
       } vt-page`}>
          <div key={activeTab} className="animate-fade-in h-full">
