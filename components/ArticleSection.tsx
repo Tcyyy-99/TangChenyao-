@@ -32,6 +32,14 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
   const [showAllArticles, setShowAllArticles] = useState(true);
 
   const allArticles = ARTICLE_PROJECTS.flatMap(p => p.articles);
+  
+  // Scroll to top when article selected
+  useEffect(() => {
+    if (selectedArticle) {
+      const mainContent = document.querySelector('main.flex-1.overflow-y-auto');
+      if (mainContent) mainContent.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [selectedArticle]);
 
   const toggleProject = (projectId: string) => {
     setExpandedProjects(prev => 
@@ -65,8 +73,33 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
   return (
     <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
-      {/* Mobile Top Project Tabs */}
-      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+      {/* Mobile Custom Top Bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-50 h-14">
+        <div className="flex items-center justify-between px-4 h-full">
+          {selectedArticle ? (
+            /* Detail view: Back button */
+            <button
+              onClick={() => {
+                setSelectedArticle(null);
+                setShowAllArticles(true);
+              }}
+              className="flex items-center gap-2 text-black dark:text-white"
+            >
+              <ArrowLeft size={24} />
+            </button>
+          ) : (
+            /* List view: ARTICLES title + count */
+            <div className="flex items-center gap-3">
+              <h2 className="text-base font-black uppercase">ARTICLES</h2>
+              <span className="text-xs text-gray-400">{allArticles.length}</span>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Mobile Top Project Tabs - Hide when article selected */}
+      {!selectedArticle && (
+        <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
         <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           <button
             onClick={() => {
@@ -99,6 +132,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
           })}
         </div>
       </div>
+      )}
       
       {/* Left Sidebar - Project Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">

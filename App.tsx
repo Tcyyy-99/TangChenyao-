@@ -491,8 +491,8 @@ function App() {
         </div>
       )}
 
-      {/* Unified Mobile Top Bar - Hide on portfolio page */}
-      {activeTab !== 'portfolio' && (
+      {/* Unified Mobile Top Bar - Hide on portfolio and articles page */}
+      {activeTab !== 'portfolio' && activeTab !== 'articles' && (
         <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-40">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
