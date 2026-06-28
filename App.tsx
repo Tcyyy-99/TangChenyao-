@@ -570,7 +570,7 @@ function App() {
       } vt-page`}
       style={{
         height: (activeTab === 'articles' || activeTab === 'portfolio' || activeTab === 'about' || activeTab === 'dashboard' || activeTab === 'contact') 
-          ? 'calc(100dvh - 3.5rem)' 
+          ? window.innerWidth >= 768 ? '100dvh' : 'calc(100dvh - 3.5rem)'
           : undefined
       }}
       >
