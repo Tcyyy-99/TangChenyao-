@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import ReactMarkdown from 'react-markdown';
-import { PROJECTS, CATEGORY_LABELS } from '../constants';
+import { PROJECTS, CATEGORY_LABELS } from '../constants'; 
 import { Category, Language, Project } from '../types';
 import { PHOTOGRAPHY_GALLERY } from '../src/data/photography';
-import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma } from 'lucide-react';
+import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma, MousePointer2, Package, Search, Grid3x3 } from 'lucide-react';
 
 interface PortfolioSectionProps {
   language: Language;
@@ -20,6 +20,22 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const allProjects = PROJECTS[language];
+  
+  // Get icon for category
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case Category.INTERACTION:
+        return MousePointer2;
+      case Category.PRODUCT:
+        return Package;
+      case Category.RESEARCH:
+        return Search;
+      case Category.OTHERS:
+        return Grid3x3;
+      default:
+        return FileText;
+    }
+  };
   
   // Get categories with project counts
   const categories = [
@@ -66,11 +82,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full items-stretch">
+    <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
       {/* Mobile Top Category Tabs */}
-      <div className="md:hidden bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0">
-        <div className="flex gap-2 p-4 min-w-max">
+      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+        <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -78,14 +94,13 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
                 setSelectedCategory(cat.id);
                 setSelectedProject(null);
               }}
-              className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors
+              className={`text-sm font-bold whitespace-nowrap pb-2 border-b-2 transition-colors
                 ${selectedCategory === cat.id && !selectedProject
-                  ? 'bg-black dark:bg-white text-white dark:text-black'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                  ? 'border-black dark:border-white text-black dark:text-white'
+                  : 'border-transparent text-gray-400'
                 }`}
             >
               {cat.label}
-              <span className="ml-2 text-xs">{cat.count}</span>
             </button>
           ))}
         </div>
@@ -93,13 +108,23 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       
       {/* Left Sidebar - Category Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
-        <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
+        <div 
+          onClick={() => {
+            if (selectedProject) {
+              setSelectedProject(null);
+            }
+            const mainContent = document.querySelector('main.flex-1.overflow-y-auto');
+            if (mainContent) mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
           <h2 className="text-sm font-black uppercase tracking-tight">
-            Categories
+            WORK
           </h2>
+          <span className="text-xs text-gray-400">{allProjects.length}</span>
         </div>
 
-        <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto">
+        <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto no-scrollbar">
           {/* All Category */}
           <button
             onClick={() => {
@@ -142,22 +167,28 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
                 {isExpanded && (
                   <div className="space-y-1">
-                    {projects.map(project => (
-                      <button
-                        key={project.id}
-                        onClick={() => {
-                          setSelectedProject(project);
-                          setSelectedCategory(category.id);
-                        }}
-                        className={`w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
-                          ${selectedProject?.id === project.id
-                            ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
-                            : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
-                          }`}
-                      >
-                        <div className="leading-tight line-clamp-2">{project.title}</div>
-                      </button>
-                    ))}
+                    {projects.map(project => {
+                      const Icon = getCategoryIcon(project.category);
+                      return (
+                        <button
+                          key={project.id}
+                          onClick={() => {
+                            setSelectedProject(project);
+                            setSelectedCategory(category.id);
+                          }}
+                          className={`w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
+                            ${selectedProject?.id === project.id
+                              ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
+                              : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                            }`}
+                        >
+                          <div className="flex items-start gap-2">
+                            <Icon size={16} className="mt-0.5 flex-shrink-0" />
+                            <div className="leading-tight line-clamp-2">{project.title}</div>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -167,42 +198,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       </aside>
 
       {/* Middle Content Area */}
-      <main className="flex-1 overflow-y-auto">
-        {/* Breadcrumb - Always visible on mobile */}
-        <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <button 
-              onClick={() => onNavigate?.('dashboard')}
-              className="font-bold hover:text-black dark:hover:text-white transition-colors"
-            >
-              {language === 'zh' ? '主页' : 'Home'}
-            </button>
-            <span>/</span>
-            <button 
-              onClick={() => setSelectedProject(null)}
-              className={`font-bold hover:text-black dark:hover:text-white transition-colors ${!selectedProject ? 'text-black dark:text-white' : ''}`}
-            >
-              {language === 'zh' ? '作品集' : 'Portfolio'}
-            </button>
-            {selectedProject && (
-              <>
-                <span>/</span>
-                <button
-                  onClick={() => {
-                    setSelectedCategory(selectedProject.category);
-                    setSelectedProject(null);
-                  }}
-                  className="font-bold hover:text-black dark:hover:text-white transition-colors"
-                >
-                  {CATEGORY_LABELS[language][selectedProject.category]}
-                </button>
-                <span>/</span>
-                <span className="truncate">{selectedProject.title}</span>
-              </>
-            )}
-          </div>
-        </div>
-
+      <main className="flex-1 overflow-y-auto md:no-scrollbar">
         {/* Breadcrumb - Desktop only when project selected */}
         {selectedProject && (
           <div className="hidden md:flex h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 items-center">
@@ -231,14 +227,124 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
         {selectedProject ? (
           /* Project Detail View */
-          <div className="p-12">
+          <div className="p-6 md:p-12 pt-20 md:pt-6">
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
               {selectedProject.title}
             </h1>
-            <p className="text-xl text-gray-500 dark:text-gray-400 mb-8">
+            <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
               {selectedProject.description}
             </p>
+
+            {/* Mobile Project Info */}
+            <div className="lg:hidden mb-8 space-y-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl">
+              {/* Concept */}
+              {selectedProject.concept && (
+                <div>
+                  <h4 className="text-sm font-bold text-black dark:text-white mb-2">
+                    {language === 'zh' ? '设计意图 / 创意陈述' : 'Concept / Statement'}
+                  </h4>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                    {selectedProject.concept}
+                  </p>
+                </div>
+              )}
+
+              {/* Role Detail */}
+              {selectedProject.roleDetail && (
+                <div>
+                  <h4 className="text-sm font-bold text-black dark:text-white mb-2">
+                    {language === 'zh' ? '分工与职责' : 'Role & Responsibility'}
+                  </h4>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                    {selectedProject.roleDetail}
+                  </p>
+                </div>
+              )}
+
+              {/* Role */}
+              <div>
+                <h4 className="text-sm font-bold text-black dark:text-white mb-2">
+                  {language === 'zh' ? '角色' : 'Role'}
+                </h4>
+                <p className="text-sm font-bold">{selectedProject.role}</p>
+              </div>
+
+              {/* Tags */}
+              <div>
+                <h4 className="text-sm font-bold text-black dark:text-white mb-2">
+                  {language === 'zh' ? '标签' : 'Tags'}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.tags.map(tag => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 text-xs font-mono border border-gray-300 dark:border-gray-700 rounded"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Links */}
+              {(selectedProject.githubUrl || selectedProject.websiteUrl || selectedProject.figmaUrl) && (
+                <div>
+                  <h4 className="text-sm font-bold text-black dark:text-white mb-2">
+                    {language === 'zh' ? '链接' : 'Links'}
+                  </h4>
+                  <div className="space-y-2">
+                    {selectedProject.figmaUrl && (
+                      <a
+                        href={selectedProject.figmaUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 text-sm font-bold hover:underline"
+                      >
+                        <Figma size={16} />
+                        Figma
+                      </a>
+                    )}
+                    {selectedProject.githubUrl && (
+                      <a
+                        href={selectedProject.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 text-sm font-bold hover:underline"
+                      >
+                        <Github size={16} />
+                        GitHub
+                      </a>
+                    )}
+                    {selectedProject.websiteUrl && (
+                      <a
+                        href={selectedProject.websiteUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 text-sm font-bold hover:underline"
+                      >
+                        <ExternalLink size={16} />
+                        {language === 'zh' ? '在线预览' : 'Live Demo'}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Awards */}
+              {selectedProject.awards && selectedProject.awards.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-bold text-black dark:text-white mb-2">
+                    {language === 'zh' ? '奖项' : 'Awards'}
+                  </h4>
+                  <ul className="space-y-1">
+                    {selectedProject.awards.map((award, i) => (
+                      <li key={i} className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">★ {award}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
 
             {/* Gallery */}
             {currentGallery.length > 0 && (
@@ -258,15 +364,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
           </div>
         ) : (
           /* Grid View */
-          <div className="p-12">
-            <h2 className="text-3xl font-black mb-8">
-              {selectedCategory === 'All' 
-                ? (language === 'zh' ? '全部作品' : 'All Projects')
-                : CATEGORY_LABELS[language][selectedCategory]
-              }
-            </h2>
-            
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          <div className="p-6 md:p-12 pt-20 md:pt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {filteredProjects.map(project => (
                 <div
                   key={project.id}

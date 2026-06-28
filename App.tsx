@@ -9,10 +9,12 @@ import { PortfolioSection } from './components/PortfolioSection';
 import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
 import { MusicPlayer } from './components/MusicPlayer';
-import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github } from 'lucide-react';
+import { Mail, MapPin, RotateCcw, MessageSquare, Instagram, Youtube, FileText, Aperture, Github, Moon, Sun, Globe, Bomb } from 'lucide-react';
 import { NAV_ITEMS } from './src/data/navigation';
 import { CONTACT_DATA } from './src/data/contact';
 import { PORTFOLIO_PAGE_DATA } from './src/data/portfolioPage';
+import { ARTICLE_PROJECTS } from './src/data/articles';
+import { PROJECTS } from './constants';
 import { Language, Category, Project } from './types';
 
 interface ExplodedElementData {
@@ -195,15 +197,17 @@ function App() {
 
     // Selector: Target individual visible elements, avoid layout wrappers
     const selector = `
-      nav h1, nav button, nav span,
+      nav h1, nav h2, nav button, nav span,
+      aside h2, aside h3, aside h4, aside button, aside span, aside p,
       footer p,
       .rounded-\\[2rem\\]:not(.aspect-\\[4\\/3\\]),
-      main h1, main h2, main h3, main h4, main p, main span, 
+      main h1, main h2, main h3, main h4, main h5, main h6, main p, main span, 
       main svg, main button, main a, 
-      main li,
+      main li, main label,
       div[class*="border-b-2"], 
       div[class*="h-[1px]"],
-      div[class*="h-[2px]"]
+      div[class*="h-[2px]"],
+      header h1, header h2, header button, header span
     `;
     
     const candidates = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
@@ -387,95 +391,69 @@ function App() {
   const content = CONTACT_DATA[language];
 
   const renderContent = () => {
+    const allProjects = PROJECTS[language];
+    const allArticles = ARTICLE_PROJECTS.flatMap(p => p.articles);
+    
     switch (activeTab) {
       case 'dashboard':
         return (
-          <BrandingApproach 
-            language={language}
-            theme={theme}
-            onCategorySelect={handleHeroNavigation}
-            onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
-          />
+          <div className="h-full overflow-hidden">
+            <BrandingApproach 
+              language={language}
+              theme={theme}
+              onCategorySelect={handleHeroNavigation}
+              onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))}
+            />
+          </div>
         );
       case 'portfolio':
         return <PortfolioSection language={language} externalFilter={portfolioCategory} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
       case 'about':
         return (
-          <div className="flex h-screen w-full overflow-hidden">
-            <div className="flex-1 flex flex-col overflow-hidden">
-              {/* Breadcrumb */}
-              <div className="md:hidden h-14 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center flex-shrink-0">
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <button 
-                    onClick={() => startViewTransition(() => setActiveTab('dashboard'))}
-                    className="font-bold hover:text-black dark:hover:text-white transition-colors"
-                  >
-                    {language === 'zh' ? '主页' : 'Home'}
-                  </button>
-                  <span>/</span>
-                  <span className="font-bold text-black dark:text-white">{language === 'zh' ? '经历' : 'About'}</span>
-                </div>
-              </div>
-              <div className="flex-1 overflow-hidden">
-                <TimelineSection language={language} />
-              </div>
-            </div>
+          <div className="h-full overflow-hidden relative">
+            <TimelineSection language={language} />
           </div>
         );
       case 'articles':
         return <ArticleSection language={language} onNavigate={(tab) => startViewTransition(() => setActiveTab(tab))} />;
       case 'contact':
         return (
-          <div>
-            {/* Breadcrumb */}
-            <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <button 
-                  onClick={() => startViewTransition(() => setActiveTab('dashboard'))}
-                  className="font-bold hover:text-black dark:hover:text-white transition-colors"
-                >
-                  {language === 'zh' ? '主页' : 'Home'}
-                </button>
-                <span>/</span>
-                <span className="font-bold text-black dark:text-white">{language === 'zh' ? '联系' : 'Contact'}</span>
-              </div>
-            </div>
-            
-           <div className="pt-32 w-full max-w-5xl mx-auto text-center animate-fade-in px-4">
-              <h1 className="text-[12vw] font-black mb-12 leading-none text-black dark:text-white transition-colors duration-300">
+          <div className="h-full w-full flex items-center justify-center px-4 overflow-hidden">
+            <div className="w-full max-w-5xl text-center">
+              <h1 className="text-[12vw] md:text-[8vw] font-black mb-8 md:mb-12 leading-none text-black dark:text-white transition-colors duration-300">
                 {content.hello}
               </h1>
-              <p className="text-3xl text-gray-500 dark:text-gray-400 mb-20 max-w-3xl mx-auto leading-relaxed font-medium transition-colors duration-300">
+              <p className="text-lg md:text-3xl text-gray-500 dark:text-gray-400 mb-12 md:mb-20 max-w-3xl mx-auto leading-relaxed font-medium transition-colors duration-300">
                 {content.intro}
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-3xl mx-auto">
                  {/* Email */}
-                  <div className="block p-12 border-2 border-gray-100 dark:border-gray-800 rounded-[2rem] group cursor-default hover:border-orange-500 transition-colors duration-300">
-                     <Mail size={48} className="mx-auto mb-6 text-gray-400 group-hover:text-orange-500 transition-colors duration-300" />
-                     <h3 className="text-2xl font-bold mb-2 text-black dark:text-white transition-colors duration-300">
+                  <div className="block p-6 md:p-12 border-2 border-gray-100 dark:border-gray-800 rounded-2xl md:rounded-[2rem] group cursor-default hover:border-orange-500 transition-colors duration-300">
+                     <Mail size={32} className="mx-auto mb-4 md:mb-6 text-gray-400 group-hover:text-orange-500 transition-colors duration-300 md:w-12 md:h-12" />
+                     <h3 className="text-lg md:text-2xl font-bold mb-2 text-black dark:text-white transition-colors duration-300">
                        {content.emailMeLabel}
                      </h3>
-                     <p className="text-lg opacity-70 text-gray-500 dark:text-gray-400 transition-colors duration-300 select-text">
+                     <p className="text-sm md:text-lg opacity-70 text-gray-500 dark:text-gray-400 transition-colors duration-300 select-text">
                        {content.email}
                      </p>
                   </div>
 
                  {/* Socials - WeChat */}
                  <div 
-                    className="block p-12 border-2 border-gray-100 dark:border-gray-800 rounded-[2rem] hover:border-[#07C160] transition-colors duration-300 group cursor-default relative"
+                    className="block p-6 md:p-12 border-2 border-gray-100 dark:border-gray-800 rounded-2xl md:rounded-[2rem] hover:border-[#07C160] transition-colors duration-300 group cursor-default relative"
                  >
-                    <MessageSquare size={48} className="mx-auto mb-6 text-gray-400 group-hover:text-[#07C160] transition-colors duration-300" />
-                    <h3 className="text-2xl font-bold mb-2 text-black dark:text-white transition-colors duration-300">
+                    <MessageSquare size={32} className="mx-auto mb-4 md:mb-6 text-gray-400 group-hover:text-[#07C160] transition-colors duration-300 md:w-12 md:h-12" />
+                    <h3 className="text-lg md:text-2xl font-bold mb-2 text-black dark:text-white transition-colors duration-300">
                       {language === 'zh' ? '微信' : 'WeChat'}
                     </h3>
-                    <p className="text-lg opacity-70 text-gray-500 dark:text-gray-400 transition-colors duration-300 select-text">
+                    <p className="text-sm md:text-lg opacity-70 text-gray-500 dark:text-gray-400 transition-colors duration-300 select-text">
                       {content.socials?.wechat || '18857444199'}
                     </p>
                  </div>
               </div>
-           </div>
-          </div>
+            </div>
+         </div>
         )
       default:
         return (
@@ -513,6 +491,47 @@ function App() {
         </div>
       )}
 
+      {/* Unified Mobile Top Bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-40">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3">
+            <h2 className="text-base font-black uppercase">
+              {activeTab === 'dashboard' && 'HOME'}
+              {activeTab === 'portfolio' && 'WORK'}
+              {activeTab === 'articles' && 'ARTICLES'}
+              {activeTab === 'about' && 'ABOUT'}
+              {activeTab === 'contact' && 'CONTACT'}
+            </h2>
+            {activeTab === 'portfolio' && (
+              <span className="text-xs text-gray-400">{PROJECTS[language].length}</span>
+            )}
+            {activeTab === 'articles' && (
+              <span className="text-xs text-gray-400">{ARTICLE_PROJECTS.flatMap(p => p.articles).length}</span>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              onClick={toggleLanguage}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+              <Globe size={20} />
+            </button>
+            <button
+              onClick={triggerGravity}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+              <Bomb size={20} />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Sidebar Navigation */}
       <Sidebar 
         activeTab={activeTab} 
@@ -525,8 +544,14 @@ function App() {
       />
 
       {/* Main Content Area - Shifted right for sidebar */}
-      <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full pb-16 md:pb-0 ${(activeTab === 'articles' || activeTab === 'portfolio') ? '' : 'pt-16'} ${activeTab === 'dashboard' ? 'h-screen overflow-hidden' : ''} vt-page`}>
-         <div key={activeTab} className="animate-fade-in">
+      <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full pb-16 md:pb-0 ${
+        (activeTab === 'articles' || activeTab === 'portfolio') ? 'h-[calc(100vh-4rem)] md:h-screen overflow-hidden' : 
+        (activeTab === 'about') ? 'pt-14 md:pt-0 h-[calc(100vh-4rem)] md:h-screen overflow-hidden' :
+        (activeTab === 'dashboard') ? 'pt-14 md:pt-16 h-[calc(100vh-4rem)] md:h-screen overflow-hidden' :
+        (activeTab === 'contact') ? 'pt-14 md:pt-16 h-[calc(100vh-4rem)] md:h-screen overflow-hidden' :
+        'pt-14 md:pt-16'
+      } vt-page`}>
+         <div key={activeTab} className="animate-fade-in h-full">
            {renderContent()}
          </div>
       </main>

@@ -106,7 +106,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
     }
 
     return (
-      <div className="fixed inset-0 flex items-center justify-center px-4 overflow-hidden">
+      <div className="absolute md:fixed inset-0 flex items-center justify-center px-4 overflow-hidden z-50">
         <div className={`
            w-full max-w-md bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-2xl p-10 md:p-14 text-center border border-gray-100 dark:border-gray-800 relative overflow-hidden group transition-all duration-500 animate-fade-in
            ${isSuccess ? 'shadow-green-500/20 border-green-500/50 scale-105' : 'animate-message-pop'}
@@ -191,7 +191,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
   };
 
   return (
-    <div className="flex w-full h-full overflow-hidden items-center justify-center">
+    <div className="flex w-full h-full overflow-y-auto no-scrollbar items-start md:items-center justify-center py-8">
       <div className={`w-full max-w-7xl mx-auto px-4 md:px-12 relative ${isUnlocked ? 'animate-[fadeIn_0.6s_ease-out_forwards]' : ''}`}>
       
       {/* Education & Experience Section */}

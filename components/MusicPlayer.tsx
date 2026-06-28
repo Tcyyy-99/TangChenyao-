@@ -266,7 +266,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
   }, []);
 
   return (
-    <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end gap-4 pointer-events-none">
+    <div className="fixed right-6 bottom-24 md:bottom-6 z-50 flex flex-col items-end gap-4 pointer-events-none">
       
       {/* Hidden Audio Element - Always mounted */}
       <audio 

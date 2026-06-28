@@ -63,47 +63,59 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full items-stretch">
+    <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
       {/* Mobile Top Project Tabs */}
-      <div className="md:hidden bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0">
-        <div className="flex gap-2 p-4 min-w-max">
+      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+        <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           <button
             onClick={() => {
               setSelectedArticle(null);
               setShowAllArticles(true);
             }}
-            className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors
+            className={`text-sm font-bold whitespace-nowrap pb-2 border-b-2 transition-colors
               ${showAllArticles && !selectedArticle
-                ? 'bg-black dark:bg-white text-white dark:text-black'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                ? 'border-black dark:border-white text-black dark:text-white'
+                : 'border-transparent text-gray-400'
               }`}
           >
             {language === 'zh' ? '全部' : 'All'}
-            <span className="ml-2 text-xs">{allArticles.length}</span>
           </button>
-          {ARTICLE_PROJECTS.map((project) => (
-            <button
-              key={project.id}
-              onClick={() => toggleProject(project.id)}
-              className="px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
-            >
-              {project.name}
-              <span className="ml-2 text-xs">{project.articles.length}</span>
-            </button>
-          ))}
+          {ARTICLE_PROJECTS.map((project) => {
+            const isExpanded = expandedProjects.includes(project.id);
+            return (
+              <button
+                key={project.id}
+                onClick={() => toggleProject(project.id)}
+                className={`text-sm font-bold whitespace-nowrap pb-2 border-b-2 transition-colors
+                  ${isExpanded
+                    ? 'border-black dark:border-white text-black dark:text-white'
+                    : 'border-transparent text-gray-400'
+                  }`}
+              >
+                {project.name}
+              </button>
+            );
+          })}
         </div>
       </div>
       
       {/* Left Sidebar - Project Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
-        <div className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center">
+        <div 
+          onClick={() => {
+            const mainContent = document.querySelector('main.flex-1.overflow-y-auto');
+            if (mainContent) mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="h-14 px-6 border-b-2 border-gray-200 dark:border-gray-800 flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
           <h2 className="text-sm font-black uppercase tracking-tight">
-            {language === 'zh' ? '项目分类' : 'Projects'}
+            ARTICLES
           </h2>
+          <span className="text-xs text-gray-400">{allArticles.length}</span>
         </div>
 
-        <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto">
+        <nav className="h-[calc(100vh-3.5rem)] overflow-y-auto no-scrollbar">
           {/* All Articles Button */}
           <button
             onClick={() => {
@@ -177,36 +189,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
       </aside>
 
       {/* Right Content Area */}
-      <main className="flex-1 overflow-y-auto">
-        {/* Breadcrumb - Always visible on mobile */}
-        <div className="md:hidden h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-4 z-10 flex items-center">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <button 
-              onClick={() => onNavigate?.('dashboard')}
-              className="font-bold hover:text-black dark:hover:text-white transition-colors"
-            >
-              {language === 'zh' ? '主页' : 'Home'}
-            </button>
-            <span>/</span>
-            <span className={`font-bold ${!selectedArticle ? 'text-black dark:text-white' : ''}`}>
-              {language === 'zh' ? '文章' : 'Articles'}
-            </span>
-            {selectedArticle && (
-              <>
-                <span>/</span>
-                <button
-                  onClick={() => setSelectedArticle(null)}
-                  className="font-bold hover:text-black dark:hover:text-white transition-colors"
-                >
-                  {ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === selectedArticle.id))?.name}
-                </button>
-                <span>/</span>
-                <span className="truncate">{selectedArticle.title}</span>
-              </>
-            )}
-          </div>
-        </div>
-
+      <main className="flex-1 overflow-y-auto md:no-scrollbar">
         {/* Top Breadcrumb Bar - Desktop only when article selected */}
         {selectedArticle && (
           <div className="hidden md:flex h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 items-center">
@@ -225,7 +208,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
 
         {selectedArticle ? (
           /* Article Detail View */
-          <article className="max-w-4xl mx-auto p-12">
+          <article className="max-w-4xl mx-auto p-6 md:p-12 pt-20 md:pt-12">
             {/* Article Meta */}
             <div className="mb-8">
               <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
@@ -263,11 +246,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
           </article>
         ) : showAllArticles ? (
           /* Grid View - All Articles */
-          <div className="p-12">
-            <h2 className="text-3xl font-black mb-8">
-              {language === 'zh' ? '全部文章' : 'All Articles'}
-            </h2>
-            
+          <div className="p-6 md:p-12 pt-20 md:pt-12">
             <div className="space-y-4">
               {allArticles.map(article => {
                 const project = ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === article.id));
