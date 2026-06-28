@@ -21,6 +21,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
 
   const allProjects = PROJECTS[language];
   
+  // Scroll to top when project selected
+  React.useEffect(() => {
+    if (selectedProject) {
+      const mainContent = document.querySelector('main.flex-1.overflow-y-auto');
+      if (mainContent) mainContent.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [selectedProject]);
+  
   // Get icon for category
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -84,8 +92,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
   return (
     <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
-      {/* Mobile Top Category Tabs */}
-      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+      {/* Mobile Top Category Tabs - Hide when project selected */}
+      {!selectedProject && (
+        <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
         <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           {categories.map((cat) => (
             <button
@@ -105,6 +114,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
           ))}
         </div>
       </div>
+      )}
       
       {/* Left Sidebar - Category Tree */}
       <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
@@ -198,7 +208,17 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ language, ex
       </aside>
 
       {/* Middle Content Area */}
-      <main className="flex-1 overflow-y-auto md:no-scrollbar">
+      <main className="flex-1 overflow-y-auto md:no-scrollbar relative">
+        {/* Mobile Back Button - Show when project selected */}
+        {selectedProject && (
+          <button
+            onClick={() => setSelectedProject(null)}
+            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-900 rounded-full shadow-lg border-2 border-gray-200 dark:border-gray-800"
+          >
+            <ChevronLeft size={24} />
+          </button>
+        )}
+        
         {/* Breadcrumb - Desktop only when project selected */}
         {selectedProject && (
           <div className="hidden md:flex h-14 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-800 px-12 z-10 items-center">
