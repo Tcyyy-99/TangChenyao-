@@ -561,7 +561,7 @@ function App() {
       />
 
       {/* Main Content Area - Shifted right for sidebar */}
-      <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full ${
+      <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full pb-16 md:pb-0 ${
         (activeTab === 'articles' || activeTab === 'portfolio') ? 'h-[calc(100vh-7rem)] md:h-screen overflow-hidden' : 
         (activeTab === 'about') ? 'pt-14 md:pt-0 h-[calc(100vh-7rem)] md:h-screen overflow-hidden' :
         (activeTab === 'dashboard') ? 'pt-14 md:pt-16 h-[calc(100vh-7rem)] md:h-screen overflow-hidden' :
