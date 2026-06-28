@@ -8,15 +8,16 @@ import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Gl
 
 // Development Timeline for Vibe Portfolio
 const VIBE_TIMELINE = [
-  { date: '2026-06-27', title: 'DAY01 - 项目初始化', desc: '创建React+TypeScript项目，配置Tailwind CSS' },
+  { date: '2026-06-27', title: 'DAY01 - 项目规划与准备', desc: '明确项目定位，搭建开发环境，准备工具' },
   { date: '2026-06-27', title: 'DAY02 - 主页设计确立', desc: '实现圆形分支导航图，确定三栏布局架构' },
   { date: '2026-06-27', title: 'DAY03 - 作品集模块', desc: '完成作品分类展示，实现lightbox图片预览' },
   { date: '2026-06-27', title: 'DAY04 - 文章系统开发', desc: '集成react-markdown，支持MD文件渲染' },
   { date: '2026-06-27', title: 'DAY05 - 响应式优化', desc: '适配移动端布局，调整面包屑导航' },
   { date: '2026-06-27', title: 'DAY06 - 文章封面功能', desc: '实现文章封面图显示，卡片式布局' },
-  { date: '2026-06-27', title: 'DAY07 - 暗黑模式', desc: '添加时间自动切换主题，18:30-06:00深色模式' },
+  { date: '2026-06-27', title: 'DAY07 - 交互优化', desc: '完善hover状态、动效时长、触摸反馈' },
   { date: '2026-06-27', title: 'DAY08 - 布局统一', desc: '统一header高度h-14，优化三栏等高布局' },
   { date: '2026-06-27', title: 'DAY09 - 部署上线', desc: 'GitHub+Vercel自动部署，配置域名' },
+  { date: '2026-06-28', title: 'DAY10 - 移动端深度适配', desc: '修复底部导航栏高度，优化间距与viewport' },
 ];
 
 interface ArticleSectionProps {
