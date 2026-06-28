@@ -41,8 +41,14 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
   const [articleContent, setArticleContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [showAllArticles, setShowAllArticles] = useState(true);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
 
   const allArticles = ARTICLE_PROJECTS.flatMap(p => p.articles);
+  
+  // Filter articles based on selected project
+  const displayedArticles = selectedProjectId 
+    ? ARTICLE_PROJECTS.find(p => p.id === selectedProjectId)?.articles || []
+    : allArticles;
   
   // Scroll to top when article selected
   useEffect(() => {
@@ -53,11 +59,18 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
   }, [selectedArticle]);
 
   const toggleProject = (projectId: string) => {
-    setExpandedProjects(prev => 
-      prev.includes(projectId) 
-        ? prev.filter(id => id !== projectId)
-        : [...prev, projectId]
-    );
+    const isExpanded = expandedProjects.includes(projectId);
+    
+    if (isExpanded) {
+      // Collapse: remove from expanded list
+      setExpandedProjects(prev => prev.filter(id => id !== projectId));
+    } else {
+      // Expand: add to expanded list and show articles
+      setExpandedProjects(prev => [...prev, projectId]);
+      setSelectedProjectId(projectId);
+      setShowAllArticles(false);
+      setSelectedArticle(null);
+    }
   };
 
   const loadArticle = async (article: ArticleItem) => {
@@ -134,9 +147,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
             onClick={() => {
               setSelectedArticle(null);
               setShowAllArticles(true);
+              setSelectedProjectId(null);
             }}
             className={`text-sm font-bold whitespace-nowrap pb-2 border-b-2 transition-colors
-              ${showAllArticles && !selectedArticle
+              ${showAllArticles && !selectedProjectId
                 ? 'border-black dark:border-white text-black dark:text-white'
                 : 'border-transparent text-gray-400'
               }`}
@@ -144,13 +158,17 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
             {language === 'zh' ? '全部' : 'All'}
           </button>
           {ARTICLE_PROJECTS.map((project) => {
-            const isExpanded = expandedProjects.includes(project.id);
+            const isSelected = selectedProjectId === project.id;
             return (
               <button
                 key={project.id}
-                onClick={() => toggleProject(project.id)}
+                onClick={() => {
+                  setSelectedProjectId(project.id);
+                  setShowAllArticles(false);
+                  setSelectedArticle(null);
+                }}
                 className={`text-sm font-bold whitespace-nowrap pb-2 border-b-2 transition-colors
-                  ${isExpanded
+                  ${isSelected
                     ? 'border-black dark:border-white text-black dark:text-white'
                     : 'border-transparent text-gray-400'
                   }`}
@@ -184,9 +202,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
             onClick={() => {
               setSelectedArticle(null);
               setShowAllArticles(true);
+              setSelectedProjectId(null);
             }}
             className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
-              ${showAllArticles && !selectedArticle
+              ${showAllArticles && !selectedProjectId
                 ? 'bg-black dark:bg-white text-white dark:text-black'
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
               }`}
@@ -307,11 +326,11 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
               </div>
             )}
           </article>
-        ) : showAllArticles ? (
-          /* Grid View - All Articles */
+        ) : (
+          /* Grid View - Filtered or All Articles */
           <div className="p-6 md:p-12 pt-24 pb-16 md:pt-12 md:pb-12">
             <div className="space-y-4">
-              {allArticles.map(article => {
+              {displayedArticles.map(article => {
                 const project = ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === article.id));
                 return (
                   <div
@@ -350,14 +369,6 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 );
               })}
             </div>
-          </div>
-        ) : (
-          // Empty State
-          <div className="h-full flex flex-col items-center justify-center text-gray-400">
-            <FileText size={64} className="mb-4 opacity-20" />
-            <p className="text-xl font-medium">
-              {language === 'zh' ? '选择左侧文章开始阅读' : 'Select an article from the left to start reading'}
-            </p>
           </div>
         )}
       </main>
