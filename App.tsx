@@ -562,12 +562,18 @@ function App() {
 
       {/* Main Content Area - Shifted right for sidebar */}
       <main className={`md:ml-40 md:w-[calc(100%-10rem)] w-full ${
-        (activeTab === 'articles' || activeTab === 'portfolio') ? 'h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' : 
-        (activeTab === 'about') ? 'pt-14 md:pt-0 h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' :
-        (activeTab === 'dashboard') ? 'pt-14 md:pt-16 h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' :
-        (activeTab === 'contact') ? 'pt-14 md:pt-16 h-[calc(100vh-3.5rem)] md:h-screen overflow-hidden' :
+        (activeTab === 'articles' || activeTab === 'portfolio') ? 'md:h-screen overflow-hidden' : 
+        (activeTab === 'about') ? 'pt-14 md:pt-0 md:h-screen overflow-hidden' :
+        (activeTab === 'dashboard') ? 'pt-14 md:pt-16 md:h-screen overflow-hidden' :
+        (activeTab === 'contact') ? 'pt-14 md:pt-16 md:h-screen overflow-hidden' :
         'pt-14 md:pt-16'
-      } vt-page`}>
+      } vt-page`}
+      style={{
+        height: (activeTab === 'articles' || activeTab === 'portfolio' || activeTab === 'about' || activeTab === 'dashboard' || activeTab === 'contact') 
+          ? 'calc(100dvh - 3.5rem)' 
+          : undefined
+      }}
+      >
          <div key={activeTab} className="animate-fade-in h-full">
            {renderContent()}
          </div>
