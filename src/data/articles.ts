@@ -20,6 +20,7 @@ export const ARTICLES_PAGE_DATA: Record<Language, ArticlesPageContent> = {
 export interface ArticleProject {
   id: string;
   name: string;
+  nameZh: string; // Chinese name
   articles: ArticleItem[];
 }
 
@@ -35,6 +36,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
   {
     id: 'game-ux',
     name: 'GAME UX',
+    nameZh: '游戏UX分析',
     articles: [
       {
         id: 'simulation-management-ux',
@@ -118,19 +120,28 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
   {
     id: 'vibecoding',
     name: 'Vibe Portfolio',
+    nameZh: 'Vibe作品集',
     articles: [
       {
-        id: 'codemaker-tutorial',
-        title: '0-1制作上线个人网站日志',
+        id: 'vibe-day01',
+        title: 'DAY01 - 项目初始化与架构搭建',
         date: '2026-06-27',
-        contentPath: '/articles/Vibecoding portfolio/codemaker-tutorial.md',
-        coverImage: '/images/articles/codemaker-tutorial/cover.png'
+        contentPath: '/articles/Vibecoding portfolio/day01.md',
+        coverImage: '/images/articles/vibe-day01/cover.png'
+      },
+      {
+        id: 'vibe-day02',
+        title: 'DAY02 - 移动端适配与响应式优化',
+        date: '2026-06-28',
+        contentPath: '/articles/Vibecoding portfolio/day02.md',
+        coverImage: '/images/articles/vibe-day02/cover.png'
       }
     ]
   },
   {
     id: 'digital-twin',
     name: 'DigitalTwin',
+    nameZh: '数字孪生',
     articles: [
       {
         id: 'transformer-digital-twin',

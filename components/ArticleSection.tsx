@@ -154,9 +154,9 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                     ? 'border-black dark:border-white text-black dark:text-white'
                     : 'border-transparent text-gray-400'
                   }`}
-              >
-                {project.name}
-              </button>
+                >
+                  {language === 'zh' ? project.nameZh : project.name}
+                </button>
             );
           })}
         </div>
@@ -208,7 +208,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-base font-bold text-black dark:text-white">
-                      {project.name}
+                      {language === 'zh' ? project.nameZh : project.name}
                     </span>
                     <span className="text-xs text-gray-400 font-mono">
                       ({project.articles.length})
