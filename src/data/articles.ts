@@ -123,13 +123,6 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
     nameZh: 'Vibe作品集',
     articles: [
       {
-        id: 'codemaker-tutorial',
-        title: '0-1制作上线个人网站教程丨保姆级💓',
-        date: '2026-06-27',
-        contentPath: '/articles/Vibecoding portfolio/codemaker-tutorial.md',
-        coverImage: '/images/articles/codemaker-tutorial/cover.png'
-      },
-      {
         id: 'vibe-day01',
         title: 'DAY01 - 项目规划与准备',
         date: '2026-06-27',
