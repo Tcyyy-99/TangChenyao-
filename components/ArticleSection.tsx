@@ -309,7 +309,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
           </article>
         ) : showAllArticles ? (
           /* Grid View - All Articles */
-          <div className="p-6 md:p-12 pb-2 md:pb-12">
+          <div className="p-6 md:p-12 pt-24 pb-8 md:pt-12 md:pb-12">
             <div className="space-y-4">
               {allArticles.map(article => {
                 const project = ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === article.id));
