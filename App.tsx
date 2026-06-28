@@ -491,8 +491,9 @@ function App() {
         </div>
       )}
 
-      {/* Unified Mobile Top Bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-40">
+      {/* Unified Mobile Top Bar - Hide on portfolio page */}
+      {activeTab !== 'portfolio' && (
+        <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-40">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <h2 className="text-base font-black uppercase">
@@ -531,6 +532,7 @@ function App() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Sidebar Navigation */}
       <Sidebar 
