@@ -66,7 +66,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
     <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
       {/* Mobile Top Project Tabs */}
-      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0">
+      <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
         <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           <button
             onClick={() => {
@@ -208,7 +208,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
 
         {selectedArticle ? (
           /* Article Detail View */
-          <article className="max-w-4xl mx-auto p-6 md:p-12 pt-6 md:pt-12">
+          <article className="max-w-4xl mx-auto p-6 md:p-12 pt-20 md:pt-12">
             {/* Article Meta */}
             <div className="mb-8">
               <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
@@ -246,7 +246,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, onNavi
           </article>
         ) : showAllArticles ? (
           /* Grid View - All Articles */
-          <div className="p-6 md:p-12 pt-6 md:pt-12 pb-2 md:pb-12">
+          <div className="p-6 md:p-12 pt-20 md:pt-12 pb-2 md:pb-12">
             <div className="space-y-4">
               {allArticles.map(article => {
                 const project = ARTICLE_PROJECTS.find(p => p.articles.some(a => a.id === article.id));
