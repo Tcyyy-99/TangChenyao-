@@ -105,7 +105,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     {/* Mobile Bottom Navigation */}
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t-2 border-gray-200 dark:border-gray-800 z-50 safe-area-inset-bottom">
-      <div className="flex justify-around items-center h-16">
+      <div className="flex justify-around items-center h-14">
         {items.map((item) => {
           const isActive = activeTab === item.id;
           return (
