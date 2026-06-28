@@ -259,7 +259,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       </aside>
 
       {/* Middle Content Area */}
-      <main className="flex-1 overflow-y-auto md:no-scrollbar pt-28 md:pt-0">
+      <main className="flex-1 overflow-y-auto md:no-scrollbar">
         
         {/* Breadcrumb - Desktop only when project selected */}
         {selectedProject && (
@@ -289,7 +289,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
         {selectedProject ? (
           /* Project Detail View */
-          <div className="p-6 md:p-12 pt-20 md:pt-6">
+          <div className="p-6 md:p-12">
             {/* Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
               {selectedProject.title}
@@ -427,7 +427,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </div>
         ) : (
           /* Grid View */
-          <div className="p-6 md:p-12 pt-20 md:pt-12 pb-0 md:pb-12">
+          <div className="p-6 md:p-12 pb-0 md:pb-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 pb-4">
               {filteredProjects.map(project => (
                 <div
