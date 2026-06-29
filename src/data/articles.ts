@@ -36,7 +36,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
   {
     id: 'game-ux',
     name: 'GAME UX',
-    nameZh: '游戏UX分析',
+    nameZh: '游戏分析',
     articles: [
       {
         id: 'simulation-management-ux',
