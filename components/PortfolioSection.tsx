@@ -41,31 +41,46 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     let touchStartY = 0;
     let touchEndX = 0;
     let touchEndY = 0;
+    let isSwiping = false;
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
+      isSwiping = touchStartX < 80; // Detect edge swipe
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (!isSwiping) return;
+      
       touchEndX = e.touches[0].clientX;
       touchEndY = e.touches[0].clientY;
-    };
-
-    const handleTouchEnd = () => {
-      // Check if swipe started from left edge (<50px) and moved right (>100px)
+      
       const deltaX = touchEndX - touchStartX;
       const deltaY = Math.abs(touchEndY - touchStartY);
       
-      if (touchStartX < 50 && deltaX > 100 && deltaY < 50) {
-        // Swipe from left edge to right - go back
-        setSelectedProject(null);
+      // If swiping right and mostly horizontal, prevent scroll
+      if (deltaX > 10 && deltaY < 100) {
+        e.preventDefault();
       }
     };
 
-    document.addEventListener('touchstart', handleTouchStart);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
+    const handleTouchEnd = () => {
+      if (!isSwiping) return;
+      
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = Math.abs(touchEndY - touchStartY);
+      
+      // Swipe right > 80px and mostly horizontal
+      if (deltaX > 80 && deltaY < 100) {
+        setSelectedProject(null);
+      }
+      
+      isSwiping = false;
+    };
+
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       document.removeEventListener('touchstart', handleTouchStart);
