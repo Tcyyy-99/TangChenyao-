@@ -33,6 +33,47 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
   const allProjects = PROJECTS[language];
   
+  // Mobile swipe back gesture
+  useEffect(() => {
+    if (!selectedProject || window.innerWidth >= 768) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      touchEndX = e.touches[0].clientX;
+      touchEndY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = () => {
+      // Check if swipe started from left edge (<50px) and moved right (>100px)
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = Math.abs(touchEndY - touchStartY);
+      
+      if (touchStartX < 50 && deltaX > 100 && deltaY < 50) {
+        // Swipe from left edge to right - go back
+        setSelectedProject(null);
+      }
+    };
+
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [selectedProject]);
+  
   // Scroll to top when project selected
   React.useEffect(() => {
     if (selectedProject) {
