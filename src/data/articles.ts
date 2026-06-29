@@ -47,7 +47,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
       },
       {
         id: 'zelda-botw-ux',
-        title: '开放世界游戏UX分析',
+        title: '开放世界游戏分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/zelda-botw-ux-analysis.md',
         coverImage: '/images/articles/zelda-botw-ux/cover.png'
@@ -82,28 +82,28 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
       },
       {
         id: 'splatoon3-brand',
-        title: '喷射战士品牌设计分析',
+        title: '喷射战士品牌分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/splatoon3-brand-design.md',
         coverImage: '/images/articles/splatoon3-brand/cover.png'
       },
       {
         id: 'animal-crossing-social',
-        title: '动物森友会社交设计分析',
+        title: '动物森友会社交分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/animal-crossing-social-design.md',
         coverImage: '/images/articles/animal-crossing-social/cover.png'
       },
       {
         id: 'stardew-valley',
-        title: '星露谷物语设计分析',
+        title: '星露谷物语机制分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/stardew-valley-design-analysis.md',
         coverImage: '/images/articles/stardew-valley/cover.png'
       },
       {
         id: 'yanyun16-photo',
-        title: '燕云十六声拍照功能设计',
+        title: '燕云十六声机制分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/yanyun16-photo-design.md',
         coverImage: '/images/articles/yanyun16-photo/cover.png'
