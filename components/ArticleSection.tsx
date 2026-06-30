@@ -373,11 +373,13 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 <p className="mt-4">{language === 'zh' ? '加载中...' : 'Loading...'}</p>
               </div>
             ) : (
-              <div className="prose prose-lg dark:prose-invert max-w-none 
+              <div className="prose dark:prose-invert max-w-none 
                 [&_pre]:bg-white [&_pre]:dark:bg-black 
                 [&_pre]:border-2 [&_pre]:border-black 
                 [&_pre]:dark:border-white
-                [&_pre_code]:text-black [&_pre_code]:dark:text-white">
+                [&_pre_code]:text-black [&_pre_code]:dark:text-white
+                [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-xl
+                [&_p]:leading-relaxed [&_li]:leading-relaxed">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {articleContent}
                 </ReactMarkdown>
