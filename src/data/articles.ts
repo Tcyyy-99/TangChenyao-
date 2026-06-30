@@ -61,7 +61,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
       },
       {
         id: 'lok-kingdom-ux',
-        title: '捉宠品类游戏UX分析',
+        title: '洛克王国手游分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/lok-kingdom-ux-analysis.md',
         coverImage: '/images/articles/lok-kingdom-ux/cover.png'
@@ -103,7 +103,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
       },
       {
         id: 'yanyun16-photo',
-        title: '燕云十六声机制分析',
+        title: '燕云十六声分析',
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/yanyun16-photo-design.md',
         coverImage: '/images/articles/yanyun16-photo/cover.png'
