@@ -641,6 +641,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               alt="Full View"
               className="max-w-full max-h-[90vh] object-contain"
               referrerPolicy="no-referrer"
+              loading="lazy"
             />
             
             <button
