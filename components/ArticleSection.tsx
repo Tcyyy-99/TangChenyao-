@@ -379,7 +379,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 [&_pre]:dark:border-white
                 [&_pre_code]:text-black [&_pre_code]:dark:text-white
                 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-xl
-                [&_p]:leading-relaxed [&_li]:leading-relaxed">
+                [&_p]:leading-relaxed [&_li]:leading-relaxed
+                [&_table]:my-4 [&_tr]:border-0">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {articleContent}
                 </ReactMarkdown>
