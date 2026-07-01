@@ -473,6 +473,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   className="w-full h-[600px] md:h-[800px] border-2 border-gray-200 dark:border-gray-800 rounded-lg"
                   title={selectedProject.title}
                   sandbox="allow-scripts allow-same-origin"
+                  loading="lazy"
                 />
               </div>
             ) : currentGallery.length > 0 ? (
