@@ -464,8 +464,19 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               )}
             </div>
 
-            {/* Gallery */}
-            {currentGallery.length > 0 && (
+            {/* HTML Embed or Gallery */}
+            {selectedProject.htmlUrl ? (
+              /* HTML Page Embed */
+              <div className="mb-12">
+                <iframe
+                  src={selectedProject.htmlUrl}
+                  className="w-full h-[600px] md:h-[800px] border-2 border-gray-200 dark:border-gray-800 rounded-lg"
+                  title={selectedProject.title}
+                  sandbox="allow-scripts allow-same-origin"
+                />
+              </div>
+            ) : currentGallery.length > 0 ? (
+              /* Image Gallery */
               <div className="space-y-4 mb-12">
                 {currentGallery.map((img, idx) => (
                   <img
@@ -479,7 +490,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   />
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
         ) : (
           /* Grid View */

@@ -49,6 +49,7 @@ export interface Project {
   websiteUrl?: string; // Online preview URL
   githubUrl?: string; // GitHub repository URL
   icon?: string; // Icon name for Dev projects
+  htmlUrl?: string; // Local HTML page path for iframe embedding
 }
 
 export interface Experience {
