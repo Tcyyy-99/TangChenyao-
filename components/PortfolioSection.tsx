@@ -485,6 +485,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     src={img}
                     alt={`${selectedProject.title} ${idx + 1}`}
                     loading="lazy"
+                    decoding="async"
                     className="w-full rounded-lg shadow-md cursor-zoom-in hover:shadow-xl transition-shadow"
                     referrerPolicy="no-referrer"
                     onClick={() => setLightboxIndex(idx)}
@@ -509,6 +510,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                         src={project.image}
                         alt={project.title}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     )}

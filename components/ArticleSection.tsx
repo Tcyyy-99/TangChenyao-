@@ -385,7 +385,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    img: ({node, ...props}) => <img {...props} loading="lazy" />
+                    img: ({node, ...props}) => <img {...props} loading="lazy" decoding="async" />
                   }}
                 >
                   {articleContent}
