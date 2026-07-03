@@ -120,7 +120,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         title: '商业化交互设计总结',
         date: '2026-07-03',
         contentPath: '/articles/GAME UX/commercialization-design.md',
-        coverImage: '/images/articles/codemaker-tutorial/cover.png'
+        coverImage: '/images/articles/commercialization-design/cover.png'
       }
     ]
   },
