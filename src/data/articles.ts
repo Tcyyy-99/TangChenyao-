@@ -114,6 +114,13 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         date: '2026-06-27',
         contentPath: '/articles/GAME UX/star-friends-ux-analysis.md',
         coverImage: '/images/articles/star-friends-ux/cover.png'
+      },
+      {
+        id: 'commercialization-design',
+        title: '商业化交互设计总结',
+        date: '2026-07-03',
+        contentPath: '/articles/GAME UX/commercialization-design.md',
+        coverImage: '/images/articles/codemaker-tutorial/cover.png'
       }
     ]
   },
