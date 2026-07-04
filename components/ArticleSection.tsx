@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
 import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Globe, Zap } from 'lucide-react';
@@ -47,9 +48,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
   const allArticles = ARTICLE_PROJECTS.flatMap(p => p.articles);
   
   // Filter articles based on selected project
-  const displayedArticles = selectedProjectId 
+  const displayedArticles = (selectedProjectId 
     ? ARTICLE_PROJECTS.find(p => p.id === selectedProjectId)?.articles || []
-    : allArticles;
+    : allArticles
+  ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Sort by date descending
   
   // Mobile swipe back gesture
   useEffect(() => {
@@ -384,6 +386,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 [&_img]:w-full [&_img]:rounded-lg">
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
                   components={{
                     img: ({node, ...props}) => <img {...props} loading="lazy" decoding="async" />
                   }}
