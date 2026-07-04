@@ -124,7 +124,7 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
       },
       {
         id: 'g136-internship',
-        title: 'G136实习总结',
+        title: '《灵兽大冒险》实习总结',
         date: '2026-07-04',
         contentPath: '/articles/GAME UX/g136-internship-summary.md',
         coverImage: '/images/articles/commercialization-design/cover.png'
