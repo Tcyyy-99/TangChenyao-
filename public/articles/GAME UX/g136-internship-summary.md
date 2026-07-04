@@ -4,36 +4,144 @@
 
 ### 活动分类汇总
 
-| 活动大类 | 子活动/需求 | 几字概括（策划本质） |
-|---------|-----------|-------------------|
-| **端午活动** | 签到战令 | 登录留存+付费解锁 |
-|  | 粽粽乐（跳跳乐） | 骰子棋盘消耗抽奖 |
-|  | 转盘抽奖 | 概率付费竞猜 |
-|  | 登高望春（组队打卡） | 社交绑定+场景探索 |
-|  | 妖邪现世（世界Boss） | 分难度组队挑战+首通竞速 |
-|  | 一条龙礼包+兑换商店 | 消费阶梯+代币兑换 |
-| **世界杯** | 助威球队 | 下注站队+赔率博弈 |
-|  | 赛事竞猜 | 轻量竞猜+社交传播 |
-|  | 一球成名（转盘） | 概率付费竞猜 |
-|  | 绿茵商城 | 活动代币消耗出口 |
-|  | 豪门试炼 | PVE副本消耗体力 |
-| **大话联动** | 多分支剧情 | 沉浸叙事+重复消费解锁 |
-| **周年庆活动** | 长安纪念（打卡拍照） | 情感留存+社交裂变 |
-|  | 坊间轶闻（收集线索） | 探索解谜+NPC互动 |
-|  | 灵兽躲猫猫 | 场景探索+收集驱动 |
-|  | 灵兽升阶（龙太子养成） | 长线养成+付费加速 |
-|  | 武擂竞猜（Boss对决） | 观赛竞猜+社交排行 |
-|  | 入梦敦煌 | 沉浸剧情+限时答题 |
-| **夏日活动** | 夏日小队（组队等级） | 社交绑定+消费激励 |
-|  | 小队狩猎（Boss竞速） | 组队挑战+伤害排行内卷 |
-|  | 换装巡游 | 轻量氛围+外观展示 |
-|  | 兑换活动 | 任务产出+分层兑换+付费补差 |
-|  | 转盘+商店+战令（复用） | 标准商业化三件套 |
-| **宠物系统** | 稀有宠活动 | 限定宠物+付费养成 |
-|  | 超级技能书碎片 | 合成消耗+摆摊流通 |
-| **玩法界面** | 五灵斗法 | PVP竞技+赛季排名 |
-| **赛事** | 御兽联赛 | 淘汰赛制+观赛竞猜 |
-|  | 赛事总览 | 赛事聚合入口+名人堂 |
+<table>
+  <thead>
+    <tr>
+      <th>活动大类</th>
+      <th>子活动/需求</th>
+      <th>几字概括（策划本质）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="6" style="vertical-align: middle; font-weight: bold;">端午活动</td>
+      <td>签到战令</td>
+      <td>登录留存+付费解锁</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>粽粽乐（跳跳乐）</td>
+      <td>骰子棋盘消耗抽奖</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>转盘抽奖</td>
+      <td>概率付费竞猜</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>登高望春（组队打卡）</td>
+      <td>社交绑定+场景探索</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>妖邪现世（世界Boss）</td>
+      <td>分难度组队挑战+首通竞速</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>一条龙礼包+兑换商店</td>
+      <td>消费阶梯+代币兑换</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="5" style="vertical-align: middle; font-weight: bold;">世界杯</td>
+      <td>助威球队</td>
+      <td>下注站队+赔率博弈</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>赛事竞猜</td>
+      <td>轻量竞猜+社交传播</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>一球成名（转盘）</td>
+      <td>概率付费竞猜</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>绿茵商城</td>
+      <td>活动代币消耗出口</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>豪门试炼</td>
+      <td>PVE副本消耗体力</td>
+    </tr>
+    
+    <tr style="border-bottom: 3px solid #000;">
+      <td style="vertical-align: middle; font-weight: bold;">大话联动</td>
+      <td>多分支剧情</td>
+      <td>沉浸叙事+重复消费解锁</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="6" style="vertical-align: middle; font-weight: bold;">周年庆活动</td>
+      <td>长安纪念（打卡拍照）</td>
+      <td>情感留存+社交裂变</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>坊间轶闻（收集线索）</td>
+      <td>探索解谜+NPC互动</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>灵兽躲猫猫</td>
+      <td>场景探索+收集驱动</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>灵兽升阶（龙太子养成）</td>
+      <td>长线养成+付费加速</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>武擂竞猜（Boss对决）</td>
+      <td>观赛竞猜+社交排行</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>入梦敦煌</td>
+      <td>沉浸剧情+限时答题</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="5" style="vertical-align: middle; font-weight: bold;">夏日活动</td>
+      <td>夏日小队（组队等级）</td>
+      <td>社交绑定+消费激励</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>小队狩猎（Boss竞速）</td>
+      <td>组队挑战+伤害排行内卷</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>换装巡游</td>
+      <td>轻量氛围+外观展示</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>兑换活动</td>
+      <td>任务产出+分层兑换+付费补差</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>转盘+商店+战令（复用）</td>
+      <td>标准商业化三件套</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="2" style="vertical-align: middle; font-weight: bold;">宠物系统</td>
+      <td>稀有宠活动</td>
+      <td>限定宠物+付费养成</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>超级技能书碎片</td>
+      <td>合成消耗+摆摊流通</td>
+    </tr>
+    
+    <tr style="border-bottom: 3px solid #000;">
+      <td style="vertical-align: middle; font-weight: bold;">玩法界面</td>
+      <td>五灵斗法</td>
+      <td>PVP竞技+赛季排名</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="2" style="vertical-align: middle; font-weight: bold;">赛事</td>
+      <td>御兽联赛</td>
+      <td>淘汰赛制+观赛竞猜</td>
+    </tr>
+    <tr>
+      <td>赛事总览</td>
+      <td>赛事聚合入口+名人堂</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -60,22 +168,82 @@
 
 在活动设计之外，大量工作是对现有系统的交互优化。以下是实际落地的优化方向：
 
-| 改进方向 | 具体落地（设计稿中） | 几字概括（设计本质） |
-|---------|-------------------|-------------------|
-| **操作断点修复** | 登高望春打卡成功→「前往下一处」引导 | 续接行为链 |
-|  | 超级技能书碎片缺物→「前往获取」跳转 | 死胡同接路 |
-| **减少操作步骤** | 签到战令「一键领取」 | 批量效率化 |
-|  | 小队狩猎/妖邪现世「快捷组队」 | 步骤折叠 |
-|  | 粽粽乐「我的位置」聚焦 | 缩短寻路 |
-| **实时反馈增强** | 武擂竞猜赔率进度条可视化 | 信息实时可见 |
-|  | 赛事竞猜下注赔率预览 | 决策前置透出 |
-|  | 五灵斗法竞猜→观战→录像状态自动切换 | 状态无感流转 |
-| **进度可视化** | 夏日小队等级经验条 | 目标距离可感 |
-|  | 小队狩猎伤害档位进度条 | 成就梯度外化 |
-|  | 灵兽升阶品阶节点路径 | 养成路径地图化 |
-| **入口快捷跳转** | 夏日小队→前往转盘/前往战令 | 缩短跨模块路径 |
-|  | 五灵斗法竞猜商店活动后保留入口 | 延长消耗窗口 |
-|  | 消费贡献面板内嵌跳转 | 就近转化 |
+<table>
+  <thead>
+    <tr>
+      <th>改进方向</th>
+      <th>具体落地（设计稿中）</th>
+      <th>几字概括（设计本质）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="2" style="vertical-align: middle; font-weight: bold;">操作断点修复</td>
+      <td>登高望春打卡成功→「前往下一处」引导</td>
+      <td>续接行为链</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>超级技能书碎片缺物→「前往获取」跳转</td>
+      <td>死胡同接路</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="3" style="vertical-align: middle; font-weight: bold;">减少操作步骤</td>
+      <td>签到战令「一键领取」</td>
+      <td>批量效率化</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>小队狩猎/妖邪现世「快捷组队」</td>
+      <td>步骤折叠</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>粽粽乐「我的位置」聚焦</td>
+      <td>缩短寻路</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="3" style="vertical-align: middle; font-weight: bold;">实时反馈增强</td>
+      <td>武擂竞猜赔率进度条可视化</td>
+      <td>信息实时可见</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>赛事竞猜下注赔率预览</td>
+      <td>决策前置透出</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>五灵斗法竞猜→观战→录像状态自动切换</td>
+      <td>状态无感流转</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="3" style="vertical-align: middle; font-weight: bold;">进度可视化</td>
+      <td>夏日小队等级经验条</td>
+      <td>目标距离可感</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>小队狩猎伤害档位进度条</td>
+      <td>成就梯度外化</td>
+    </tr>
+    <tr style="border-bottom: 3px solid #000;">
+      <td>灵兽升阶品阶节点路径</td>
+      <td>养成路径地图化</td>
+    </tr>
+    
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td rowspan="3" style="vertical-align: middle; font-weight: bold;">入口快捷跳转</td>
+      <td>夏日小队→前往转盘/前往战令</td>
+      <td>缩短跨模块路径</td>
+    </tr>
+    <tr style="border-bottom: 2px solid #ddd;">
+      <td>五灵斗法竞猜商店活动后保留入口</td>
+      <td>延长消耗窗口</td>
+    </tr>
+    <tr>
+      <td>消费贡献面板内嵌跳转</td>
+      <td>就近转化</td>
+    </tr>
+  </tbody>
+</table>
 
 ### UX优化方法论
 
