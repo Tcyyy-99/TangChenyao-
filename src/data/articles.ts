@@ -121,6 +121,13 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         date: '2026-07-03',
         contentPath: '/articles/GAME UX/commercialization-design.md',
         coverImage: '/images/articles/commercialization-design/cover.png'
+      },
+      {
+        id: 'g136-internship',
+        title: 'G136实习总结',
+        date: '2026-07-04',
+        contentPath: '/articles/GAME UX/g136-internship-summary.md',
+        coverImage: '/images/articles/commercialization-design/cover.png'
       }
     ]
   },
