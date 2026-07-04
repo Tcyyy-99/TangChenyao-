@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
 import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Globe, Zap } from 'lucide-react';
@@ -386,7 +385,6 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 [&_img]:w-full [&_img]:rounded-lg">
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw]}
                   components={{
                     img: ({node, ...props}) => <img {...props} loading="lazy" decoding="async" />
                   }}
