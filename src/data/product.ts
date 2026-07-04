@@ -286,10 +286,14 @@ export const PRODUCT_DATA: Project[] = [
     common: {
       category: 'Product Design',
       image: '/covers/product design/mech appearance/01.png',
-      gallery: Array.from({length: 1}, (_, i) => `/covers/product design/mech appearance/${String(i + 1).padStart(2, '0')}.png`)
+      gallery: [
+        '/covers/product design/mech appearance/01.png',
+        '/covers/product design/mech appearance/02.png',
+        '/covers/product design/mech appearance/03.gif'
+      ]
     },
     zh: {
-      title: '硕士期间机械类外观设计',
+      title: '机械外观设计汇总',
       subtitle: '研究生课程项目',
       description: '面向工业机械设备的造型语言与外观方案设计',
       role: '外观设计师',
