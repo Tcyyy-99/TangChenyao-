@@ -280,5 +280,33 @@ export const PRODUCT_DATA: Project[] = [
       concept: "A complete international chess set based on the Wicked dual-heroine IP. Chess pieces correspond to characters from the play, with original exclusive gameplay rules. Inspired by the friendship of the two female leads, the board and pieces design aligns with character personas. Original four-square central peace zone rule: pieces reaching this area gain immunity from a single attack, effective only once per game, echoing their mutual protection bond.",
       roleDetail: "Completed board and complete chess piece design, designed new combat mechanics combining character stories, and delivered the complete solution."
     }
+  },
+  {
+    id: 'prod-11',
+    common: {
+      category: 'Product Design',
+      image: '/covers/product design/mech appearance/01.png',
+      gallery: Array.from({length: 1}, (_, i) => `/covers/product design/mech appearance/${String(i + 1).padStart(2, '0')}.png`)
+    },
+    zh: {
+      title: '硕士期间机械类外观设计',
+      subtitle: '研究生课程项目',
+      description: '面向工业机械设备的造型语言与外观方案设计',
+      role: '外观设计师',
+      tags: ['机械设计', '外观造型', '工业设计', 'CMF'],
+      awards: ['无'],
+      concept: "围绕机械类产品的外观造型展开设计研究，从功能结构出发推导造型语言，结合人机交互与品牌识别，在保证机械功能性的前提下提升产品的视觉表达与使用体验，输出完整的造型方案与渲染展示。",
+      roleDetail: "独立完成机械产品调研、造型发散、CMF方案推敲与渲染出图。"
+    },
+    en: {
+      title: 'Mechanical Product Appearance Design',
+      subtitle: 'Postgraduate Course Project',
+      description: 'Form language and exterior design for industrial mechanical equipment',
+      role: 'Appearance Designer',
+      tags: ['Mechanical Design', 'Form Design', 'Industrial Design', 'CMF'],
+      awards: ['None'],
+      concept: "Design research centered on the exterior form of mechanical products. Starting from functional structure to derive the form language, combined with ergonomics and brand identity, the design enhances visual expression and user experience while maintaining mechanical functionality, delivering a complete form solution and renderings.",
+      roleDetail: "Independently completed mechanical product research, form ideation, CMF refinement and rendering."
+    }
   }
 ];
