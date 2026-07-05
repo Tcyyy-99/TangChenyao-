@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { PROJECTS, CATEGORY_LABELS } from '../constants'; 
 import { Category, Language, Project } from '../types';
 import { PHOTOGRAPHY_GALLERY } from '../src/data/photography';
-import { ArrowUpRight, X, ChevronRight, ChevronDown, FileText, Github, ExternalLink, ChevronLeft, Figma, MousePointer2, Package, Search, Grid3x3, Moon, Sun, Globe, Zap } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, Github, ExternalLink, ChevronLeft, Figma, Moon, Sun, Globe, Zap } from 'lucide-react';
 
 interface PortfolioSectionProps {
   language: Language;
@@ -97,22 +97,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     }
   }, [selectedProject]);
   
-  // Get icon for category
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case Category.INTERACTION:
-        return MousePointer2;
-      case Category.PRODUCT:
-        return Package;
-      case Category.RESEARCH:
-        return Search;
-      case Category.OTHERS:
-        return Grid3x3;
-      default:
-        return FileText;
-    }
-  };
-  
   // Get categories with project counts
   const categories = [
     { id: 'All', label: CATEGORY_LABELS[language]['All'], count: allProjects.length },
@@ -128,9 +112,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   }, []);
 
   const toggleCategory = (catId: string) => {
-    setExpandedCategories(prev => 
-      prev.includes(catId) ? prev.filter(id => id !== catId) : [...prev, catId]
+    setExpandedCategories(prev =>
+      prev.includes(catId) ? [] : [catId]
     );
+    setSelectedCategory(catId);
+    setSelectedProject(null);
   };
 
   const filteredProjects = selectedCategory === 'All' 
@@ -247,6 +233,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             onClick={() => {
               setSelectedCategory('All');
               setSelectedProject(null);
+              setExpandedCategories([]);
             }}
             className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
               ${selectedCategory === 'All' && !selectedProject
@@ -282,10 +269,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                 </button>
 
-                {isExpanded && (
+                <div className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
                   <div className="space-y-1">
                     {projects.map(project => {
-                      const Icon = getCategoryIcon(project.category);
                       return (
                         <button
                           key={project.id}
@@ -299,15 +285,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                               : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
                             }`}
                         >
-                          <div className="flex items-start gap-2">
-                            <Icon size={16} className="mt-0.5 flex-shrink-0" />
-                            <div className="leading-tight line-clamp-2">{project.title}</div>
-                          </div>
+                          <div className="leading-tight line-clamp-2">{project.title}</div>
                         </button>
                       );
                     })}
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
@@ -345,17 +328,17 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
         {selectedProject ? (
           /* Project Detail View */
-          <div className="p-6 md:p-12 pt-20 pb-8 md:pt-12 md:pb-12">
+          <div className="p-2 md:px-3 pt-20 pb-3 md:pt-8 md:pb-3">
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2 leading-tight">
               {selectedProject.title}
             </h1>
-            <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-4 md:mb-6">
               {selectedProject.description}
             </p>
 
             {/* Mobile Project Info */}
-            <div className="lg:hidden mb-8 space-y-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl">
+            <div className="lg:hidden mb-4 space-y-3 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
               {/* Concept */}
               {selectedProject.concept && (
                 <div>
@@ -478,7 +461,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               </div>
             ) : currentGallery.length > 0 ? (
               /* Image Gallery */
-              <div className="space-y-4 mb-12">
+              <div className="space-y-2 mb-6">
                 {currentGallery.map((img, idx) => (
                   <img
                     key={idx}
@@ -486,7 +469,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     alt={`${selectedProject.title} ${idx + 1}`}
                     loading="lazy"
                     decoding="async"
-                    className="w-full rounded-lg shadow-md cursor-zoom-in hover:shadow-xl transition-shadow"
+                    className="w-full rounded shadow-sm cursor-zoom-in hover:shadow-md transition-shadow"
                     referrerPolicy="no-referrer"
                     onClick={() => setLightboxIndex(idx)}
                   />
@@ -497,7 +480,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         ) : (
           /* Grid View */
           <div className="p-6 md:p-12 pt-24 pb-12 md:pt-12 md:pb-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 pb-4">
               {filteredProjects.map(project => (
                 <div
                   key={project.id}
@@ -530,7 +513,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
       {/* Right Sidebar - Project Info */}
       {selectedProject && (
-        <aside className="hidden lg:block w-80 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-6">
+        <aside className="hidden lg:block w-72 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-5">
 
           <div className="space-y-6">
             {/* Concept */}

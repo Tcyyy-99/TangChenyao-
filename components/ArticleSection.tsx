@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
-import { ChevronRight, ChevronDown, FileText, Calendar, ArrowLeft, Moon, Sun, Globe, Zap } from 'lucide-react';
+import { ChevronRight, ChevronDown, Calendar, ArrowLeft, Moon, Sun, Globe, Zap } from 'lucide-react';
 
 // Development Timeline for Vibe Portfolio
 const VIBE_TIMELINE = [
@@ -118,18 +118,12 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
   }, [selectedArticle]);
 
   const toggleProject = (projectId: string) => {
-    const isExpanded = expandedProjects.includes(projectId);
-    
-    if (isExpanded) {
-      // Collapse: remove from expanded list
-      setExpandedProjects(prev => prev.filter(id => id !== projectId));
-    } else {
-      // Expand: add to expanded list and show articles
-      setExpandedProjects(prev => [...prev, projectId]);
-      setSelectedProjectId(projectId);
-      setShowAllArticles(false);
-      setSelectedArticle(null);
-    }
+    setExpandedProjects(prev =>
+      prev.includes(projectId) ? [] : [projectId]
+    );
+    setSelectedProjectId(projectId);
+    setShowAllArticles(false);
+    setSelectedArticle(null);
   };
 
   const loadArticle = async (article: ArticleItem) => {
@@ -262,6 +256,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
               setSelectedArticle(null);
               setShowAllArticles(true);
               setSelectedProjectId(null);
+              setExpandedProjects([]);
             }}
             className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
               ${showAllArticles && !selectedProjectId
@@ -296,7 +291,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 </button>
 
                 {/* Articles List */}
-                {isExpanded && (
+                <div className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
                   <div className="space-y-1">
                     {project.articles.map(article => (
                       <button
@@ -310,19 +305,11 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                           }
                         `}
                       >
-                        <div className="flex items-start gap-2">
-                          <FileText size={16} className="mt-0.5 flex-shrink-0" />
-                          <div>
-                            <div className="leading-tight">{article.title}</div>
-                            <div className="text-xs opacity-60 mt-1 font-mono">
-                              {new Date(article.date).toLocaleDateString('zh-CN')}
-                            </div>
-                          </div>
-                        </div>
+                        <div className="leading-tight line-clamp-2">{article.title}</div>
                       </button>
                     ))}
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
