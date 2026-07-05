@@ -210,7 +210,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       )}
       
       {/* Left Sidebar - Category Tree */}
-      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
+      <aside className="hidden md:flex w-52 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div 
           onClick={() => {
             if (selectedProject) {
@@ -235,7 +235,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               setSelectedProject(null);
               setExpandedCategories([]);
             }}
-            className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
+            className={`w-full px-5 py-2.5 text-left text-xs font-bold transition-colors border-b border-gray-100 dark:border-gray-800
               ${selectedCategory === 'All' && !selectedProject
                 ? 'bg-black dark:bg-white text-white dark:text-black'
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -243,7 +243,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           >
             <div className="flex justify-between items-center">
               <span>{CATEGORY_LABELS[language]['All']}</span>
-              <span className="text-xs font-mono">({allProjects.length})</span>
+              <span className="text-[10px] font-mono">({allProjects.length})</span>
             </div>
           </button>
 
@@ -256,17 +256,17 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               <div key={category.id} className="mb-2">
                 <button
                   onClick={() => toggleCategory(category.id)}
-                  className="w-full px-6 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                  className="w-full px-5 py-2.5 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-black dark:text-white">
+                    <span className="text-sm font-bold text-black dark:text-white">
                       {category.label}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono">
+                    <span className="text-[10px] text-gray-400 font-mono">
                       ({category.count})
                     </span>
                   </div>
-                  {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                  {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                 </button>
 
                 <div className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
@@ -279,7 +279,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                             setSelectedProject(project);
                             setSelectedCategory(category.id);
                           }}
-                          className={`w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
+                          className={`w-full px-5 py-2.5 text-left text-xs transition-all border-b border-gray-100 dark:border-gray-800
                             ${selectedProject?.id === project.id
                               ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
                               : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
@@ -513,7 +513,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
       {/* Right Sidebar - Project Info */}
       {selectedProject && (
-        <aside className="hidden lg:block w-72 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-5">
+        <aside className="hidden lg:block w-64 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-4">
 
           <div className="space-y-6">
             {/* Concept */}

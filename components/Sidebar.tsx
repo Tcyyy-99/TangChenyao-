@@ -36,7 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex fixed top-0 left-0 h-screen w-20 bg-white dark:bg-black border-r-2 border-gray-200 dark:border-gray-800 flex-col z-50">
+      <aside className="hidden md:flex fixed top-0 left-0 h-screen w-14 bg-white dark:bg-black border-r-2 border-gray-200 dark:border-gray-800 flex-col z-50">
 
       {/* Logo Section */}
       <div
@@ -58,14 +58,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`
-                relative w-12 h-12 flex items-center justify-center rounded-lg
+                relative w-8 h-8 flex items-center justify-center rounded-lg
                 transition-all duration-200 group
                 ${isActive
                   ? 'bg-black text-white dark:bg-white dark:text-black'
                   : 'text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900'}
               `}
             >
-              <Icon size={22} />
+              <Icon size={17} />
               {/* Hover tooltip */}
               <span className="
                 pointer-events-none absolute left-full ml-3 px-3 py-1.5
@@ -89,16 +89,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
+          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
           aria-label="theme"
         >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
         </button>
 
         {/* Language Toggle */}
         <button
           onClick={toggleLanguage}
-          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400 text-xs font-bold"
+          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400 text-[10px] font-bold"
           aria-label="language"
         >
           {language === 'zh' ? 'EN' : '中'}
@@ -107,10 +107,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Gravity Easter Egg */}
         <button
           onClick={onTriggerGravity}
-          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
+          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
           aria-label="gravity"
         >
-          <Zap size={18} />
+          <Zap size={15} />
         </button>
       </div>
     </aside>

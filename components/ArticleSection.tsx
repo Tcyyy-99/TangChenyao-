@@ -235,7 +235,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
       )}
       
       {/* Left Sidebar - Project Tree */}
-      <aside className="hidden md:flex w-64 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
+      <aside className="hidden md:flex w-52 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
         <div 
           onClick={() => {
             const mainContent = document.querySelector('main.flex-1.overflow-y-auto');
@@ -258,7 +258,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
               setSelectedProjectId(null);
               setExpandedProjects([]);
             }}
-            className={`w-full px-6 py-3 text-left font-bold transition-colors border-b border-gray-100 dark:border-gray-800
+            className={`w-full px-5 py-2.5 text-left text-xs font-bold transition-colors border-b border-gray-100 dark:border-gray-800
               ${showAllArticles && !selectedProjectId
                 ? 'bg-black dark:bg-white text-white dark:text-black'
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -266,7 +266,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
           >
             <div className="flex justify-between items-center">
               <span>{language === 'zh' ? '全部' : 'All'}</span>
-              <span className="text-xs font-mono">({allArticles.length})</span>
+              <span className="text-[10px] font-mono">({allArticles.length})</span>
             </div>
           </button>
 
@@ -277,17 +277,17 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 {/* Project Header */}
                 <button
                   onClick={() => toggleProject(project.id)}
-                  className="w-full px-6 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                  className="w-full px-5 py-2.5 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-black dark:text-white">
+                    <span className="text-sm font-bold text-black dark:text-white">
                       {language === 'zh' ? project.nameZh : project.name}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono">
+                    <span className="text-[10px] text-gray-400 font-mono">
                       ({project.articles.length})
                     </span>
                   </div>
-                  {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                  {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                 </button>
 
                 {/* Articles List */}
@@ -298,7 +298,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                         key={article.id}
                         onClick={() => loadArticle(article)}
                         className={`
-                          w-full px-6 py-3 text-left text-sm transition-all border-b border-gray-100 dark:border-gray-800
+                          w-full px-5 py-2.5 text-left text-xs transition-all border-b border-gray-100 dark:border-gray-800
                           ${selectedArticle?.id === article.id
                             ? 'bg-black dark:bg-white text-white dark:text-black font-bold border-black dark:border-white'
                             : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
@@ -430,7 +430,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
 
       {/* Right Sidebar - Timeline for Vibe Portfolio */}
       {selectedArticle && ARTICLE_PROJECTS.find(p => p.id === 'vibecoding' && p.articles.some(a => a.id === selectedArticle.id)) && (
-        <aside className="hidden lg:block w-80 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-6">
+        <aside className="hidden lg:block w-64 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-4">
           <h3 className="text-sm font-black uppercase mb-6 text-gray-500">
             {language === 'zh' ? '时间轴' : 'Timeline'}
           </h3>

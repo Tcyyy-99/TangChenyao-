@@ -124,7 +124,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
         </div>
 
         {/* RIGHT: Structured List + Masked Video */}
-        <div className="lg:col-span-5 pt-0 lg:pt-4 w-full flex flex-col justify-between h-full gap-8">
+        <div className="lg:col-span-5 w-full flex flex-col gap-8 -mt-12 lg:-mt-16">
           <div>
             <div className="w-full h-[2px] bg-black dark:bg-white mb-6 lg:mb-8 transition-colors duration-300"></div>
             

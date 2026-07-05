@@ -50,12 +50,12 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
 
   return (
     <section
-      className={`min-h-screen overflow-x-hidden flex items-start justify-center pt-8 ${isDark ? 'bg-[#0f0f0f] text-white' : 'bg-white text-black'}`}
+      className={`h-full overflow-hidden flex items-center justify-center ${isDark ? 'bg-[#0f0f0f] text-white' : 'bg-white text-black'}`}
       style={{ fontFamily: "'DM Sans', sans-serif" }}
     >
       <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-16">
         {/* Content Row */}
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between -mt-10 lg:-mt-16">
           {/* Circle Diagram - Left/Center */}
           <div className="flex w-full max-w-[550px] shrink-0 items-center justify-center lg:max-w-[650px]">
             <motion.div

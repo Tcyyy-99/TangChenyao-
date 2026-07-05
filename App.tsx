@@ -561,10 +561,10 @@ function App() {
       />
 
       {/* Main Content Area - Shifted right for sidebar */}
-      <main className={`md:ml-20 md:w-[calc(100%-5rem)] w-full ${
+      <main className={`md:ml-14 md:w-[calc(100%-3.5rem)] w-full ${
         (activeTab === 'articles' || activeTab === 'portfolio') ? 'md:h-screen overflow-hidden' : 
         (activeTab === 'about') ? 'pt-14 md:pt-0 md:h-screen overflow-hidden' :
-        (activeTab === 'dashboard') ? 'pt-14 md:pt-16 md:h-screen overflow-hidden' :
+        (activeTab === 'dashboard') ? 'pt-14 md:pt-0 md:h-screen overflow-hidden' :
         (activeTab === 'contact') ? 'pt-14 md:pt-16 md:h-screen overflow-hidden' :
         'pt-14 md:pt-16'
       } vt-page`}
