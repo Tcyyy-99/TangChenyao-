@@ -18,25 +18,62 @@
         color: #ffffff;
       }
       
-      /* Image Loading Effect - Pixelated to Clear */
+      /* Image Loading Effect - Same as LuN3cy */
       img {
-        filter: blur(10px);
-        image-rendering: pixelated;
-        transition: filter 0.5s ease-out;
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
       }
       
       img.loaded {
-        filter: blur(0);
-        image-rendering: auto;
-        animation: none;
+        opacity: 1;
       }
       
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
+      /* Image Container with Skeleton */
+      .img-loading-container {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .img-loading-skeleton {
+        position: absolute;
+        inset: 0;
+        background-color: #e5e7eb;
+        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+      
+      .dark .img-loading-skeleton {
+        background-color: #1f2937;
+      }
+      
+      .img-loading-skeleton.hidden {
+        display: none;
+      }
+      
+      .img-loading-spinner {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 2px solid #d1d5db;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      .dark .img-loading-spinner {
+        border-color: #4b5563;
+        border-top-color: transparent;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
       }
       
       /* Custom Bullet Point Style */
@@ -113,17 +150,16 @@
     <script type="module" src="./index.tsx"></script>
     <script type="module" src="/index.tsx"></script>
     
-    <!-- Image Loading Effect -->
+    <!-- Image Loading Effect - Same as LuN3cy -->
     <script>
-      // Add loaded class when image loads
       document.addEventListener('DOMContentLoaded', function() {
         const observer = new MutationObserver(function(mutations) {
           mutations.forEach(function(mutation) {
             mutation.addedNodes.forEach(function(node) {
               if (node.tagName === 'IMG') {
-                setupImageLoad(node);
+                wrapImageWithSkeleton(node);
               } else if (node.querySelectorAll) {
-                node.querySelectorAll('img').forEach(setupImageLoad);
+                node.querySelectorAll('img').forEach(wrapImageWithSkeleton);
               }
             });
           });
@@ -134,15 +170,35 @@
           subtree: true
         });
         
-        // Setup existing images
-        document.querySelectorAll('img').forEach(setupImageLoad);
+        // Wrap existing images
+        document.querySelectorAll('img').forEach(wrapImageWithSkeleton);
         
-        function setupImageLoad(img) {
+        function wrapImageWithSkeleton(img) {
+          // Skip if already wrapped
+          if (img.parentElement?.classList.contains('img-loading-container')) return;
+          
+          // Create wrapper
+          const wrapper = document.createElement('div');
+          wrapper.className = 'img-loading-container';
+          
+          // Create skeleton
+          const skeleton = document.createElement('div');
+          skeleton.className = 'img-loading-skeleton';
+          skeleton.innerHTML = '<div class="img-loading-spinner"></div>';
+          
+          // Wrap image
+          img.parentNode.insertBefore(wrapper, img);
+          wrapper.appendChild(skeleton);
+          wrapper.appendChild(img);
+          
+          // Handle load
           if (img.complete) {
             img.classList.add('loaded');
+            skeleton.classList.add('hidden');
           } else {
             img.addEventListener('load', function() {
               img.classList.add('loaded');
+              skeleton.classList.add('hidden');
             });
           }
         }
