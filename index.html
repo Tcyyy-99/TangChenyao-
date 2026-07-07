@@ -17,6 +17,28 @@
         background-color: #000000;
         color: #ffffff;
       }
+      
+      /* Image Loading Effect - Pixelated to Clear */
+      img {
+        filter: blur(10px);
+        image-rendering: pixelated;
+        transition: filter 0.5s ease-out;
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+      
+      img.loaded {
+        filter: blur(0);
+        image-rendering: auto;
+        animation: none;
+      }
+      
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      
       /* Custom Bullet Point Style */
       .bullet-point {
         display: inline-block;
@@ -89,6 +111,42 @@
   <body>
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+    
+    <!-- Image Loading Effect -->
+    <script>
+      // Add loaded class when image loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.tagName === 'IMG') {
+                setupImageLoad(node);
+              } else if (node.querySelectorAll) {
+                node.querySelectorAll('img').forEach(setupImageLoad);
+              }
+            });
+          });
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+        
+        // Setup existing images
+        document.querySelectorAll('img').forEach(setupImageLoad);
+        
+        function setupImageLoad(img) {
+          if (img.complete) {
+            img.classList.add('loaded');
+          } else {
+            img.addEventListener('load', function() {
+              img.classList.add('loaded');
+            });
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
