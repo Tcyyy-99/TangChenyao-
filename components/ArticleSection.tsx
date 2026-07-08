@@ -151,7 +151,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
     <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
       {/* Mobile Custom Top Bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-50 h-14">
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 z-50 h-14">
         <div className="flex items-center justify-between px-4 h-full">
           {selectedArticle ? (
             /* Detail view: Back button */
@@ -194,7 +194,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
       
       {/* Mobile Top Project Tabs - Hide when article selected */}
       {!selectedArticle && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+        <div className="md:hidden bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
         <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           <button
             onClick={() => {

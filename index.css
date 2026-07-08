@@ -1,8 +1,8 @@
-@tailwind base;
+ @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global English font: Economica for all text when language is English */
+/* Global English font: Chathura for all text when language is English */
 html.lang-en,
 html.lang-en body,
 html.lang-en button,
@@ -20,7 +20,12 @@ html.lang-en span,
 html.lang-en a,
 html.lang-en li,
 html.lang-en label {
-  font-family: 'Economica', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: 'PingFang SC', 'PingFang TC', 'PingFang HK', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* Exception: homepage folder titles keep DotGothic16 */
+html.lang-en .folder-title-en {
+  font-family: 'DotGothic16', 'Chathura', 'Economica', -apple-system, sans-serif !important;
 }
 
 /* Hardware acceleration helpers */
@@ -34,6 +39,27 @@ html.lang-en label {
 }
 
 .vt-page { view-transition-name: page; }
+
+/* Dark mode scrollbar - gray tone */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f3f;
+  border-radius: 6px;
+  border: 2px solid #0a0a0a;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+.dark {
+  scrollbar-color: #3f3f3f #0a0a0a;
+  scrollbar-width: thin;
+}
 
 @keyframes vtFadeIn {
   from { opacity: 0; transform: translateY(6px) scale(0.995); filter: blur(4px); }

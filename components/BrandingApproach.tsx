@@ -43,8 +43,34 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
 }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
+  const [isTouch, setIsTouch] = useState(false);
   const containerRef = useRef(null);
   const inView = useInView(containerRef, { once: true, margin: '-60px' });
+
+  React.useEffect(() => {
+    const mq = window.matchMedia('(hover: none), (pointer: coarse)');
+    const update = () => setIsTouch(mq.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    return () => mq.removeEventListener?.('change', update);
+  }, []);
+
+  // Touch: tap outside folder closes popup
+  React.useEffect(() => {
+    if (!isTouch || !hoveredId) return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('[data-folder-card="1"]')) {
+        setHoveredId(null);
+      }
+    };
+    // Delay so the current click doesn't trigger immediately
+    const t = setTimeout(() => document.addEventListener('click', handler), 50);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener('click', handler);
+    };
+  }, [isTouch, hoveredId]);
 
   const isDark = theme === 'dark';
   const contactContent = CONTACT_DATA[language];
@@ -175,6 +201,11 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
   };
 
   const handleClick = (card: CatCard) => {
+    // Touch: first tap shows popup, second tap navigates
+    if (isTouch && hoveredId !== card.id) {
+      handleEnter(card);
+      return;
+    }
     if (card.category) {
       onCategorySelect(card.category);
     } else {
@@ -190,7 +221,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
       className={`h-full overflow-hidden flex flex-col ${isDark ? 'bg-[#0f0f0f] text-white' : 'bg-white text-black'}`}
       style={{
         fontFamily: language === 'en'
-          ? "'Economica', -apple-system, sans-serif"
+          ? "'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif"
           : "'DM Sans', sans-serif",
       }}
     >
@@ -247,9 +278,10 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
             return (
               <motion.button
                 key={card.id}
+                data-folder-card="1"
                 onClick={() => handleClick(card)}
-                onMouseEnter={() => handleEnter(card)}
-                onMouseLeave={handleLeave}
+                onMouseEnter={() => { if (!isTouch) handleEnter(card); }}
+                onMouseLeave={() => { if (!isTouch) handleLeave(); }}
                 initial={{ opacity: 0, scaleY: 0, y: 0 }}
                 animate={inView ? { opacity: 1, scaleY: 1, y: isHover ? -18 : 0 } : { opacity: 0, scaleY: 0, y: 0 }}
                 transition={
@@ -264,7 +296,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                   width: `${l.width}%`,
                   height: `${rowH}%`,
                   zIndex: 10 + idx,
-                  clipPath: 'polygon(100% 16.67%, 50% 16.67%, 40% 0, 0 0, 0 100%, 100% 100%)',
+                  clipPath: 'polygon(100% 24px, 50% 24px, calc(50% - 14px) 0, 0 0, 0 100%, 100% 100%)',
                   transition: 'background 0.3s ease, background-color 0.3s ease',
                   backgroundImage: bgStyle,
                   transformOrigin: 'bottom center',
@@ -278,7 +310,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                   </span>
                   <div className="absolute top-[25%] left-2 md:left-4 right-2 md:right-4 flex items-baseline gap-3">
                     <h3
-                      className={`leading-none whitespace-nowrap
+                      className={`leading-none whitespace-nowrap folder-title-${language}
                         ${language === 'en'
                           ? 'text-2xl md:text-3xl lg:text-[2.75rem]'
                           : 'text-xl md:text-2xl lg:text-[2rem]'}
@@ -286,11 +318,11 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                       `}
                       style={{
                         fontFamily: language === 'en'
-                          ? "'Economica', -apple-system, sans-serif"
+                          ? "'DotGothic16', 'Chathura', 'Economica', -apple-system, sans-serif"
                           : "'DM Serif Display', 'Playfair Display', Georgia, serif",
                       }}
                     >
-                      {card.label}
+                      {isTouch && language === 'en' ? card.label.split(' ')[0] : card.label}
                     </h3>
                   </div>
                 </div>
@@ -315,26 +347,31 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                 {randomProjects.map((proj, i) => {
                   const rotations = [-10, 4, 12];
                   const leftOffsets = [19, 35, 51];
+                  const cardWidth = '30%';
                   return (
-                    <motion.img
+                    <motion.div
                       key={`${hoveredId}-${proj.id}`}
-                      src={proj.image}
-                      alt={proj.title}
-                      initial={{ opacity: 0, scale: 0, rotate: rotations[i] }}
-                      animate={{ opacity: 1, scale: 1, rotate: rotations[i] }}
+                      initial={{ opacity: 0, scale: 0, rotate: rotations[i], y: '-67%' }}
+                      animate={{ opacity: 1, scale: 1, rotate: rotations[i], y: '-67%' }}
                       exit={{ opacity: 0, scale: 0, transition: { duration: 0.2 } }}
                       transition={{ duration: 0.35, delay: i * 0.06, type: 'spring', stiffness: 260, damping: 20 }}
-                      className="absolute rounded-md shadow-2xl object-cover"
+                      className="absolute rounded-md shadow-2xl overflow-hidden bg-gray-100 dark:bg-white/10"
                       style={{
                         left: `${leftOffsets[i]}%`,
-                        top: '-45%',
-                        width: '30%',
+                        top: 0,
+                        width: cardWidth,
                         aspectRatio: '4 / 3',
                         transformOrigin: 'center bottom',
                       }}
-                      referrerPolicy="no-referrer"
-                      draggable={false}
-                    />
+                    >
+                      <img
+                        src={proj.image}
+                        alt={proj.title}
+                        className="w-full h-full object-cover block"
+                        referrerPolicy="no-referrer"
+                        draggable={false}
+                      />
+                    </motion.div>
                   );
                 })}
               </div>

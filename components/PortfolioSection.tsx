@@ -161,7 +161,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     <div className="flex flex-col md:flex-row h-screen w-full items-stretch overflow-hidden">
       
       {/* Mobile Custom Top Bar - Replaces App.tsx top bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-50 h-14">
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 z-50 h-14">
         <div className="flex items-center justify-between px-4 h-full">
           {selectedProject ? (
             /* Detail view: Back button */
@@ -201,7 +201,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       
       {/* Mobile Top Category Tabs - Hide when project selected */}
       {!selectedProject && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
+        <div className="md:hidden bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 overflow-x-auto flex-shrink-0 sticky top-14 z-30">
         <div className="flex gap-6 px-4 py-3 overflow-x-auto">
           {categories.map((cat) => (
             <button

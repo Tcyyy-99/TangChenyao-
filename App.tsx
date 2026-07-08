@@ -511,7 +511,7 @@ function App() {
 
       {/* Unified Mobile Top Bar - Hide on portfolio and articles page */}
       {activeTab !== 'portfolio' && activeTab !== 'articles' && (
-        <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-40">
+        <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 z-40">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <h2 className="text-base font-black uppercase">
@@ -537,9 +537,9 @@ function App() {
             </button>
             <button
               onClick={toggleLanguage}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-[10px] font-bold"
             >
-              <Globe size={20} />
+              {language === 'zh' ? 'EN' : '中'}
             </button>
             <button
               onClick={triggerGravity}
