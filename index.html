@@ -19,6 +19,73 @@
         background-color: #000000;
         color: #ffffff;
       }
+      
+      /* Image Loading Effect - Same as LuN3cy */
+      img {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      img.loaded {
+        opacity: 1;
+      }
+      
+      /* Image Container with Skeleton */
+      .img-loading-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .img-loading-container img {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      
+      .img-loading-skeleton {
+        position: absolute;
+        inset: 0;
+        background-color: #e5e7eb;
+        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+      
+      .dark .img-loading-skeleton {
+        background-color: #1f2937;
+      }
+      
+      .img-loading-skeleton.hidden {
+        display: none;
+      }
+      
+      .img-loading-spinner {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 2px solid #d1d5db;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      .dark .img-loading-spinner {
+        border-color: #4b5563;
+        border-top-color: transparent;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      
       /* Custom Bullet Point Style */
       .bullet-point {
         display: inline-block;
@@ -91,6 +158,61 @@
   <body>
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+    
+    <!-- Image Loading Effect - Same as LuN3cy -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.tagName === 'IMG') {
+                wrapImageWithSkeleton(node);
+              } else if (node.querySelectorAll) {
+                node.querySelectorAll('img').forEach(wrapImageWithSkeleton);
+              }
+            });
+          });
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+        
+        // Wrap existing images
+        document.querySelectorAll('img').forEach(wrapImageWithSkeleton);
+        
+        function wrapImageWithSkeleton(img) {
+          // Skip if already wrapped
+          if (img.parentElement?.classList.contains('img-loading-container')) return;
+          
+          // Create wrapper
+          const wrapper = document.createElement('div');
+          wrapper.className = 'img-loading-container';
+          
+          // Create skeleton
+          const skeleton = document.createElement('div');
+          skeleton.className = 'img-loading-skeleton';
+          skeleton.innerHTML = '<div class="img-loading-spinner"></div>';
+          
+          // Wrap image
+          img.parentNode.insertBefore(wrapper, img);
+          wrapper.appendChild(skeleton);
+          wrapper.appendChild(img);
+          
+          // Handle load
+          if (img.complete) {
+            img.classList.add('loaded');
+            skeleton.classList.add('hidden');
+          } else {
+            img.addEventListener('load', function() {
+              img.classList.add('loaded');
+              skeleton.classList.add('hidden');
+            });
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
