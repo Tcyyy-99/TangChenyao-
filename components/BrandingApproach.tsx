@@ -346,8 +346,8 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
               >
                 {randomProjects.map((proj, i) => {
                   const rotations = [-10, 4, 12];
-                  const leftOffsets = [19, 35, 51];
-                  const cardWidth = '30%';
+                  const leftOffsets = isTouch ? [-2, 26, 54] : [19, 35, 51];
+                  const cardWidth = isTouch ? '48%' : '30%';
                   return (
                     <motion.div
                       key={`${hoveredId}-${proj.id}`}

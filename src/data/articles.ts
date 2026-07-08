@@ -205,6 +205,13 @@ export const ARTICLE_PROJECTS: ArticleProject[] = [
         date: '2026-06-28',
         contentPath: '/articles/Vibecoding portfolio/day10.md',
         coverImage: '/images/articles/codemaker-tutorial/cover.png'
+      },
+      {
+        id: 'vibe-day11',
+        title: 'DAY11 - 移动端弹出与折叠视觉打磨',
+        date: '2026-07-08',
+        contentPath: '/articles/Vibecoding portfolio/day11.md',
+        coverImage: '/images/articles/codemaker-tutorial/cover.png'
       }
     ]
   },
