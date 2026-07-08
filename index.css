@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global English font: Economica for all text when language is English */
+html.lang-en,
+html.lang-en body,
+html.lang-en button,
+html.lang-en input,
+html.lang-en textarea,
+html.lang-en select,
+html.lang-en h1,
+html.lang-en h2,
+html.lang-en h3,
+html.lang-en h4,
+html.lang-en h5,
+html.lang-en h6,
+html.lang-en p,
+html.lang-en span,
+html.lang-en a,
+html.lang-en li,
+html.lang-en label {
+  font-family: 'Economica', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
 /* Hardware acceleration helpers */
 .transform-gpu {
   transform: translate3d(0, 0, 0);

@@ -293,20 +293,25 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
 
       {/* Floating Prompt Bubble */}
       {showPrompt && !isOpen && (
-        <div className="pointer-events-auto bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl rounded-2xl p-4 animate-bounce-subtle max-w-[220px]">
-          <p className="text-sm font-medium mb-3 text-zinc-800 dark:text-zinc-200">
+        <div
+          className="pointer-events-auto bg-white/70 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/10 backdrop-blur-2xl shadow-xl rounded-2xl p-4 animate-bounce-subtle max-w-[220px]"
+          style={{
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04), 0 12px 40px rgba(0,0,0,0.35)',
+          }}
+        >
+          <p className="text-sm font-medium mb-3 text-zinc-800 dark:text-zinc-100">
             {language === 'zh' ? '👋 来点氛围音乐？' : '👋 How about some ambient music?'}
           </p>
           <div className="flex gap-2 justify-end">
             <button 
               onClick={() => handlePromptResponse(false)}
-              className="px-3 py-1.5 text-xs text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+              className="px-3 py-1.5 text-xs text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-white transition-colors"
             >
               {language === 'zh' ? '不了' : 'No thanks'}
             </button>
             <button 
               onClick={() => handlePromptResponse(true)}
-              className="px-3 py-1.5 text-xs bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-lg hover:opacity-90 transition-opacity font-medium"
+              className="px-3 py-1.5 text-xs bg-zinc-900 dark:bg-white/15 dark:backdrop-blur-xl dark:border dark:border-white/20 text-white dark:text-white rounded-lg hover:opacity-90 transition-opacity font-medium"
             >
               {language === 'zh' ? '阔以' : 'Sure'}
             </button>
@@ -320,15 +325,23 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ initialVisible = false
           {!isOpen || isClosing ? (
             <button
               onClick={() => setIsOpen(true)}
-              className={`absolute inset-0 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl border border-white/20 dark:border-zinc-700/50 rounded-full shadow-lg flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:scale-110 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group z-20 ${isClosing ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+              className={`absolute inset-0 bg-white/40 dark:bg-white/[0.06] backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-full shadow-lg flex items-center justify-center text-zinc-600 dark:text-zinc-200 hover:scale-110 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group z-20 ${isClosing ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
               title={language === 'zh' ? '打开播放器' : 'Open Music Player'}
+              style={{
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(255,255,255,0.05), 0 8px 24px rgba(0,0,0,0.35)',
+              }}
             >
               <Music className={`w-5 h-5 ${isPlaying ? 'animate-spin-slow' : 'group-hover:animate-spin-slow'}`} />
             </button>
           ) : null}
 
           {isOpen && (
-            <div className={`absolute bottom-0 right-0 backdrop-blur-3xl bg-black/10 shadow-2xl rounded-3xl p-5 w-full h-full origin-bottom-right overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isClosing ? 'scale-[0.15] translate-x-2 translate-y-2 rounded-[100px] opacity-0' : 'scale-100 translate-x-0 translate-y-0 opacity-100'}`}>
+            <div
+              className={`absolute bottom-0 right-0 backdrop-blur-3xl bg-black/10 border border-white/10 shadow-2xl rounded-3xl p-5 w-full h-full origin-bottom-right overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isClosing ? 'scale-[0.15] translate-x-2 translate-y-2 rounded-[100px] opacity-0' : 'scale-100 translate-x-0 translate-y-0 opacity-100'}`}
+              style={{
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05), inset 1px 0 0 rgba(255,255,255,0.08), inset -1px 0 0 rgba(255,255,255,0.05), 0 24px 60px rgba(0,0,0,0.55)',
+              }}
+            >
               
               {/* Full Cover Background Layer */}
               <div className="absolute inset-0 -z-10 overflow-hidden">

@@ -107,13 +107,14 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
 
     return (
       <div className="absolute md:fixed inset-0 flex items-center justify-center px-4 overflow-hidden z-50">
-        <div className={`
-           w-full max-w-md bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-2xl p-10 md:p-14 text-center border border-gray-100 dark:border-gray-800 relative overflow-hidden group transition-all duration-500 animate-fade-in
+        <div
+          className={`
+           w-full max-w-md bg-white dark:bg-white/[0.06] dark:backdrop-blur-3xl rounded-[2.5rem] shadow-2xl dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.22),inset_0_-1px_0_rgba(255,255,255,0.05),inset_1px_0_0_rgba(255,255,255,0.08),inset_-1px_0_0_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.55)] p-10 md:p-14 text-center border border-gray-100 dark:border-white/10 relative overflow-hidden group transition-all duration-500 animate-fade-in
            ${isSuccess ? 'shadow-green-500/20 border-green-500/50 scale-105' : 'animate-message-pop'}
-        `}>
+          `}
+        >
            
-           {/* Background Decor */}
-           <div className={`absolute top-0 left-0 w-full h-2 transition-colors duration-500 ${isSuccess ? 'bg-green-500' : 'bg-black dark:bg-white'}`}></div>
+           {/* Background Decor removed */}
            
            <div className="mb-10">
              <div className={`
@@ -127,7 +128,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
              <h2 className="text-2xl md:text-3xl font-black text-black dark:text-white mb-4">
                {language === 'zh' ? '一个小问题' : 'Just a Question'}
              </h2>
-             <p className="text-xl font-medium text-gray-500 dark:text-gray-400">
+             <p className="text-xl font-medium text-gray-500 dark:text-gray-300">
                {isSuccess 
                   ? (language === 'zh' ? '回答正确，欢迎！' : 'Access Granted!') 
                   : (language === 'zh' ? '名字最后一个字是？' : 'Last character of name?')
@@ -145,11 +146,11 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
                }}
                disabled={isSuccess}
                className={`
-                 w-full bg-gray-50 dark:bg-black/50 border-2 
+                 w-full bg-gray-50 dark:bg-white/[0.08] border-2 dark:text-white
                  ${isError ? 'border-red-500 animate-[pulse_0.5s_ease-in-out]' : ''} 
-                 ${isSuccess ? 'border-green-500 text-green-500' : 'border-transparent focus:border-black dark:focus:border-white'}
+                 ${isSuccess ? 'border-green-500 text-green-500' : 'border-transparent focus:border-gray-300 dark:focus:border-white/20'}
                  rounded-2xl px-6 py-4 text-center text-2xl font-black outline-none transition-all
-                 placeholder-gray-300 dark:placeholder-gray-700
+                 placeholder-gray-300 dark:placeholder-white/30
                `}
                placeholder={language === 'zh' ? '请输入答案' : 'Answer...'}
                autoFocus

@@ -5,6 +5,7 @@ export enum Category {
   ALL = 'All',
   INTERACTION = 'Interaction Design',
   PRODUCT = 'Product Design',
+  CULTURAL = 'Cultural Creative',
   RESEARCH = 'Research Analysis',
   OTHERS = 'Others',
   VIDEO = 'Videography',

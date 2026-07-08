@@ -116,7 +116,7 @@ export const PRODUCT_DATA: Project[] = [
   {
     id: 'prod-5',
     common: {
-      category: 'Product Design',
+      category: 'Cultural Creative',
       image: '/covers/product design/nanjingbes/01.jpg',
       gallery: Array.from({length: 12}, (_, i) => `/covers/product design/nanjingbes/${String(i + 1).padStart(2, '0')}.jpg`)
     },
@@ -172,7 +172,7 @@ export const PRODUCT_DATA: Project[] = [
   {
     id: 'prod-7',
     common: {
-      category: 'Product Design',
+      category: 'Cultural Creative',
       image: '/covers/product design/westlake/00.png',
       gallery: Array.from({length: 4}, (_, i) => `/covers/product design/westlake/${String(i).padStart(2, '0')}.png`)
     },
@@ -200,7 +200,7 @@ export const PRODUCT_DATA: Project[] = [
   {
     id: 'prod-8',
     common: {
-      category: 'Product Design',
+      category: 'Cultural Creative',
       image: '/covers/product design/Fragrance Design/01.png',
       gallery: Array.from({length: 2}, (_, i) => `/covers/product design/Fragrance Design/${String(i + 1).padStart(2, '0')}.png`)
     },
@@ -256,7 +256,7 @@ export const PRODUCT_DATA: Project[] = [
   {
     id: 'prod-10',
     common: {
-      category: 'Product Design',
+      category: 'Cultural Creative',
       image: '/covers/product design/WICKED CHESS/00.jpg',
       gallery: Array.from({length: 5}, (_, i) => `/covers/product design/WICKED CHESS/${String(i).padStart(2, '0')}.${i === 1 ? 'png' : 'jpg'}`)
     },
@@ -285,7 +285,7 @@ export const PRODUCT_DATA: Project[] = [
     id: 'prod-11',
     common: {
       category: 'Product Design',
-      image: '/covers/product design/mech appearance/01.png',
+      image: '/covers/product design/mech appearance/02.png',
       gallery: [
         '/covers/product design/mech appearance/01.png',
         '/covers/product design/mech appearance/02.png',

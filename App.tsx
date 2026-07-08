@@ -90,6 +90,11 @@ function App() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('lang-en', language === 'en');
+    document.documentElement.classList.toggle('lang-zh', language === 'zh');
+  }, [language]);
+
   // Scroll to top when activeTab changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -127,8 +132,8 @@ function App() {
     if (!engineRef.current) return;
     const engine = engineRef.current;
     
-    const mouseX = event.clientX + window.scrollX;
-    const mouseY = event.clientY + window.scrollY;
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
     
     const bodies = Matter.Composite.allBodies(engine.world);
     
@@ -179,8 +184,8 @@ function App() {
     const world = engine.world;
     engineRef.current = engine;
 
-    // Dissipate large images
-    const largeComponents = Array.from(document.querySelectorAll('main img, .aspect-\\[4\\/3\\]')) as HTMLElement[];
+    // Dissipate large images + clip-path containers (e.g. homepage folders)
+    const largeComponents = Array.from(document.querySelectorAll('main img, .aspect-\\[4\\/3\\], main [style*="clip-path"]')) as HTMLElement[];
     const dissipatedData: ExplodedElementData[] = [];
     
     largeComponents.forEach(el => {
@@ -236,11 +241,9 @@ function App() {
       });
 
       const rect = el.getBoundingClientRect();
-      const scrollX = window.scrollX;
-      const scrollY = window.scrollY;
 
-      const centerX = rect.left + rect.width / 2 + scrollX;
-      const centerY = rect.top + rect.height / 2 + scrollY;
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
       const body = Bodies.rectangle(centerX, centerY, rect.width, rect.height, {
         restitution: 0.2, 
@@ -253,11 +256,11 @@ function App() {
       (body as any).domElement = el;
       bodies.push(body);
 
-      // Lock Visuals
+      // Lock Visuals - use fixed to escape overflow:hidden ancestors
       el.style.boxSizing = 'border-box';
-      el.style.position = 'absolute';
-      el.style.left = `${rect.left + scrollX}px`;
-      el.style.top = `${rect.top + scrollY}px`;
+      el.style.position = 'fixed';
+      el.style.left = `${rect.left}px`;
+      el.style.top = `${rect.top}px`;
       el.style.width = `${rect.width}px`;
       el.style.height = `${rect.height}px`;
       el.style.margin = '0'; 
@@ -269,7 +272,7 @@ function App() {
 
     explodedElementsRef.current = explodedData;
 
-    const totalHeight = document.documentElement.scrollHeight;
+    const totalHeight = window.innerHeight;
 
     // Add floor
     const floor = Bodies.rectangle(

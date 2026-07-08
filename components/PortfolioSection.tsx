@@ -102,6 +102,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     { id: 'All', label: CATEGORY_LABELS[language]['All'], count: allProjects.length },
     { id: Category.INTERACTION, label: CATEGORY_LABELS[language][Category.INTERACTION], count: allProjects.filter(p => p.category === Category.INTERACTION).length },
     { id: Category.PRODUCT, label: CATEGORY_LABELS[language][Category.PRODUCT], count: allProjects.filter(p => p.category === Category.PRODUCT).length },
+    { id: Category.CULTURAL, label: CATEGORY_LABELS[language][Category.CULTURAL], count: allProjects.filter(p => p.category === Category.CULTURAL).length },
     { id: Category.RESEARCH, label: CATEGORY_LABELS[language][Category.RESEARCH], count: allProjects.filter(p => p.category === Category.RESEARCH).length },
     { id: Category.OTHERS, label: CATEGORY_LABELS[language][Category.OTHERS], count: allProjects.filter(p => p.category === Category.OTHERS).length },
   ].filter(cat => cat.count > 0);
@@ -110,6 +111,19 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   useEffect(() => {
     setExpandedCategories([]);
   }, []);
+
+  // React to externalFilter (folder click from dashboard)
+  useEffect(() => {
+    if (externalFilter && externalFilter !== 'All') {
+      setSelectedCategory(externalFilter);
+      setExpandedCategories([externalFilter]);
+      setSelectedProject(null);
+    } else if (externalFilter === 'All') {
+      setSelectedCategory('All');
+      setExpandedCategories([]);
+      setSelectedProject(null);
+    }
+  }, [externalFilter]);
 
   const toggleCategory = (catId: string) => {
     setExpandedCategories(prev =>
@@ -210,7 +224,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       )}
       
       {/* Left Sidebar - Category Tree */}
-      <aside className="hidden md:flex w-52 border-r-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 overflow-hidden flex-col">
+      <aside className="hidden md:flex w-52 border-r-2 border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-black flex-shrink-0 overflow-hidden flex-col">
         <div 
           onClick={() => {
             if (selectedProject) {
@@ -237,8 +251,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             }}
             className={`w-full px-5 py-2.5 text-left text-xs font-bold transition-colors border-b border-gray-100 dark:border-gray-800
               ${selectedCategory === 'All' && !selectedProject
-                ? 'bg-black dark:bg-white text-white dark:text-black'
-                : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
+                ? 'text-black dark:text-white'
+                : 'text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
               }`}
           >
             <div className="flex justify-between items-center">
@@ -250,6 +264,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           {/* Category Groups */}
           {categories.filter(c => c.id !== 'All').map(category => {
             const isExpanded = expandedCategories.includes(category.id);
+            const isActive = selectedCategory === category.id;
             const projects = projectsByCategory[category.id] || [];
             
             return (
@@ -259,14 +274,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   className="w-full px-5 py-2.5 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-black dark:text-white">
+                    <span className={`text-sm font-bold transition-colors ${isActive ? 'text-black dark:text-white' : 'text-gray-400 dark:text-gray-500 group-hover:text-black dark:group-hover:text-white'}`}>
                       {category.label}
                     </span>
                     <span className="text-[10px] text-gray-400 font-mono">
                       ({category.count})
                     </span>
                   </div>
-                  {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                  {isExpanded ? <ChevronDown size={16} className={isActive ? 'text-black dark:text-white' : 'text-gray-400'} /> : <ChevronRight size={16} className={isActive ? 'text-black dark:text-white' : 'text-gray-400'} />}
                 </button>
 
                 <div className={`transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
@@ -513,7 +528,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
       {/* Right Sidebar - Project Info */}
       {selectedProject && (
-        <aside className="hidden lg:block w-64 border-l-2 border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto p-4">
+        <aside className="hidden lg:block w-64 border-l-2 border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-black overflow-y-auto p-4">
 
           <div className="space-y-6">
             {/* Concept */}
