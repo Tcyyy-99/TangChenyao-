@@ -96,6 +96,14 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
     return { articlesAsProjects: [...vibe, ...others], vibeArticles: vibe, otherArticles: others };
   }, []);
 
+  // Preload all candidate images so hover popup is instant
+  React.useEffect(() => {
+    const urls = new Set<string>();
+    allProjects.forEach(p => { if (p.image) urls.add(p.image); });
+    articlesAsProjects.forEach(p => { if (p.image) urls.add(p.image); });
+    urls.forEach(src => { const img = new Image(); img.src = src; });
+  }, [allProjects, articlesAsProjects]);
+
   const cards: CatCard[] = [
     {
       id: 'interaction',
@@ -298,7 +306,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                   zIndex: 10 + idx,
                   clipPath: 'polygon(100% 24px, 50% 24px, calc(50% - 14px) 0, 0 0, 0 100%, 100% 100%)',
                   transition: 'background 0.3s ease, background-color 0.3s ease',
-                  backgroundImage: bgStyle,
+                   backgroundImage: bgStyle,
                   transformOrigin: 'bottom center',
                   backdropFilter: isDark ? 'blur(24px) saturate(140%)' : undefined,
                   WebkitBackdropFilter: isDark ? 'blur(24px) saturate(140%)' : undefined,
@@ -351,6 +359,7 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                   return (
                     <motion.div
                       key={`${hoveredId}-${proj.id}`}
+                      data-no-skel="1"
                       initial={{ opacity: 0, scale: 0, rotate: rotations[i], y: '-67%' }}
                       animate={{ opacity: 1, scale: 1, rotate: rotations[i], y: '-67%' }}
                       exit={{ opacity: 0, scale: 0, transition: { duration: 0.2 } }}
