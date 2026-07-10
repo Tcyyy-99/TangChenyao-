@@ -5,6 +5,7 @@ import { CONTACT_DATA } from '../src/data/contact';
 import { PROJECTS, CATEGORY_LABELS } from '../constants';
 import { ARTICLE_PROJECTS } from '../src/data/articles';
 import { MapPin } from 'lucide-react';
+import { ImgFx } from './ImgFx';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 
@@ -373,12 +374,14 @@ export const BrandingApproach: React.FC<BrandingApproachProps> = ({
                         transformOrigin: 'center bottom',
                       }}
                     >
-                      <img
+                      <ImgFx
                         src={proj.image}
                         alt={proj.title}
-                        className="w-full h-full object-cover block"
-                        referrerPolicy="no-referrer"
-                        draggable={false}
+                        loading="eager"
+                        className="w-full h-full"
+                        fit="cover"
+                        tileSize={16}
+                        duration={550}
                       />
                     </motion.div>
                   );

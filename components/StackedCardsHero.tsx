@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { PROJECTS } from '../constants';
 import { Language, Project } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
+import { ImgFx } from './ImgFx';
 
 interface StackedCardsHeroProps {
   language: Language;
@@ -159,11 +160,11 @@ export const StackedCardsHero: React.FC<StackedCardsHeroProps> = ({ language, on
               onClick={() => handleCardClick(card.project)}
             >
               <div className="w-[288px] h-[216px] rounded-2xl shadow-2xl overflow-hidden border-4 border-white dark:border-gray-800">
-                <img 
-                  src={card.project.image} 
+                <ImgFx
+                  src={card.project.image}
                   alt={card.project.title}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
+                  className="w-full h-full"
+                  fit="cover"
                   draggable={false}
                 />
               </div>

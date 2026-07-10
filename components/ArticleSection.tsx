@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import { Language } from '../types';
 import { ARTICLE_PROJECTS, ArticleItem } from '../src/data/articles';
 import { ChevronRight, ChevronDown, Calendar, ArrowLeft, Moon, Sun, Globe, Zap } from 'lucide-react';
+import { ImgFx } from './ImgFx';
 
 // Development Timeline for Vibe Portfolio
 const VIBE_TIMELINE = [
@@ -374,7 +375,15 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    img: ({node, ...props}) => <img {...props} loading="lazy" decoding="async" />
+                    img: ({node, src, alt, ...props}) => (
+                      <ImgFx
+                        src={src || ''}
+                        alt={alt || ''}
+                        loading="lazy"
+                        mode="natural"
+                        className="w-full rounded-lg"
+                      />
+                    )
                   }}
                 >
                   {articleContent}
@@ -397,11 +406,12 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
                     {/* Left: Cover Image or Project Tag */}
                     {article.coverImage ? (
                       <div className="flex-shrink-0 w-32 h-24 rounded-xl overflow-hidden">
-                        <img 
-                          src={article.coverImage} 
+                        <ImgFx
+                          src={article.coverImage}
                           alt={article.title}
                           loading="lazy"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full"
+                          fit="cover"
                         />
                       </div>
                     ) : (

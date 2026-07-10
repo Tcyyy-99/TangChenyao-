@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useInView } from 'motion/react';
+import { ImgFx } from './ImgFx';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 
@@ -182,7 +183,7 @@ const CaseStudyCard = ({ study, index }: { study: typeof CASE_STUDIES[0]; index:
       onPointerLeave={handlePointerLeave}
     >
       {/* Background Image */}
-      <img src={study.image} alt={study.title} className="absolute h-full w-full object-cover" />
+      <ImgFx src={study.image} alt={study.title} className="absolute inset-0 h-full w-full" fit="cover" />
 
       {/* Pixel Block Overlay */}
       <div className="absolute inset-0">

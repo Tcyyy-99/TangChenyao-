@@ -6,6 +6,7 @@ import { PROJECTS, CATEGORY_LABELS } from '../constants';
 import { Category, Language, Project } from '../types';
 import { PHOTOGRAPHY_GALLERY } from '../src/data/photography';
 import { X, ChevronRight, ChevronDown, Github, ExternalLink, ChevronLeft, Figma, Moon, Sun, Globe, Zap } from 'lucide-react';
+import { ImgFx } from './ImgFx';
 
 interface PortfolioSectionProps {
   language: Language;
@@ -478,15 +479,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               /* Image Gallery */
               <div className="space-y-2 mb-6">
                 {currentGallery.map((img, idx) => (
-                  <img
+                  <ImgFx
                     key={`${selectedProject.id}-${idx}`}
                     src={img}
                     alt={`${selectedProject.title} ${idx + 1}`}
                     loading="lazy"
-                    decoding="async"
-                    className="w-full rounded shadow-sm cursor-zoom-in hover:shadow-md transition-shadow bg-gray-100 dark:bg-gray-800 min-h-[240px]"
-                    referrerPolicy="no-referrer"
+                    className="w-full rounded shadow-sm cursor-zoom-in hover:shadow-md transition-shadow bg-gray-100 dark:bg-gray-800"
                     onClick={() => setLightboxIndex(idx)}
+                    mode="natural"
                   />
                 ))}
               </div>
@@ -504,12 +504,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 >
                   <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden mb-4">
                     {project.image && (
-                      <img
+                      <ImgFx
                         src={project.image}
                         alt={project.title}
                         loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full group-hover:scale-105 transition-transform duration-500"
+                        fit="cover"
                       />
                     )}
                   </div>
@@ -648,12 +648,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           onClick={() => setLightboxIndex(null)}
         >
           <div className="relative max-w-full max-h-full" onClick={(e) => e.stopPropagation()}>
-            <img
+            <ImgFx
               src={currentGallery[lightboxIndex]}
               alt="Full View"
-              className="max-w-full max-h-[90vh] object-contain"
-              referrerPolicy="no-referrer"
-              loading="lazy"
+              className="max-w-full max-h-[90vh]"
+              loading="eager"
+              mode="natural"
             />
             
             <button

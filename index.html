@@ -24,29 +24,8 @@
         color: #ffffff;
       }
       
-      /* Image: skeleton bg while loading, transparent once loaded */
-      img {
-        background-color: #f3f4f6;
-        animation: img-skeleton-pulse 1.6s ease-in-out infinite;
-      }
-      .dark img {
-        background-color: #1f2937;
-      }
-      img.loaded {
-        background-color: transparent;
-        animation: none;
-      }
-      @keyframes img-skeleton-pulse {
-        0%, 100% { background-color: #f3f4f6; }
-        50% { background-color: #e5e7eb; }
-      }
-      .dark img:not(.loaded) {
-        animation-name: img-skeleton-pulse-dark;
-      }
-      @keyframes img-skeleton-pulse-dark {
-        0%, 100% { background-color: #1f2937; }
-        50% { background-color: #111827; }
-      }
+      /* Image handled per-component via ImgFx (mosaic reveal) */
+      img.loaded { }
       
       /* Custom Bullet Point Style */
       .bullet-point {
