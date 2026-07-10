@@ -499,7 +499,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               {filteredProjects.map(project => (
                 <div
                   key={project.id}
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => {
+                    setSelectedProject(project);
+                    if (project.category && !expandedCategories.includes(project.category)) {
+                      setExpandedCategories(prev => [...prev, project.category as string]);
+                    }
+                  }}
                   className="group cursor-pointer"
                 >
                   <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden mb-4">

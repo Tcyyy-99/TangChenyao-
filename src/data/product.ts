@@ -117,8 +117,8 @@ export const PRODUCT_DATA: Project[] = [
     id: 'prod-5',
     common: {
       category: 'Cultural Creative',
-      image: '/covers/product design/nanjingbes/01.jpg',
-      gallery: Array.from({length: 12}, (_, i) => `/covers/product design/nanjingbes/${String(i + 1).padStart(2, '0')}.jpg`)
+      image: '/covers/cultural creative/nanjingbes/01.jpg',
+      gallery: Array.from({length: 12}, (_, i) => `/covers/cultural creative/nanjingbes/${String(i + 1).padStart(2, '0')}.jpg`)
     },
     zh: {
       title: '南京大报恩寺文创项目',
@@ -173,8 +173,8 @@ export const PRODUCT_DATA: Project[] = [
     id: 'prod-7',
     common: {
       category: 'Cultural Creative',
-      image: '/covers/product design/westlake/00.png',
-      gallery: Array.from({length: 4}, (_, i) => `/covers/product design/westlake/${String(i).padStart(2, '0')}.png`)
+      image: '/covers/cultural creative/westlake/00.png',
+      gallery: Array.from({length: 4}, (_, i) => `/covers/cultural creative/westlake/${String(i).padStart(2, '0')}.png`)
     },
     zh: {
       title: '西湖文创设计',
@@ -201,8 +201,8 @@ export const PRODUCT_DATA: Project[] = [
     id: 'prod-8',
     common: {
       category: 'Cultural Creative',
-      image: '/covers/product design/Fragrance Design/01.png',
-      gallery: Array.from({length: 2}, (_, i) => `/covers/product design/Fragrance Design/${String(i + 1).padStart(2, '0')}.png`)
+      image: '/covers/cultural creative/Fragrance Design/01.png',
+      gallery: Array.from({length: 2}, (_, i) => `/covers/cultural creative/Fragrance Design/${String(i + 1).padStart(2, '0')}.png`)
     },
     zh: {
       title: '功夫香氛产品设计',
@@ -257,8 +257,8 @@ export const PRODUCT_DATA: Project[] = [
     id: 'prod-10',
     common: {
       category: 'Cultural Creative',
-      image: '/covers/product design/WICKED CHESS/00.jpg',
-      gallery: Array.from({length: 5}, (_, i) => `/covers/product design/WICKED CHESS/${String(i).padStart(2, '0')}.${i === 1 ? 'png' : 'jpg'}`)
+      image: '/covers/cultural creative/WICKED CHESS/00.jpg',
+      gallery: Array.from({length: 5}, (_, i) => `/covers/cultural creative/WICKED CHESS/${String(i).padStart(2, '0')}.${i === 1 ? 'png' : 'jpg'}`)
     },
     zh: {
       title: 'WICKED x CHESS ',
@@ -311,6 +311,34 @@ export const PRODUCT_DATA: Project[] = [
       awards: ['None'],
       concept: "Design research centered on the exterior form of mechanical products. Starting from functional structure to derive the form language, combined with ergonomics and brand identity, the design enhances visual expression and user experience while maintaining mechanical functionality, delivering a complete form solution and renderings.",
       roleDetail: "Independently completed mechanical product research, form ideation, CMF refinement and rendering."
+    }
+  },
+  {
+    id: 'prod-12',
+    common: {
+      category: 'Product Design',
+      image: '/covers/product design/wheelchair/wheel (1).png',
+      gallery: Array.from({ length: 8 }, (_, i) => `/covers/product design/wheelchair/wheel (${i + 1}).png`)
+    },
+    zh: {
+      title: '轮椅产品设计',
+      subtitle: '',
+      description: '面向出行辅助场景的轮椅产品设计',
+      role: '产品设计师',
+      tags: ['产品设计', '康养产品', '人机工程'],
+      awards: ['无'],
+      concept: "围绕使用者出行痛点展开的轮椅产品设计，从人机工程、易用性与视觉表达三方面切入，兼顾功能与美学。",
+      roleDetail: "独立完成产品调研、造型设计、人机推敲与渲染出图。"
+    },
+    en: {
+      title: 'Wheelchair Product Design',
+      subtitle: '',
+      description: 'Wheelchair product design for mobility assistance',
+      role: 'Product Designer',
+      tags: ['Product Design', 'Health Care Product', 'Ergonomics'],
+      awards: ['None'],
+      concept: "Wheelchair product design addressing mobility pain points, balancing ergonomics, usability and visual expression.",
+      roleDetail: "Independently completed research, form design, ergonomic refinement and rendering."
     }
   }
 ];

@@ -16,6 +16,8 @@ interface ImgFxProps {
   /** 'fill': img fills container (w-full h-full) with object-fit; 'natural': img keeps its own aspect (w-full h-auto). */
   mode?: 'fill' | 'natural';
   fit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+  /** Reserve minimum height while img not loaded (px). Default 200 for natural mode. */
+  placeholderMinHeight?: number;
 }
 
 /**
@@ -37,6 +39,7 @@ export const ImgFx: React.FC<ImgFxProps> = ({
   draggable = false,
   mode = 'fill',
   fit = 'cover',
+  placeholderMinHeight,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -52,6 +55,33 @@ export const ImgFx: React.FC<ImgFxProps> = ({
     setLoaded(false);
     setRevealed(false);
   }, [src]);
+
+  // Paint solid mosaic immediately on mount / resize so failed-to-load images still show placeholder
+  useEffect(() => {
+    if (revealed) return;
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
+    const rect = container.getBoundingClientRect();
+    const w = Math.max(1, Math.round(rect.width));
+    const h = Math.max(1, Math.round(rect.height));
+    if (w < 4 || h < 4) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const isDark = document.documentElement.classList.contains('dark');
+    const baseColor = isDark ? '20, 20, 22' : '235, 235, 238';
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = `rgba(${baseColor},0.95)`;
+    ctx.fillRect(0, 0, w, h);
+  }, [revealed, src]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -117,7 +147,12 @@ export const ImgFx: React.FC<ImgFxProps> = ({
     <div
       ref={containerRef}
       className={`relative overflow-hidden ${className}`}
-      style={style}
+      style={{
+        ...style,
+        minHeight: !loaded
+          ? (placeholderMinHeight ?? (mode === 'natural' ? 200 : undefined))
+          : style?.minHeight,
+      }}
       onClick={onClick}
     >
       <img
@@ -128,7 +163,6 @@ export const ImgFx: React.FC<ImgFxProps> = ({
         referrerPolicy={referrerPolicy}
         draggable={draggable}
         onLoad={handleLoad}
-        onError={handleLoad}
         className={
           mode === 'natural'
             ? 'block w-full h-auto'
