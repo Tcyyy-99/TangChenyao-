@@ -43,6 +43,7 @@ export const ImgFx: React.FC<ImgFxProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
@@ -55,6 +56,22 @@ export const ImgFx: React.FC<ImgFxProps> = ({
     setLoaded(false);
     setRevealed(false);
   }, [src]);
+
+  // Handle cached images: onLoad may not fire if img is already complete on mount
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, [src]);
+
+  // Safety: force reveal after max wait
+  useEffect(() => {
+    if (revealed) return;
+    const t = setTimeout(() => setRevealed(true), 3000);
+    return () => clearTimeout(t);
+  }, [revealed, src]);
 
   // Paint solid mosaic immediately on mount / resize so failed-to-load images still show placeholder
   useEffect(() => {
@@ -101,7 +118,7 @@ export const ImgFx: React.FC<ImgFxProps> = ({
     canvas.style.height = h + 'px';
     const ctx = canvas.getContext('2d');
     if (!ctx) { setRevealed(true); return; }
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     const cols = Math.ceil(w / tileSize);
     const rows = Math.ceil(h / tileSize);
@@ -156,6 +173,7 @@ export const ImgFx: React.FC<ImgFxProps> = ({
       onClick={onClick}
     >
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         loading={loading}
