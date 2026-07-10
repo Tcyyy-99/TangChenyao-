@@ -57,13 +57,26 @@ export const ImgFx: React.FC<ImgFxProps> = ({
     setRevealed(false);
   }, [src]);
 
-  // Handle cached images: onLoad may not fire if img is already complete on mount
+  // Handle cached images + attach load listener imperatively to catch pre-mount loads
   useEffect(() => {
     const img = imgRef.current;
     if (!img) return;
+    let cancelled = false;
+
+    const done = () => { if (!cancelled) setLoaded(true); };
+
     if (img.complete && img.naturalWidth > 0) {
-      setLoaded(true);
+      done();
+      return () => { cancelled = true; };
     }
+
+    img.addEventListener('load', done);
+    img.addEventListener('error', done);
+    return () => {
+      cancelled = true;
+      img.removeEventListener('load', done);
+      img.removeEventListener('error', done);
+    };
   }, [src]);
 
   // Safety: force reveal after max wait
@@ -170,7 +183,12 @@ export const ImgFx: React.FC<ImgFxProps> = ({
           ? (placeholderMinHeight ?? (mode === 'natural' ? 200 : undefined))
           : style?.minHeight,
       }}
-      onClick={onClick}
+      onClick={(e) => {
+        // Only fire ImgFx-provided click (e.g. open lightbox) after reveal;
+        // clicks still bubble up so parent navigation (list->detail) works fine.
+        if (!revealed) return;
+        onClick?.(e);
+      }}
     >
       <img
         ref={imgRef}
