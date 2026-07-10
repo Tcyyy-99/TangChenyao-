@@ -24,70 +24,28 @@
         color: #ffffff;
       }
       
-      /* Image Loading Effect - Same as LuN3cy */
+      /* Image: skeleton bg while loading, transparent once loaded */
       img {
-        opacity: 0;
-        transition: opacity 0.5s ease-out;
+        background-color: #f3f4f6;
+        animation: img-skeleton-pulse 1.6s ease-in-out infinite;
       }
-      
-      img.loaded {
-        opacity: 1;
-      }
-      
-      /* Image Container with Skeleton */
-      .img-loading-container {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-      }
-      
-      .img-loading-container img {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-      
-      .img-loading-skeleton {
-        position: absolute;
-        inset: 0;
-        background-color: #e5e7eb;
-        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-      }
-      
-      .dark .img-loading-skeleton {
+      .dark img {
         background-color: #1f2937;
       }
-      
-      .img-loading-skeleton.hidden {
-        display: none;
+      img.loaded {
+        background-color: transparent;
+        animation: none;
       }
-      
-      .img-loading-spinner {
-        width: 1.5rem;
-        height: 1.5rem;
-        border: 2px solid #d1d5db;
-        border-top-color: transparent;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+      @keyframes img-skeleton-pulse {
+        0%, 100% { background-color: #f3f4f6; }
+        50% { background-color: #e5e7eb; }
       }
-      
-      .dark .img-loading-spinner {
-        border-color: #4b5563;
-        border-top-color: transparent;
+      .dark img:not(.loaded) {
+        animation-name: img-skeleton-pulse-dark;
       }
-      
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-      }
-      
-      @keyframes spin {
-        to { transform: rotate(360deg); }
+      @keyframes img-skeleton-pulse-dark {
+        0%, 100% { background-color: #1f2937; }
+        50% { background-color: #111827; }
       }
       
       /* Custom Bullet Point Style */
@@ -164,64 +122,33 @@
     <script type="module" src="./index.tsx"></script>
     <script type="module" src="/index.tsx"></script>
     
-    <!-- Image Loading Effect - Same as LuN3cy -->
+    <!-- Image Fade-In (no wrapper skeleton) -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        function handleImage(img) {
+          if (img.dataset.fadeInit) return;
+          img.dataset.fadeInit = '1';
+          if (img.complete && img.naturalWidth > 0) {
+            img.classList.add('loaded');
+          } else {
+            img.addEventListener('load', function() { img.classList.add('loaded'); }, { once: true });
+            img.addEventListener('error', function() { img.classList.add('loaded'); }, { once: true });
+          }
+        }
+
         const observer = new MutationObserver(function(mutations) {
           mutations.forEach(function(mutation) {
             mutation.addedNodes.forEach(function(node) {
-              if (node.tagName === 'IMG') {
-                wrapImageWithSkeleton(node);
-              } else if (node.querySelectorAll) {
-                node.querySelectorAll('img').forEach(wrapImageWithSkeleton);
-              }
+              if (node.nodeType !== 1) return;
+              if (node.tagName === 'IMG') handleImage(node);
+              else if (node.querySelectorAll) node.querySelectorAll('img').forEach(handleImage);
             });
           });
         });
-        
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true
-        });
-        
-        // Wrap existing images
-        document.querySelectorAll('img').forEach(wrapImageWithSkeleton);
-        
-        function wrapImageWithSkeleton(img) {
-          // Skip if already wrapped
-          if (img.parentElement?.classList.contains('img-loading-container')) return;
-          // Skip if opted out (via attribute on img or ancestor)
-          if (img.hasAttribute('data-no-skel') || img.closest('[data-no-skel]')) {
-            img.classList.add('loaded');
-            return;
-          }
-          
-          // Create wrapper
-          const wrapper = document.createElement('div');
-          wrapper.className = 'img-loading-container';
-          
-          // Create skeleton
-          const skeleton = document.createElement('div');
-          skeleton.className = 'img-loading-skeleton';
-          skeleton.innerHTML = '<div class="img-loading-spinner"></div>';
-          
-          // Wrap image
-          img.parentNode.insertBefore(wrapper, img);
-          wrapper.appendChild(skeleton);
-          wrapper.appendChild(img);
-          
-          // Handle load
-          if (img.complete) {
-            img.classList.add('loaded');
-            skeleton.classList.add('hidden');
-          } else {
-            img.addEventListener('load', function() {
-              img.classList.add('loaded');
-              skeleton.classList.add('hidden');
-            });
-          }
-        }
+        observer.observe(document.body, { childList: true, subtree: true });
+        document.querySelectorAll('img').forEach(handleImage);
       });
+    </script>
     </script>
   </body>
 </html>

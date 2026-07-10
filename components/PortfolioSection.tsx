@@ -484,7 +484,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     alt={`${selectedProject.title} ${idx + 1}`}
                     loading="lazy"
                     decoding="async"
-                    className="w-full rounded shadow-sm cursor-zoom-in hover:shadow-md transition-shadow"
+                    className="w-full rounded shadow-sm cursor-zoom-in hover:shadow-md transition-shadow bg-gray-100 dark:bg-gray-800 min-h-[240px]"
                     referrerPolicy="no-referrer"
                     onClick={() => setLightboxIndex(idx)}
                   />
