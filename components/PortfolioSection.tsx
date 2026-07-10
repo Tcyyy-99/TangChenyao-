@@ -343,7 +343,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
         {selectedProject ? (
           /* Project Detail View */
-          <div className="p-2 md:px-3 pt-20 pb-3 md:pt-8 md:pb-3">
+          <div key={selectedProject.id} className="p-2 md:px-3 pt-20 pb-3 md:pt-8 md:pb-3">
             {/* Title */}
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2 leading-tight">
               {selectedProject.title}
@@ -479,7 +479,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               <div className="space-y-2 mb-6">
                 {currentGallery.map((img, idx) => (
                   <img
-                    key={idx}
+                    key={`${selectedProject.id}-${idx}`}
                     src={img}
                     alt={`${selectedProject.title} ${idx + 1}`}
                     loading="lazy"

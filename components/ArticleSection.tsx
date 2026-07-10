@@ -337,7 +337,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
 
         {selectedArticle ? (
           /* Article Detail View */
-          <article className="max-w-4xl mx-auto p-6 md:p-12 pt-20 md:pt-12">
+          <article key={selectedArticle.id} className="max-w-4xl mx-auto p-6 md:p-12 pt-20 md:pt-12">
             {/* Article Meta */}
             <div className="mb-8">
               <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
