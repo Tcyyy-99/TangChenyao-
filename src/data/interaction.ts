@@ -114,5 +114,33 @@ export const INTERACTION_DATA: Project[] = [
       concept: "During my internship at NetEase, I systematically summarized the UX design process and methodology. From user research and information architecture to interaction design, presenting a complete UX design practice.",
       roleDetail: "Responsible for user research, interaction design, and UX methodology summary"
     }
+  },
+  {
+    id: 'int-5',
+    common: {
+      category: 'Interaction Design',
+      image: '/covers/interact design/saas tob/01.png',
+      gallery: Array.from({length: 11}, (_, i) => `/covers/interact design/saas tob/${String(i + 1).padStart(2, '0')}.png`)
+    },
+    zh: {
+      title: 'Echo Flow',
+      subtitle: '合规电销 B 端 SaaS 系统',
+      description: '为合规电销场景搭建多租户架构 B 端 SaaS 系统，搭载智能外呼、来电接待、知识库检索与全流程质检模块，优化人力投入、统一服务标准、实现多组织数据安全隔离与会话闭环管理。',
+      role: '交互设计师',
+      tags: ['B 端 SaaS', '多租户架构', '智能外呼', '质检'],
+      awards: ['无'],
+      concept: "面向合规电销场景，从多租户架构底层设计到业务功能层全面规划。系统集成智能外呼与来电接待、知识库智能检索及全流程质检，在优化人力投入的同时统一服务标准，保障多组织间的数据安全隔离与会话闭环管理。",
+      roleDetail: "负责系统整体交互架构设计、业务流程规划与界面设计。"
+    },
+    en: {
+      title: 'Echo Flow',
+      subtitle: 'Compliant Telesales B2B SaaS Platform',
+      description: 'A multi-tenant B2B SaaS system built for compliant telesales scenarios, featuring intelligent outbound calling, inbound reception, knowledge base retrieval, and full-process quality inspection modules to optimize manpower, unify service standards, and achieve multi-organization data isolation with closed-loop session management.',
+      role: 'Interaction Designer',
+      tags: ['B2B SaaS', 'Multi-tenant', 'Intelligent Calling', 'QA'],
+      awards: ['None'],
+      concept: "Designed for compliant telesales scenarios, from multi-tenant architecture foundation to comprehensive business function planning. The system integrates intelligent outbound calling and inbound reception, smart knowledge base retrieval, and full-process quality inspection — optimizing manpower while unifying service standards and ensuring multi-organization data isolation with closed-loop session management.",
+      roleDetail: "Responsible for overall system interaction architecture design, business flow planning, and interface design."
+    }
   }
 ];
