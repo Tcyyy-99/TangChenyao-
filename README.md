@@ -1,2 +1,2 @@
-- **个人网站**: [lun3cy](https://www.tangchenyao.fun/)
+- **个人网站**: [Tangchenyao](https://www.tangchenyao.fun/)
 
